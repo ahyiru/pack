@@ -1,0 +1,65 @@
+const config = api => {
+  api.cache.using(() => process.env.NODE_ENV === 'development');
+
+  const presets = [
+    [
+      '@babel/preset-env',
+      {
+        // modules: 'commonjs',
+        modules: false,
+        // loose: true,
+        bugfixes: true,
+        useBuiltIns: 'usage',
+        shippedProposals: true,
+        corejs: {
+          version: 3,
+          proposals: true,
+        },
+      },
+    ],
+    [
+      '@babel/preset-react',
+      {
+        runtime: 'automatic',
+      },
+    ],
+  ];
+
+  const plugins = [
+    [
+      '@babel/plugin-transform-runtime',
+      {
+        absoluteRuntime: false,
+        helpers: true,
+        regenerator: true,
+        corejs: false,
+      },
+    ],
+  ];
+
+  const env = {
+    development: {},
+    production: {},
+    test: {},
+  };
+
+  return {
+    assumptions: {
+      noDocumentAll: true,
+      noClassCalls: true,
+      iterableIsArray: true,
+      privateFieldsAsProperties: true,
+      setPublicClassFields: true,
+    },
+    targets: {
+      browsers: ['last 2 versions'],
+      esmodules: true,
+    },
+    sourceType: 'unambiguous',
+    presets,
+    plugins,
+    env,
+  };
+};
+
+module.exports = config;
