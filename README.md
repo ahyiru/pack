@@ -40,10 +40,18 @@ module.exports = {
       alias: {
         '@huxy': 'playground/huxy',
       },
-    },
-  }
+    },,
+    copy: [
+      {
+        from: 'app/public/robots.txt',
+        to: 'build/public/robots.txt',
+      },
+    ],
+  },
 };
 ```
+
+- copy：构建完成拷贝文件或文件夹。
 
 ### 运行
 

@@ -20,6 +20,7 @@ const buildPath = resolve(rootDir, BUILD_DIR || 'build');
 const {dev, prod, ...rest} = webpack;
 
 module.exports = {
+  rootDir,
   appName,
   HOST: HOST || 'http://localhost',
   PORT: PORT || 8080,

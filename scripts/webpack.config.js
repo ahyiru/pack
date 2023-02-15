@@ -1,7 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {merge} = require('webpack-merge');
-const {appPath, publics, projectName, buildPath, devRoot, webpackCfg} = require('./envConfigs');
+const {rootDir, appPath, publics, projectName, buildPath, devRoot, webpackCfg} = require('./envConfigs');
 
 const entry = {
   app: [path.resolve(appPath, 'index.jsx')],
@@ -189,7 +189,7 @@ const baseConfigs = {
 
 if (webpackCfg.resolve?.alias) {
   Object.keys(webpackCfg.resolve.alias).map(key => {
-    webpackCfg.resolve.alias[key] = path.resolve(process.cwd(), webpackCfg.resolve.alias[key]);
+    webpackCfg.resolve.alias[key] = path.resolve(rootDir, webpackCfg.resolve.alias[key]);
   });
 }
 

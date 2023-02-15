@@ -5,7 +5,7 @@ const OpenBrowserWebpackPlugin = require('@huxy/open-browser-webpack-plugin');
 
 const webpackBaseConfigs = require('./webpack.config');
 
-const {HOST, PORT, PROXY, defProject, devRoot, webpackDevCfg} = require('./envConfigs');
+const {rootDir, HOST, PORT, PROXY, defProject, devRoot, webpackDevCfg} = require('./envConfigs');
 
 const devConfigs = {
   mode: 'development',
@@ -117,7 +117,7 @@ const devConfigs = {
 
 if (webpackDevCfg.resolve?.alias) {
   Object.keys(webpackDevCfg.resolve.alias).map(key => {
-    webpackDevCfg.resolve.alias[key] = path.resolve(process.cwd(), webpackDevCfg.resolve.alias[key]);
+    webpackDevCfg.resolve.alias[key] = path.resolve(rootDir, webpackDevCfg.resolve.alias[key]);
   });
 }
 

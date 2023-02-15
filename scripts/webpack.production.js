@@ -18,7 +18,24 @@ const {GenerateSW} = require('workbox-webpack-plugin');
 
 const webpackBaseConfigs = require('./webpack.config');
 
-const {appPath, publics, buildPath, PROXY, defProject, prodRoot, webpackProdCfg} = require('./envConfigs');
+const {rootDir, appPath, publics, buildPath, PROXY, defProject, prodRoot, webpackProdCfg} = require('./envConfigs');
+
+const {copy, ...restProdCfg} = webpackProdCfg;
+
+const copyConfigs = [];
+
+try {
+  if (Array.isArray(copy)) {
+    copyConfigs = copy.map(({from, to}) => ({
+      from: path.resolve(rootDir, from),
+      to: path.resolve(rootDir, to),
+    }));
+  }
+} catch(err) {
+
+}
+
+  
 
 const plugins = [
   new webpack.optimize.ModuleConcatenationPlugin(),
@@ -64,6 +81,7 @@ const plugins = [
       from: path.resolve(publics, 'robots.txt'),
       to: path.resolve(appPath, `${buildPath}/robots.txt`),
     },
+    ...copyConfigs,
   ]),
   /* new CompressionPlugin({
     test: /\.(js|css)(\?.*)?$/i,
@@ -301,10 +319,10 @@ const prodConfigs = {
   plugins,
 };
 
-if (webpackProdCfg.resolve?.alias) {
-  Object.keys(webpackProdCfg.resolve.alias).map(key => {
-    webpackProdCfg.resolve.alias[key] = path.resolve(process.cwd(), webpackProdCfg.resolve.alias[key]);
+if (restProdCfg.resolve?.alias) {
+  Object.keys(restProdCfg.resolve.alias).map(key => {
+    restProdCfg.resolve.alias[key] = path.resolve(rootDir, restProdCfg.resolve.alias[key]);
   });
 }
 
-module.exports = merge(webpackBaseConfigs, prodConfigs, webpackProdCfg);
+module.exports = merge(webpackBaseConfigs, prodConfigs, restProdCfg);
