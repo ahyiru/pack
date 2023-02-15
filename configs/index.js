@@ -36,6 +36,9 @@ const initConfigFiles = async () => {
   await initConfigFile(resolve(rootDir, './prettier.config.js'), resolve(sharedDir, './prettier.config.js'));
   await initConfigFile(resolve(rootDir, './.versionrc.js'), resolve(sharedDir, './.versionrc.js'));
   await initConfigFile(resolve(rootDir, './.prettierignore'), resolve(sharedDir, './.prettierignore'));
+  await initConfigFile(resolve(rootDir, './.browserslistrc'), resolve(sharedDir, './.browserslistrc'));
+  await initConfigFile(resolve(rootDir, './.editorconfig'), resolve(sharedDir, './.editorconfig'));
+  await initConfigFile(resolve(rootDir, './.npmrc'), resolve(sharedDir, './.npmrc'));
 };
 
 const initHuskyFiles = async () => {
