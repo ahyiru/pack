@@ -39,6 +39,7 @@ const initConfigFiles = async () => {
   await initConfigFile(resolve(rootDir, './.browserslistrc'), resolve(sharedDir, './.browserslistrc'));
   await initConfigFile(resolve(rootDir, './.editorconfig'), resolve(sharedDir, './.editorconfig'));
   await initConfigFile(resolve(rootDir, './.npmrc'), resolve(sharedDir, './.npmrc'));
+  await initConfigFile(resolve(rootDir, './.gitignore'), resolve(sharedDir, './.gitignore'));
 };
 
 const initHuskyFiles = async () => {
