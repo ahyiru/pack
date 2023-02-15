@@ -22,7 +22,7 @@ const {rootDir, appPath, publics, buildPath, PROXY, defProject, prodRoot, webpac
 
 const {copy, ...restProdCfg} = webpackProdCfg;
 
-const copyConfigs = [];
+let copyConfigs = [];
 
 try {
   if (Array.isArray(copy)) {

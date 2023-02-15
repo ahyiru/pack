@@ -40,13 +40,15 @@ module.exports = {
       alias: {
         '@huxy': 'playground/huxy',
       },
-    },,
-    copy: [
-      {
-        from: 'app/public/robots.txt',
-        to: 'build/public/robots.txt',
-      },
-    ],
+    },
+    prod: {
+      copy: [
+        {
+          from: 'app/public/robots.txt',
+          to: 'build/public/robots.txt',
+        },
+      ],
+    },
   },
 };
 ```

@@ -3,6 +3,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {merge} = require('webpack-merge');
 const {rootDir, appPath, publics, projectName, buildPath, devRoot, webpackCfg} = require('./envConfigs');
 
+const {copy, ...restCfg} = webpackCfg;
+
+if (Array.isArray(copy)) {
+  console.error('copy 是 prod 属性，请重新配置！');
+}
+
 const entry = {
   app: [path.resolve(appPath, 'index.jsx')],
   // ...frame,
@@ -187,10 +193,10 @@ const baseConfigs = {
   plugins: plugins,
 };
 
-if (webpackCfg.resolve?.alias) {
-  Object.keys(webpackCfg.resolve.alias).map(key => {
-    webpackCfg.resolve.alias[key] = path.resolve(rootDir, webpackCfg.resolve.alias[key]);
+if (restCfg.resolve?.alias) {
+  Object.keys(restCfg.resolve.alias).map(key => {
+    restCfg.resolve.alias[key] = path.resolve(rootDir, restCfg.resolve.alias[key]);
   });
 }
 
-module.exports = merge(baseConfigs, webpackCfg);
+module.exports = merge(baseConfigs, restCfg);

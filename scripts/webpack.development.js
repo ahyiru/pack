@@ -7,12 +7,6 @@ const webpackBaseConfigs = require('./webpack.config');
 
 const {rootDir, HOST, PORT, PROXY, defProject, devRoot, webpackDevCfg} = require('./envConfigs');
 
-const {copy, ...restBaseDevCfg} = webpackBaseConfigs;
-
-if (Array.isArray(copy)) {
-  console.error('copy 是 prod 属性，请重新配置！');
-}
-
 const devConfigs = {
   mode: 'development',
   devtool: 'eval-cheap-module-source-map',
@@ -127,4 +121,4 @@ if (webpackDevCfg.resolve?.alias) {
   });
 }
 
-module.exports = merge(restBaseDevCfg, devConfigs, webpackDevCfg);
+module.exports = merge(webpackBaseConfigs, devConfigs, webpackDevCfg);
