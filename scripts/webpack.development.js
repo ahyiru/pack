@@ -7,6 +7,8 @@ const webpackBaseConfigs = require('./webpack.config');
 
 const {rootDir, HOST, PORT, PROXY, defProject, devRoot, webpackDevCfg} = require('./envConfigs');
 
+process.env.configs = {isDev: true};
+
 const devConfigs = {
   mode: 'development',
   devtool: 'eval-cheap-module-source-map',

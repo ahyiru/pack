@@ -1,5 +1,5 @@
 const config = api => {
-  api.cache.using(() => process.env.NODE_ENV === 'development');
+  api.cache.using(() => process.env.configs.isDev === 'development');
 
   const presets = [
     [
