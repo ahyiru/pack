@@ -2,7 +2,8 @@ const fs = require('fs-extra');
 const {resolve} = require('node:path');
 
 const rootDir = process.cwd();
-const sharedDir = resolve(__dirname, '../configs/shared');
+const packDir = resolve(__dirname, '../');
+const sharedDir = resolve(__dirname, './shared');
 
 const userConfigDir = resolve(rootDir, './.huxy/app.configs.js');
 const huxyConfigDir = resolve(sharedDir, './.huxy/app.configs.js');
@@ -35,17 +36,18 @@ const initConfigFiles = async () => {
   await initConfigFile(resolve(rootDir, './babel.config.js'), resolve(sharedDir, './babel.config.js'));
   await initConfigFile(resolve(rootDir, './prettier.config.js'), resolve(sharedDir, './prettier.config.js'));
   await initConfigFile(resolve(rootDir, './.versionrc.js'), resolve(sharedDir, './.versionrc.js'));
-  await initConfigFile(resolve(rootDir, './.prettierignore'), resolve(sharedDir, './.prettierignore'));
-  await initConfigFile(resolve(rootDir, './.browserslistrc'), resolve(sharedDir, './.browserslistrc'));
-  await initConfigFile(resolve(rootDir, './.editorconfig'), resolve(sharedDir, './.editorconfig'));
-  await initConfigFile(resolve(rootDir, './.npmrc'), resolve(sharedDir, './.npmrc'));
-  await initConfigFile(resolve(rootDir, './.gitignore'), resolve(sharedDir, './.gitignore'));
+  
+  await initConfigFile(resolve(rootDir, './.prettierignore'), resolve(packDir, './.prettierignore'));
+  await initConfigFile(resolve(rootDir, './.browserslistrc'), resolve(packDir, './.browserslistrc'));
+  await initConfigFile(resolve(rootDir, './.editorconfig'), resolve(packDir, './.editorconfig'));
+  await initConfigFile(resolve(rootDir, './.npmrc'), resolve(packDir, './.npmrc'));
+  await initConfigFile(resolve(rootDir, './.gitignore'), resolve(packDir, './.gitignore'));
 };
 
 const initHuskyFiles = async () => {
   await fs.ensureDir(resolve(rootDir, './.husky'));
-  await initConfigFile(resolve(rootDir, './.husky/commit-msg'), resolve(sharedDir, './.husky/commit-msg'));
-  await initConfigFile(resolve(rootDir, './.husky/pre-commit'), resolve(sharedDir, './.husky/pre-commit'));
+  await initConfigFile(resolve(rootDir, './.husky/commit-msg'), resolve(packDir, './.husky/commit-msg'));
+  await initConfigFile(resolve(rootDir, './.husky/pre-commit'), resolve(packDir, './.husky/pre-commit'));
 };
 
 module.exports = initAppConfig;
