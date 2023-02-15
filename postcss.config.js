@@ -9,7 +9,7 @@ module.exports = {
         'double-position-gradients': false,
       },
       // autoprefixer: {flexbox: 'no-2009'},
-      browsers: process.env.configs.isDev ? ['last 2 versions'] : ['>0.3%', 'not dead', 'not op_mini all'],,
+      browsers: process.env.configs.isDev ? ['last 2 versions'] : ['>0.3%', 'not dead', 'not op_mini all'],
       // importFrom: '@app/commons/global.css',
     },
     autoprefixer: {

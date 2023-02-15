@@ -52,7 +52,7 @@ const config = api => {
       setPublicClassFields: true,
     },
     targets: {
-      browsers: process.env.configs.isDev ? ['last 2 versions'] : ['>0.3%', 'not dead', 'not op_mini all'],,
+      browsers: process.env.configs.isDev ? ['last 2 versions'] : ['>0.3%', 'not dead', 'not op_mini all'],
       esmodules: true,
     },
     sourceType: 'unambiguous',
