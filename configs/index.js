@@ -40,8 +40,6 @@ const initConfigFiles = async () => {
   await initConfigFile(resolve(rootDir, './.prettierignore'), resolve(packDir, './.prettierignore'));
   await initConfigFile(resolve(rootDir, './.browserslistrc'), resolve(packDir, './.browserslistrc'));
   await initConfigFile(resolve(rootDir, './.editorconfig'), resolve(packDir, './.editorconfig'));
-  await initConfigFile(resolve(rootDir, './.npmrc'), resolve(packDir, './.npmrc'));
-  await initConfigFile(resolve(rootDir, './.gitignore'), resolve(packDir, './.gitignore'));
 };
 
 const initHuskyFiles = async () => {
