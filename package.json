@@ -16,9 +16,14 @@
   "exports": {
     ".": "./index.js",
     "./package.json": "./package.json",
-    "./.eslintrc.js": "./.eslintrc.js",
-    "./.stylelintrc.js": "./.stylelintrc.js",
-    "./commitlint.config.js": "./commitlint.config.js"
+    "./config/eslint": "./.eslintrc.js",
+    "./config/stylelint": "./.stylelintrc.js",
+    "./config/commitlint": "./commitlint.config.js",
+    "./config/jest": "./jest.config.js",
+    "./config/postcss": "./postcss.config.js",
+    "./config/babel": "./babel.config.js",
+    "./config/prettier": "./prettier.config.js",
+    "./config/version": "./.versionrc.js"
   },
   "scripts": {
     "start": "node scripts/index.js",

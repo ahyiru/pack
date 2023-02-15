@@ -30,6 +30,12 @@ const initConfigFiles = async () => {
   await initConfigFile(resolve(rootDir, './.eslintrc.js'), resolve(sharedDir, './.eslintrc.js'));
   await initConfigFile(resolve(rootDir, './.stylelintrc.js'), resolve(sharedDir, './.stylelintrc.js'));
   await initConfigFile(resolve(rootDir, './commitlint.config.js'), resolve(sharedDir, './commitlint.config.js'));
+  await initConfigFile(resolve(rootDir, './jest.config.js'), resolve(sharedDir, './jest.config.js'));
+  await initConfigFile(resolve(rootDir, './postcss.config.js'), resolve(sharedDir, './postcss.config.js'));
+  await initConfigFile(resolve(rootDir, './babel.config.js'), resolve(sharedDir, './babel.config.js'));
+  await initConfigFile(resolve(rootDir, './prettier.config.js'), resolve(sharedDir, './prettier.config.js'));
+  await initConfigFile(resolve(rootDir, './.versionrc.js'), resolve(sharedDir, './.versionrc.js'));
+  await initConfigFile(resolve(rootDir, './.prettierignore'), resolve(sharedDir, './.prettierignore'));
 };
 
 const initHuskyFiles = async () => {

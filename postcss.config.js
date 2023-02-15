@@ -8,12 +8,14 @@ module.exports = {
         'nesting-rules': true,
         'double-position-gradients': false,
       },
-      // autoprefixer: { grid: true }
-      browsers: 'last 2 versions',
-      // importFrom: './commons/global.css',
+      // autoprefixer: {flexbox: 'no-2009'},
+      browsers: ['>0.3%', 'not dead', 'not op_mini all'],
+      // importFrom: '@app/commons/global.css',
     },
-    cssnano: {},
-    autoprefixer: {},
+    autoprefixer: {
+      grid: 'autoplace',
+    },
+    // cssnano: {},
     // tailwindcss: {},
     // 'postcss-px-to-viewport': {
     //   unitToConvert: 'px',

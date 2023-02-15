@@ -1,4 +1,4 @@
-const huxyConfigs = require('@huxy/pack/.stylelintrc.js');
+const huxyConfigs = require('@huxy/pack/config/stylelint');
 
 module.exports = {
   ...huxyConfigs,

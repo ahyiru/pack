@@ -1,4 +1,4 @@
-const huxyConfigs = require('@huxy/pack/.eslintrc.js');
+const huxyConfigs = require('@huxy/pack/config/eslint');
 
 module.exports = {
   ...huxyConfigs,
