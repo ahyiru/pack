@@ -64,3 +64,13 @@ module.exports = {
 "server": "pack run server",
 "test": "pack run test",
 ```
+
+其它 `npm` 命令：
+
+```
+"eslint": "eslint 'app/**/*.{js,jsx}'",
+"stylelint": "stylelint 'app/**/*.{css,less}'",
+"lint-fix": "eslint --fix 'app/**/*.{js,jsx}' && stylelint --fix 'app/**/*.{css,less}'",
+"prettier": "prettier 'app/**/*' --write --ignore-unknown",
+"release": "standard-version"
+```

@@ -52,7 +52,7 @@
     "@babel/runtime": "^7.20.13",
     "@commitlint/cli": "^17.4.3",
     "@commitlint/config-conventional": "^17.4.3",
-    "@huxy/copy-file-webpack-plugin": "^0.6.0",
+    "@huxy/copy-file-webpack-plugin": "^0.6.1",
     "@huxy/open-browser-webpack-plugin": "^0.6.1",
     "autoprefixer": "^10.4.13",
     "babel-jest": "^29.4.3",
