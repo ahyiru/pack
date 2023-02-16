@@ -18,7 +18,7 @@ const {GenerateSW} = require('workbox-webpack-plugin');
 
 const webpackBaseConfigs = require('./webpack.config');
 
-const {rootDir, appPath, publics, buildPath, PROXY, defProject, prodRoot, webpackProdCfg} = require('./envConfigs');
+const {rootDir, appPath, publics, buildPath, PROXY, envConfigs, prodRoot, webpackProdCfg} = require('./envConfigs');
 
 const {copy, ...restProdCfg} = webpackProdCfg;
 
@@ -50,12 +50,11 @@ const plugins = [
   new webpack.DefinePlugin({
     'process.env': {
       configs: JSON.stringify({
-        isDev: false,
         browserRouter: true,
         basepath: prodRoot,
         PROXY,
-        defProject,
         buildTime: +new Date(),
+        ...envConfigs,
       }),
     },
     EMAIL: JSON.stringify('ah.yiru@gmail.com'),

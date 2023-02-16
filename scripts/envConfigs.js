@@ -2,7 +2,7 @@ const {resolve} = require('node:path');
 
 const {app = {}, webpack = {}} = require('../configs/shared/.huxy/app.configs');
 
-const {HOST, PORT, PROD_PORT, PROXY, PUBLIC_DIR, BUILD_DIR, DEV_ROOT_DIR, PROD_ROOT_DIR, projectName, defProject, localApis, entry} = app;
+const {HOST, PORT, PROD_PORT, PROXY, PUBLIC_DIR, BUILD_DIR, DEV_ROOT_DIR, PROD_ROOT_DIR, projectName, envConfigs, localApis, entry} = app;
 
 const appName = entry || process.env.npm_config_dirname || 'app';
 
@@ -26,8 +26,8 @@ module.exports = {
   PORT: PORT || 8080,
   PROD_PORT: PROD_PORT || 8081,
   PROXY,
-  projectName: projectName || defProject?.name || appName,
-  defProject,
+  projectName: projectName || appName,
+  envConfigs,
   localApis,
   devRoot,
   prodRoot,

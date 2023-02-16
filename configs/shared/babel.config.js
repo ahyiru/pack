@@ -1,5 +1,1 @@
-const huxyConfigs = require('@huxy/pack/config/babel');
-
-module.exports = api => {
-  ...huxyConfigs(api),
-};
+module.exports = require('@huxy/pack/config/babel');

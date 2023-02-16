@@ -1,5 +1,5 @@
 const config = api => {
-  api.cache.using(() => process.env.configs.isDev === 'development');
+  api.cache.using(() => !!process.env.isDev);
 
   const presets = [
     [
@@ -44,6 +44,10 @@ const config = api => {
   };
 
   return {
+    /* babelrcRoots: [
+      '.',
+      'playground/*',
+    ], */
     assumptions: {
       noDocumentAll: true,
       noClassCalls: true,
@@ -52,7 +56,7 @@ const config = api => {
       setPublicClassFields: true,
     },
     targets: {
-      browsers: process.env.configs.isDev ? ['last 2 versions'] : ['>0.3%', 'not dead', 'not op_mini all'],
+      browsers: process.env.isDev ? ['last 2 versions'] : ['>0.3%', 'not dead', 'not op_mini all'],
       esmodules: true,
     },
     sourceType: 'unambiguous',

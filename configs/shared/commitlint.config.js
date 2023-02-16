@@ -1,5 +1,1 @@
-const huxyConfigs = require('@huxy/pack/config/commitlint');
-
-module.exports = {
-  ...huxyConfigs,
-};
+module.exports = require('@huxy/pack/config/commitlint');

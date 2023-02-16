@@ -5,9 +5,9 @@ const OpenBrowserWebpackPlugin = require('@huxy/open-browser-webpack-plugin');
 
 const webpackBaseConfigs = require('./webpack.config');
 
-const {rootDir, HOST, PORT, PROXY, defProject, devRoot, webpackDevCfg} = require('./envConfigs');
+const {rootDir, HOST, PORT, PROXY, envConfigs, devRoot, webpackDevCfg} = require('./envConfigs');
 
-process.env.configs = {isDev: true};
+process.env.isDev = true;
 
 const devConfigs = {
   mode: 'development',
@@ -102,14 +102,14 @@ const devConfigs = {
     new webpack.DefinePlugin({
       'process.env': {
         configs: JSON.stringify({
-          isDev: true,
           browserRouter: false,
           basepath: devRoot,
           PROXY,
-          defProject,
           buildTime: +new Date(),
+          ...envConfigs,
         }),
       },
+      isDev: true,
       EMAIL: JSON.stringify('ah.yiru@gmail.com'),
       VERSION: JSON.stringify('2.x.x'),
     }),
