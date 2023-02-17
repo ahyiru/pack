@@ -25,7 +25,9 @@ const app = express();
 
 appProxy(app, PROXY);
 
-const localApis = typeof nodeServer === 'function' ? nodeServer(app) : null;
+if (typeof nodeServer === 'function' ) {
+  nodeServer(app);
+}
 
 const compiler = webpack(webpackConfig);
 
@@ -54,11 +56,6 @@ app.use(compression());
 
 // browserRouter
 app.use('*', (req, res, next) => {
-  // 本地请求
-  if (localApis && localApis.includes(req.originalUrl.split('?')[0])) {
-    next();
-    return;
-  }
   const htmlBuffer = compiler.outputFileSystem.readFileSync(`${webpackConfig.output.path}/index.html`);
   res.set('Content-Type', 'text/html');
   res.send(htmlBuffer);

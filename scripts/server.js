@@ -16,7 +16,9 @@ const app = express();
 
 appProxy(app, PROXY);
 
-const localApis = typeof nodeServer === 'function' ? nodeServer(app) : null;
+if (typeof nodeServer === 'function' ) {
+  nodeServer(app);
+}
 
 app.set('host', HOST);
 app.set('port', PROD_PORT);
