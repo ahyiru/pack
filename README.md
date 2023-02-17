@@ -1,6 +1,6 @@
 ## @huxy/pack
 
-构建工具。集成了 `babel`、`eslint`、`stylelint`、`jest`、`commitlint`、`husky`、`standard-version`、`postcss`、`prettier`，提供开发环境、构建打包、本地启动服务、环境配置、代理配置等功能。
+项目构建工具，集成了 `babel`、`eslint`、`stylelint`、`jest`、`commitlint`、`husky`、`standard-version`、`postcss`、`prettier`，提供开发环境、构建打包、本地启动服务、环境配置、代理配置等功能。
 
 运行时会自动生成插件配置文件，如 `babel.config.js` 文件，可自行修改覆盖。
 
@@ -90,3 +90,18 @@ module.exports = {
 "prettier": "prettier 'app/**/*' --write --ignore-unknown",
 "release": "standard-version"
 ```
+
+### 使用
+
+新建一个项目，创建 `public` 和 `app` 目录。
+
+- public：静态资源目录，存放 `index.html` 和 `favicon` 等。
+- app：存放项目代码文件，也是入口文件夹。
+
+安装 `@huxy/pack` ：
+
+```
+npm i -D @huxy/pack
+```
+
+然后在 `package.json` 里面创建上面运行命令里的 `scripts` ，就可运行了。

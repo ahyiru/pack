@@ -1,6 +1,8 @@
 const fs = require('fs-extra');
 const {resolve} = require('node:path');
 
+const configFileList = require('./fileList');
+
 const rootDir = process.cwd();
 const packDir = resolve(__dirname, '../');
 const sharedDir = resolve(__dirname, './shared');
@@ -28,18 +30,9 @@ const initConfigFile = async (userConfigDir, huxyConfigDir) => {
 };
 
 const initConfigFiles = () => {
-  initConfigFile(resolve(rootDir, './.eslintrc.js'), resolve(sharedDir, './.eslintrc.js'));
-  initConfigFile(resolve(rootDir, './.stylelintrc.js'), resolve(sharedDir, './.stylelintrc.js'));
-  initConfigFile(resolve(rootDir, './commitlint.config.js'), resolve(sharedDir, './commitlint.config.js'));
-  initConfigFile(resolve(rootDir, './jest.config.js'), resolve(sharedDir, './jest.config.js'));
-  initConfigFile(resolve(rootDir, './postcss.config.js'), resolve(sharedDir, './postcss.config.js'));
-  initConfigFile(resolve(rootDir, './babel.config.js'), resolve(sharedDir, './babel.config.js'));
-  initConfigFile(resolve(rootDir, './prettier.config.js'), resolve(sharedDir, './prettier.config.js'));
-  initConfigFile(resolve(rootDir, './.versionrc.js'), resolve(sharedDir, './.versionrc.js'));
-  
-  initConfigFile(resolve(rootDir, './.prettierignore'), resolve(packDir, './.prettierignore'));
-  initConfigFile(resolve(rootDir, './.browserslistrc'), resolve(packDir, './.browserslistrc'));
-  initConfigFile(resolve(rootDir, './.editorconfig'), resolve(packDir, './.editorconfig'));
+  for (let i = 0, l = configFileList.length; i < l; i++) {
+    initConfigFile(resolve(rootDir, './.eslintrc.js'), resolve(sharedDir, configFileList[i].path));
+  }
 };
 
 const initHuskyFiles = async () => {
