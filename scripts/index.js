@@ -19,11 +19,13 @@ const getIPs = require('./getIPs');
 
 const appProxy = require('./appProxy');
 
-const {appName, HOST, PORT, PROXY, localApis} = require('./envConfigs');
+const {appName, HOST, PORT, PROXY, nodeServer} = require('./envConfigs');
 
 const app = express();
 
 appProxy(app, PROXY);
+
+const localApis = typeof nodeServer === 'function' ? nodeServer(app) : null;
 
 const compiler = webpack(webpackConfig);
 

@@ -41,9 +41,19 @@ const webpack = { // webpack 配置
   },
 };
 
+const apiList = ['/local/test'];
+const nodeServer = app => { // 本地 nodejs 服务配置
+  app.get('/local/test', (req, res, next) => {
+    console.log(req);
+  });
+
+  return apiList; // 返回本地服务接口列表
+};
+
 module.exports = {
   app,
   webpack,
+  nodeServer,
 };
 
 // 例如

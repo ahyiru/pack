@@ -10,11 +10,13 @@ const path = require('path');
 
 const appProxy = require('./appProxy');
 
-const {HOST, PROD_PORT, buildPath, PROXY, prodRoot} = require('./envConfigs');
+const {HOST, PROD_PORT, buildPath, PROXY, prodRoot, nodeServer} = require('./envConfigs');
 
 const app = express();
 
 appProxy(app, PROXY);
+
+const localApis = typeof nodeServer === 'function' ? nodeServer(app) : null;
 
 app.set('host', HOST);
 app.set('port', PROD_PORT);
