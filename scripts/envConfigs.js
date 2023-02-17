@@ -1,15 +1,17 @@
 const {resolve} = require('node:path');
 
-const {app = {}, webpack = {}} = require('../configs/shared/.huxy/app.configs');
+const rootDir = process.cwd();
 
-const {HOST, PORT, PROD_PORT, PROXY, PUBLIC_DIR, BUILD_DIR, DEV_ROOT_DIR, PROD_ROOT_DIR, projectName, envConfigs, entry, nodeServer} = app;
+const configsPath = resolve(rootDir, './.huxy/app.configs');
+
+const {app = {}, webpack = {}, nodeServer} = require(configsPath);
+
+const {HOST, PORT, PROD_PORT, PROXY, PUBLIC_DIR, BUILD_DIR, DEV_ROOT_DIR, PROD_ROOT_DIR, projectName, envConfigs, entry} = app;
 
 const appName = entry || process.env.npm_config_dirname || 'app';
 
 const devRoot = ['/', './'].includes(DEV_ROOT_DIR) ? '' : DEV_ROOT_DIR ?? '';
 const prodRoot = ['/', './'].includes(PROD_ROOT_DIR) ? '' : PROD_ROOT_DIR ?? '';
-
-const rootDir = process.cwd();
 
 const appPath = resolve(rootDir, appName);
 

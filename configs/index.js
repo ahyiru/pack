@@ -15,9 +15,9 @@ const initAppConfig = async () => {
   if (!exists) {
     await fs.ensureDir(resolve(rootDir, './.huxy'));
     fs.copy(huxyConfigDir, userConfigDir);
-  } else {
+  } /* else {
     fs.copy(userConfigDir, huxyConfigDir);
-  }
+  } */
   initConfigFiles();
   initHuskyFiles();
 };

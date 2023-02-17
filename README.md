@@ -49,6 +49,7 @@ const nodeServer = app => { // 本地 nodejs 服务配置
 
   return apiList; // 返回本地服务接口列表
 };
+module.exports = nodeServer;
 
 module.exports = {
   app,
