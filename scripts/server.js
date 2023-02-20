@@ -16,10 +16,6 @@ const app = express();
 
 appProxy(app, PROXY);
 
-if (typeof nodeServer === 'function' ) {
-  nodeServer(app);
-}
-
 app.set('host', HOST);
 app.set('port', PROD_PORT);
 
@@ -28,6 +24,10 @@ app.use(logger('combined'));
 app.use(bodyParser.json({limit: '20mb'}));
 app.use(bodyParser.urlencoded({limit: '20mb', extended: true}));
 app.use(compression());
+
+if (typeof nodeServer === 'function' ) {
+  nodeServer(app);
+}
 
 app.use(prodRoot || '/', express.static(buildPath));
 app.get(`${prodRoot}/*`, (request, response) => {

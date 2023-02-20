@@ -25,10 +25,6 @@ const app = express();
 
 appProxy(app, PROXY);
 
-if (typeof nodeServer === 'function' ) {
-  nodeServer(app);
-}
-
 const compiler = webpack(webpackConfig);
 
 const devMiddleware = webpackDevMiddleware(compiler, {
@@ -54,8 +50,12 @@ app.use(bodyParser.json({limit: '20mb'}));
 app.use(bodyParser.urlencoded({limit: '20mb', extended: true}));
 app.use(compression());
 
+if (typeof nodeServer === 'function' ) {
+  nodeServer(app);
+}
+
 // browserRouter
-app.use('*', (req, res, next) => {
+app.get('*', (req, res, next) => {
   const htmlBuffer = compiler.outputFileSystem.readFileSync(`${webpackConfig.output.path}/index.html`);
   res.set('Content-Type', 'text/html');
   res.send(htmlBuffer);
