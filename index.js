@@ -22,39 +22,53 @@ const starter = async () => {
   const argvStr = argvs.join(' ');
 
   if (startStr.includes(argvStr)) {
-    return spawn('node', [resolve(huxyDir, 'scripts/index.js')], {stdio: 'inherit'});
+    const child = spawn('node', [resolve(huxyDir, 'scripts/index.js')], {stdio: 'inherit'});
+    child.on('close', code => process.exit(code));
+    return;
   }
   if (argvStr === 'run build') {
-    return spawn('webpack', ['--config', resolve(huxyDir, 'scripts/webpack.production.js'), '--progress'], {stdio: 'inherit'});
+    const child = spawn('webpack', ['--config', resolve(huxyDir, 'scripts/webpack.production.js'), '--progress'], {stdio: 'inherit'});
+    child.on('close', code => process.exit(code));
+    return;
   }
   if (argvStr === 'run analyze') {
-    return spawn('webpack', ['--config', resolve(huxyDir, 'scripts/webpack.production.js'), '--progress'], {
+    const child = spawn('webpack', ['--config', resolve(huxyDir, 'scripts/webpack.production.js'), '--progress'], {
       stdio: 'inherit',
       env: {
         ...process.env,
         ANALYZE: true,
       },
     });
+    child.on('close', code => process.exit(code));
+    return;
   }
   if (argvStr === 'run server') {
-    return spawn('node', [resolve(huxyDir, 'scripts/server.js')], {stdio: 'inherit'});
+    const child = spawn('node', [resolve(huxyDir, 'scripts/server.js')], {stdio: 'inherit'});
+    child.on('close', code => process.exit(code));
+    return;
   }
   if (argvStr === 'run test') {
-    return spawn('jest', ['--colors', '--coverage'], {stdio: 'inherit'});
+    const child = spawn('jest', ['--colors', '--coverage'], {stdio: 'inherit'});
+    child.on('close', code => process.exit(code));
+    return;
   }
   if (argvStr === 'run release') {
-    return spawn('standard-version', [], {stdio: 'inherit'});
+    const child = spawn('standard-version', [], {stdio: 'inherit'});
+    child.on('close', code => process.exit(code));
+    return;
   }
 
   const cmd = argvs[0];
   const params = argvs.slice(1);
 
-  spawn(cmd, params, {stdio: 'inherit'});
+  const child = spawn(cmd, params, {stdio: 'inherit'});
 
-  /* starter.stdout.on('data', data => {
+  child.on('close', code => process.exit(code));
+
+  /* child.stdout.on('data', data => {
     console.log(data.toString().blue);
   });
-  starter.stderr.on('data', data => {
+  child.stderr.on('data', data => {
     console.error(data.toString().red);
   }); */
 
