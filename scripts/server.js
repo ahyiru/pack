@@ -10,7 +10,9 @@ const path = require('path');
 
 const appProxy = require('./appProxy');
 
-const {HOST, PROD_PORT, buildPath, PROXY, prodRoot, nodeServer} = require('./envConfigs');
+const {HOST, PROD_PORT, buildPath, PROXY, prodRoot, configsPath} = require('./envConfigs');
+
+const {nodeServer} = require(configsPath);
 
 const app = express();
 

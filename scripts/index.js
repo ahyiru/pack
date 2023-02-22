@@ -19,7 +19,9 @@ const getIPs = require('./getIPs');
 
 const appProxy = require('./appProxy');
 
-const {appName, HOST, PORT, PROXY, nodeServer} = require('./envConfigs');
+const {appName, HOST, PORT, PROXY, configsPath} = require('./envConfigs');
+
+const {nodeServer} = require(configsPath);
 
 const app = express();
 

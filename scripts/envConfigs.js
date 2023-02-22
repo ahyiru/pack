@@ -4,7 +4,7 @@ const rootDir = process.cwd();
 
 const configsPath = resolve(rootDir, './.huxy/app.configs');
 
-const {app = {}, webpack = {}, nodeServer} = require(configsPath);
+const {app = {}, webpack = {}} = require(configsPath);
 
 const {HOST, PORT, PROD_PORT, PROXY, PUBLIC_DIR, BUILD_DIR, DEV_ROOT_DIR, PROD_ROOT_DIR, projectName, envConfigs, entry} = app;
 
@@ -30,7 +30,6 @@ module.exports = {
   PROXY,
   projectName: projectName || appName,
   envConfigs,
-  nodeServer,
   devRoot,
   prodRoot,
   appPath,
@@ -39,4 +38,5 @@ module.exports = {
   webpackCfg: rest || {},
   webpackDevCfg: dev || {},
   webpackProdCfg: prod || {},
+  configsPath,
 };
