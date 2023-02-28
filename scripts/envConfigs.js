@@ -17,9 +17,9 @@ const prodRoot = ['/', './'].includes(PROD_ROOT_DIR) ? '' : PROD_ROOT_DIR ?? '';
 
 const appPath = resolve(rootDir, appName);
 
-const publics = resolve(rootDir, PUBLIC_DIR || 'public');
+const publics = resolve(appPath, PUBLIC_DIR || 'public');
 
-const buildPath = resolve(rootDir, BUILD_DIR || 'build');
+const buildPath = resolve(appPath, BUILD_DIR || 'build');
 
 const {dev, prod, ...rest} = webpack;
 
