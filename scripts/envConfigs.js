@@ -4,11 +4,13 @@ const rootDir = process.cwd();
 
 const configsPath = resolve(rootDir, './.huxy/app.configs');
 
-const {app = {}, webpack = {}} = require(configsPath);
+const configs = require(configsPath);
 
-const {HOST, PORT, PROD_PORT, PROXY, PUBLIC_DIR, BUILD_DIR, DEV_ROOT_DIR, PROD_ROOT_DIR, projectName, envConfigs, entry} = app;
+const {webpack = {}, entry} = configs;
 
-const appName = entry || process.env.npm_config_dirname || 'app';
+const appName = process.env.npm_config_dirname || entry || 'app';
+
+const {HOST, PORT, PROD_PORT, PROXY, PUBLIC_DIR, BUILD_DIR, DEV_ROOT_DIR, PROD_ROOT_DIR, projectName, envConfigs, entry} = configs[appName] || {};
 
 const devRoot = ['/', './'].includes(DEV_ROOT_DIR) ? '' : DEV_ROOT_DIR ?? '';
 const prodRoot = ['/', './'].includes(PROD_ROOT_DIR) ? '' : PROD_ROOT_DIR ?? '';
