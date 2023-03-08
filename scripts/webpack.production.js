@@ -20,7 +20,7 @@ const webpackBaseConfigs = require('./webpack.config');
 
 const {rootDir, appPath, publics, buildPath, PROXY, envConfigs, prodRoot, webpackProdCfg} = require('./envConfigs');
 
-const {copy, ...restProdCfg} = webpackProdCfg;
+const {copy, buildConfigs, ...restProdCfg} = webpackProdCfg;
 
 let copyConfigs = [];
 
@@ -204,7 +204,10 @@ const prodConfigs = {
         minifyIdentifiers: true, // 缩短标识符
         minifySyntax: true, // 缩短语法
         legalComments: 'none', // 去掉注释
+        // drop: ['console'],
+        pure: ['console.log'],
         // implementation: esbuild, // 自定义 esbuild 版本
+        ...buildConfigs,
       }),
     ],
     minimize: true,

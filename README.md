@@ -71,12 +71,17 @@ module.exports = {
           to: 'build/public/robots.txt',
         },
       ],
+      buildConfigs: {
+        target: 'es2018',
+        minify: true,
+      },
     },
   },
 };
 ```
 
 - copy：构建完成拷贝文件或文件夹。
+- buildConfigs：打包资源配置，见 esbuild 配置项。
 
 ### 运行命令
 
