@@ -15,7 +15,7 @@ conflict: 解决合并过程中
 
  */
 
-module.exports = {
+const configs = {
   extends: ['@commitlint/config-conventional'],
   parserPreset: {
     parserOpts: {
@@ -133,3 +133,5 @@ module.exports = {
     },
   },
 };
+
+module.exports = configs;

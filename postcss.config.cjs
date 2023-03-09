@@ -1,4 +1,4 @@
-module.exports = {
+const configs = {
   // parser: 'sugarss',
   plugins: {
     // 'postcss-import': {},
@@ -36,3 +36,5 @@ module.exports = {
     // },
   },
 };
+
+module.exports = configs;

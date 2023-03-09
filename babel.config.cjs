@@ -1,4 +1,4 @@
-const config = api => {
+const configs = api => {
   api.cache.using(() => !!process.env.isDev);
 
   const presets = [
@@ -66,4 +66,4 @@ const config = api => {
   };
 };
 
-module.exports = config;
+module.exports = configs;

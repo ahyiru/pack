@@ -1,35 +1,35 @@
 const configFileList = [
   {
     name: 'eslint',
-    path: './.eslintrc.js',
+    path: './.eslintrc.cjs',
   },
   {
     name: 'stylelint',
-    path: './.stylelintrc.js',
+    path: './.stylelintrc.cjs',
   },
   {
     name: 'commitlint',
-    path: './commitlint.config.js',
+    path: './commitlint.config.cjs',
   },
   {
     name: 'jest',
-    path: './jest.config.js',
+    path: './jest.config.cjs',
   },
   {
     name: 'postcss',
-    path: './postcss.config.js',
+    path: './postcss.config.cjs',
   },
   {
     name: 'babel',
-    path: './babel.config.js',
+    path: './babel.config.cjs',
   },
   {
     name: 'prettier',
-    path: './prettier.config.js',
+    path: './prettier.config.cjs',
   },
   {
     name: 'version',
-    path: './.versionrc.js',
+    path: './.versionrc.cjs',
   },
   {
     name: 'prettierignore',
@@ -45,4 +45,4 @@ const configFileList = [
   },
 ];
 
-module.exports = configFileList;
+export default configFileList;

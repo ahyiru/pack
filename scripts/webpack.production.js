@@ -1,24 +1,19 @@
-const webpack = require('webpack');
-const path = require('path');
-const {merge} = require('webpack-merge');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-// const TerserPlugin = require('terser-webpack-plugin');
-// const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+import webpack from 'webpack';
+import path from 'path';
+import {merge} from 'webpack-merge';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
-// const esbuild = require('esbuild');
-const {EsbuildPlugin} = require('esbuild-loader');
+import {EsbuildPlugin} from 'esbuild-loader';
 
-const CopyFileWebpackPlugin = require('@huxy/copy-file-webpack-plugin');
+import CopyFileWebpackPlugin from '@huxy/copy-file-webpack-plugin';
 
-// const CompressionPlugin = require('compression-webpack-plugin');
+import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer';
 
-const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
+import {GenerateSW} from 'workbox-webpack-plugin';
 
-const {GenerateSW} = require('workbox-webpack-plugin');
+const webpackBaseConfigs = (await import('./webpack.config.js')).default;
 
-const webpackBaseConfigs = require('./webpack.config');
-
-const {rootDir, appPath, publics, buildPath, PROXY, envConfigs, prodRoot, webpackProdCfg} = require('./envConfigs');
+const {rootDir, appPath, publics, buildPath, PROXY, envConfigs, prodRoot, webpackProdCfg} = (await import('./envConfigs.js')).default;
 
 const {copy, buildConfigs, ...restProdCfg} = webpackProdCfg;
 
@@ -327,4 +322,4 @@ if (restProdCfg.resolve?.alias) {
   });
 }
 
-module.exports = merge(webpackBaseConfigs, prodConfigs, restProdCfg);
+export default merge(webpackBaseConfigs, prodConfigs, restProdCfg);

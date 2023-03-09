@@ -1,5 +1,5 @@
 #!/usr/bin/env node
 
-const starter = require('../index.js');
+import starter from '../index.js';
 
 starter();

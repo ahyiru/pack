@@ -1,4 +1,4 @@
-const os = require('os');
+import os from 'os';
 
 const getIPs = secure => {
   const protocol = secure ? 'https' : 'http';
@@ -10,4 +10,4 @@ const getIPs = secure => {
   return ips;
 };
 
-module.exports = getIPs;
+export default getIPs;

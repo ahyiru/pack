@@ -1,9 +1,13 @@
-const {resolve} = require('path');
-// const colors = require('colors');
+import {resolve} from 'path';
+// import colors from 'colors';
 
-const {spawn} = require('node:child_process');
+import {spawn} from 'node:child_process';
 
-const initConfigs = require('./configs');
+import getDirName from './configs/getDirName.js';
+
+import initConfigs from './configs/index.js';
+
+const __dirname = getDirName(import.meta.url);
 
 const startStr = ['start', 'run start', 'run dev'];
 
@@ -74,5 +78,4 @@ const starter = async () => {
 
 };
 
-
-module.exports = starter;
+export default starter;

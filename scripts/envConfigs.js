@@ -1,10 +1,12 @@
-const {resolve} = require('node:path');
+import {resolve} from 'node:path';
 
 const rootDir = process.cwd();
 
-const configsPath = resolve(rootDir, './.huxy/app.configs');
+const configsPath = resolve(rootDir, './.huxy/app.configs.js');
 
-const configs = require(configsPath);
+const configs = (await import(configsPath)).default;
+
+// import configs from `${configsPath}`;
 
 const {webpack = {}, entry} = configs;
 
@@ -23,7 +25,7 @@ const buildPath = resolve(appPath, BUILD_DIR || 'build');
 
 const {dev, prod, ...rest} = webpack;
 
-module.exports = {
+const userConfigs = {
   rootDir,
   appName,
   HOST: HOST || 'http://localhost',
@@ -42,3 +44,5 @@ module.exports = {
   webpackProdCfg: prod || {},
   configsPath,
 };
+
+export default userConfigs;

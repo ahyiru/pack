@@ -1,7 +1,9 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const {merge} = require('webpack-merge');
-const {rootDir, appPath, publics, projectName, buildPath, devRoot, webpackCfg} = require('./envConfigs');
+import path from 'path';
+import {fileURLToPath} from 'url';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import {merge} from 'webpack-merge';
+
+const {rootDir, appPath, publics, projectName, buildPath, devRoot, webpackCfg} = (await import('./envConfigs.js')).default;
 
 const {copy, ...restCfg} = webpackCfg;
 
@@ -144,7 +146,7 @@ const baseConfigs = {
   cache: {
     type: 'filesystem',
     buildDependencies: {
-      config: [__filename],
+      config: [fileURLToPath(import.meta.url)],
     },
   },
   experiments: {
@@ -199,4 +201,4 @@ if (restCfg.resolve?.alias) {
   });
 }
 
-module.exports = merge(baseConfigs, restCfg);
+export default merge(baseConfigs, restCfg);

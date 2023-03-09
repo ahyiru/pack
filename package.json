@@ -1,6 +1,6 @@
 {
   "name": "@huxy/pack",
-  "version": "0.5.1",
+  "version": "0.6.3",
   "title": "scripts",
   "feature": "0.0.1",
   "hooks": "0.0.1",
@@ -11,19 +11,20 @@
     "scripts",
     "configs"
   ],
+  "type": "module",
   "sideEffects": false,
   "main": "./index.js",
   "exports": {
     ".": "./index.js",
     "./package.json": "./package.json",
-    "./config/eslint": "./.eslintrc.js",
-    "./config/stylelint": "./.stylelintrc.js",
-    "./config/commitlint": "./commitlint.config.js",
-    "./config/jest": "./jest.config.js",
-    "./config/postcss": "./postcss.config.js",
-    "./config/babel": "./babel.config.js",
-    "./config/prettier": "./prettier.config.js",
-    "./config/version": "./.versionrc.js"
+    "./config/eslint": "./.eslintrc.cjs",
+    "./config/stylelint": "./.stylelintrc.cjs",
+    "./config/commitlint": "./commitlint.config.cjs",
+    "./config/jest": "./jest.config.cjs",
+    "./config/postcss": "./postcss.config.cjs",
+    "./config/babel": "./babel.config.cjs",
+    "./config/prettier": "./prettier.config.cjs",
+    "./config/version": "./.versionrc.cjs"
   },
   "scripts": {
     "start": "node scripts/index.js",
@@ -90,7 +91,7 @@
     "stylelint-config-recommended": "^10.0.1",
     "stylelint-order": "^6.0.3",
     "url-loader": "^4.1.1",
-    "webpack": "^5.75.0",
+    "webpack": "^5.76.0",
     "webpack-bundle-analyzer": "^4.8.0",
     "webpack-cli": "^5.0.1",
     "webpack-dev-middleware": "^6.0.1",
@@ -100,7 +101,7 @@
   },
   "author": "yiru",
   "engines": {
-    "node": "^14.15.0 || ^16.10.0 || >=18.0.0"
+    "node": ">=19.0.0"
   },
   "bin": "./bin/huxy.js"
 }

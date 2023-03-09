@@ -1,4 +1,4 @@
-module.exports = {
+const configs = {
   types: [
     { type: 'feat', section: '✨ Features | 新功能' },
     { type: 'fix', section: '🐛 Bug Fixes | Bug 修复' },
@@ -14,3 +14,5 @@ module.exports = {
     { type: 'ci', section: '👷 Continuous Integration | CI 配置' },
   ],
 };
+
+module.exports = configs;

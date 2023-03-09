@@ -1,27 +1,27 @@
-const express = require('express');
-const webpack = require('webpack');
-const colors = require('colors');
-// const https = require('https');
-// const fs = require('fs');
-// const path = require('path');
+import express from 'express';
+import webpack from 'webpack';
+import colors from 'colors';
+// import https from 'https';
+// import fs from 'fs';
+// import path from 'path';
 
-const cors = require('cors');
-const logger = require('morgan');
-const bodyParser = require('body-parser');
-const compression = require('compression');
+import cors from 'cors';
+import logger from 'morgan';
+import bodyParser from 'body-parser';
+import compression from 'compression';
 
-const webpackDevMiddleware = require('webpack-dev-middleware');
-const webpackHotMiddleware = require('webpack-hot-middleware');
+import webpackDevMiddleware from 'webpack-dev-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
 
-const webpackConfig = require('./webpack.development');
+import getIPs from './getIPs.js';
 
-const getIPs = require('./getIPs');
+import appProxy from './appProxy.js';
 
-const appProxy = require('./appProxy');
+const webpackConfig = (await import('./webpack.development.js')).default;
 
-const {appName, HOST, PORT, PROXY, configsPath} = require('./envConfigs');
+const {appName, HOST, PORT, PROXY, configsPath} = (await import('./envConfigs.js')).default;
 
-const {nodeServer} = require(configsPath);
+const {nodeServer} = (await import(configsPath)).default;
 
 const app = express();
 

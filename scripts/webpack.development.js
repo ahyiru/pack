@@ -1,11 +1,11 @@
-const webpack = require('webpack');
-const path = require('path');
-const {merge} = require('webpack-merge');
-const OpenBrowserWebpackPlugin = require('@huxy/open-browser-webpack-plugin');
+import webpack from 'webpack';
+import path from 'path';
+import {merge} from 'webpack-merge';
+import OpenBrowserWebpackPlugin from '@huxy/open-browser-webpack-plugin';
 
-const webpackBaseConfigs = require('./webpack.config');
+const webpackBaseConfigs = (await import('./webpack.config.js')).default;
 
-const {rootDir, HOST, PORT, PROXY, envConfigs, devRoot, webpackDevCfg} = require('./envConfigs');
+const {rootDir, HOST, PORT, PROXY, envConfigs, devRoot, webpackDevCfg} = (await import('./envConfigs.js')).default;
 
 process.env.isDev = true;
 
@@ -123,4 +123,4 @@ if (webpackDevCfg.resolve?.alias) {
   });
 }
 
-module.exports = merge(webpackBaseConfigs, devConfigs, webpackDevCfg);
+export default merge(webpackBaseConfigs, devConfigs, webpackDevCfg);

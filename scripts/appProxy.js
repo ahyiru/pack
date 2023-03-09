@@ -1,4 +1,4 @@
-const {createProxyMiddleware} = require('http-proxy-middleware');
+import {createProxyMiddleware} from 'http-proxy-middleware';
 
 const proxyCfg = proxy => ({
   prefix: proxy?.prefix || '/api',
@@ -25,4 +25,4 @@ const appProxy = (app, PROXY) => {
   }
 };
 
-module.exports = appProxy;
+export default appProxy;

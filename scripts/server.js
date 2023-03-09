@@ -1,18 +1,18 @@
-const express = require('express');
-const colors = require('colors');
-const cors = require('cors');
-const logger = require('morgan');
-const bodyParser = require('body-parser');
-const compression = require('compression');
-const path = require('path');
-// const https = require('https');
-// const fs = require('fs');
+import express from 'express';
+import colors from 'colors';
+import cors from 'cors';
+import logger from 'morgan';
+import bodyParser from 'body-parser';
+import compression from 'compression';
+import path from 'path';
+// import https from 'https';
+// import fs from 'fs';
 
-const appProxy = require('./appProxy');
+import appProxy from './appProxy.js';
 
-const {HOST, PROD_PORT, buildPath, PROXY, prodRoot, configsPath} = require('./envConfigs');
+const {HOST, PROD_PORT, buildPath, PROXY, prodRoot, configsPath} = (await import('./envConfigs.js')).default;
 
-const {nodeServer} = require(configsPath);
+const {nodeServer} = (await import(configsPath)).default;
 
 const app = express();
 

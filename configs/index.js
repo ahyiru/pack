@@ -1,7 +1,11 @@
-const fs = require('fs-extra');
-const {resolve} = require('node:path');
+import fs from 'fs-extra';
+import {resolve} from 'node:path';
 
-const configFileList = require('./fileList');
+import configFileList from './fileList.js';
+
+import getDirName from './getDirName.js';
+
+const __dirname = getDirName(import.meta.url);
 
 const rootDir = process.cwd();
 const packDir = resolve(__dirname, '../');
@@ -41,4 +45,4 @@ const initHuskyFiles = async () => {
   initConfigFile(resolve(rootDir, './.husky/pre-commit'), resolve(packDir, './.husky/pre-commit'));
 };
 
-module.exports = initAppConfig;
+export default initAppConfig;

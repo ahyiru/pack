@@ -1,4 +1,4 @@
-module.exports = {
+const configs = {
   verbose: true,
   testEnvironment: 'jsdom',
   coverageThreshold: {
@@ -32,3 +32,5 @@ module.exports = {
   unmockedModulePathPatterns: ['<rootDir>/node_modules/react/', '<rootDir>/node_modules/react-dom/'],
   collectCoverage: true,
 };
+
+module.exports = configs;

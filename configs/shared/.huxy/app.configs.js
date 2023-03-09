@@ -27,7 +27,7 @@ const webpack = { // webpack 配置
   },
 };
 
-module.exports = {
+export default {
   app,
   webpack,
 };

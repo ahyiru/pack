@@ -1,4 +1,4 @@
-module.exports = {
+const configs = {
   root: true,
   env: {
     browser: true,
@@ -84,3 +84,5 @@ module.exports = {
   },
   plugins: ['babel', 'react', 'react-hooks'],
 };
+
+module.exports = configs;

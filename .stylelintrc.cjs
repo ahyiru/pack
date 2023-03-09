@@ -1,4 +1,4 @@
-module.exports = {
+const configs = {
   extends: 'stylelint-config-recommended',
   // extends: 'stylelint-config-standard',
   customSyntax: 'postcss-less',
@@ -28,3 +28,5 @@ module.exports = {
   },
   ignoreFiles: ['node_modules/**/*.css', 'coverage/**/*.css', '**/build/**/*.css', '**/draft/**/*.css'],
 };
+
+module.exports = configs;
