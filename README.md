@@ -118,3 +118,5 @@ npm i -D @huxy/pack
 ```
 
 然后在 `package.json` 里面创建上面运行命令里的 `scripts` ，就可运行了。
+
+***版本 0.6+ 使用了 `esmodule`，只需在 `package.json` 里面设置 `"type": "module"` 即可。***

@@ -4,6 +4,7 @@
   "title": "scripts",
   "feature": "0.0.1",
   "hooks": "0.0.1",
+  "type": "module",
   "description": "webpack scripts configs",
   "homepage": "https://github.com/pack",
   "keywords": [
@@ -11,7 +12,6 @@
     "scripts",
     "configs"
   ],
-  "type": "module",
   "sideEffects": false,
   "main": "./index.js",
   "exports": {

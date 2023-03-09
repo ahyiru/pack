@@ -1,5 +1,5 @@
 import path from 'path';
-import {fileURLToPath} from 'url';
+// import {fileURLToPath} from 'url';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import {merge} from 'webpack-merge';
 
@@ -145,9 +145,9 @@ const baseConfigs = {
   context: appPath,
   cache: {
     type: 'filesystem',
-    buildDependencies: {
+    /* buildDependencies: {
       config: [fileURLToPath(import.meta.url)],
-    },
+    }, */
   },
   experiments: {
     topLevelAwait: true,
