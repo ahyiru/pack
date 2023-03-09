@@ -35,7 +35,8 @@ const initConfigFile = async (userConfigDir, huxyConfigDir) => {
 
 const initConfigFiles = () => {
   for (let i = 0, l = configFileList.length; i < l; i++) {
-    initConfigFile(resolve(rootDir, './.eslintrc.js'), resolve(sharedDir, configFileList[i].path));
+    const filename = configFileList[i].path;
+    initConfigFile(resolve(rootDir, filename), resolve(sharedDir, filename));
   }
 };
 
