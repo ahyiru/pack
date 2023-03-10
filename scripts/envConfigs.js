@@ -6,8 +6,6 @@ const configsPath = resolve(rootDir, './.huxy/app.configs.js');
 
 const configs = (await import(configsPath)).default;
 
-// import configs from `${configsPath}`;
-
 const {webpack = {}, entry} = configs;
 
 const appName = process.env.npm_config_dirname || entry || 'app';

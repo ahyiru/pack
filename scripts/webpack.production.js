@@ -94,6 +94,7 @@ if (process.env.ANALYZE) {
 const prodConfigs = {
   mode: 'production',
   // devtool:'nosources-source-map',
+  cache: false,
   output: {
     clean: true,
     path: buildPath,
