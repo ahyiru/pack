@@ -46,9 +46,9 @@ const nodeServer = app => { // 本地 nodejs 服务配置
     console.log(req);
   });
 };
-module.exports = nodeServer;
+export default nodeServer;
 
-module.exports = {
+export default {
   app,
   webpack,
   nodeServer,
@@ -56,7 +56,7 @@ module.exports = {
 
 // 例如
 
-module.exports = {
+export default {
   app,
   webpack: {
     resolve: {
