@@ -192,7 +192,8 @@ const prodConfigs = {
         },
       }), */
       new EsbuildPlugin({
-        target: 'es2018',
+        target: 'es2020',
+        format: 'esm',
         css: true, // 缩小CSS
         minify: true, // 缩小JS
         minifyWhitespace: true, // 去掉空格

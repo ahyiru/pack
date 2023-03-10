@@ -59,7 +59,7 @@ const rules = [
     loader: 'esbuild-loader',
     options: {
       loader: 'jsx',
-      target: 'es2018',
+      target: 'es2020',
       jsx: 'automatic',
       tsconfigRaw: {},
       // implementation: esbuild,
@@ -151,11 +151,11 @@ const baseConfigs = {
   },
   experiments: {
     topLevelAwait: true,
-    // outputModule:true,
-    // syncWebAssembly:true,
-    // asyncWebAssembly:true,
-    // layers:true,
-    // lazyCompilation:true,
+    outputModule: true,
+    // syncWebAssembly: true,
+    // asyncWebAssembly: true,
+    // layers: true,
+    // lazyCompilation: true,
   },
   entry: entry,
   output: {
