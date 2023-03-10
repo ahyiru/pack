@@ -1,5 +1,5 @@
+import path from 'node:path';
 import webpack from 'webpack';
-import path from 'path';
 import {merge} from 'webpack-merge';
 import OpenBrowserWebpackPlugin from '@huxy/open-browser-webpack-plugin';
 

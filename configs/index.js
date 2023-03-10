@@ -1,5 +1,6 @@
-import fs from 'fs-extra';
 import {resolve} from 'node:path';
+
+import fs from 'fs-extra';
 
 import configFileList from './fileList.js';
 

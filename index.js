@@ -1,7 +1,8 @@
-import {resolve} from 'path';
-// import colors from 'colors';
+import {resolve} from 'node:path';
 
 import {spawn} from 'node:child_process';
+
+// import colors from 'colors';
 
 import getDirName from './configs/getDirName.js';
 

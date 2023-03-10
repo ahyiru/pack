@@ -33,15 +33,15 @@ const configFileList = [
   },
   {
     name: 'prettierignore',
-    path: '../../.prettierignore',
+    path: './.prettierignore',
   },
   {
     name: 'browserslist',
-    path: '../../.browserslistrc',
+    path: './.browserslistrc',
   },
   {
     name: 'editorconfig',
-    path: '../../.editorconfig',
+    path: './.editorconfig',
   },
 ];
 
