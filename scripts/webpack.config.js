@@ -157,6 +157,11 @@ const baseConfigs = {
     // layers: true,
     // lazyCompilation: true,
   },
+  node: {
+    global: false,
+    __filename: true,
+    __dirname: true,
+  },
   entry: entry,
   output: {
     path: buildPath,
