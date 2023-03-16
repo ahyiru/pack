@@ -57,7 +57,7 @@ const plugins = [
   }),
   new GenerateSW({
     // importWorkboxFrom: 'local',
-    cacheId: 'huxy-pwa',
+    // cacheId: 'huxy-pwa',
     skipWaiting: true, // 跳过 waiting 状态
     clientsClaim: true, // 通知让新的 sw 立即在页面上取得控制权
     cleanupOutdatedCaches: true, // 删除过时、老版本的缓存
