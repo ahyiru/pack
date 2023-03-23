@@ -1,6 +1,6 @@
 ## @huxy/pack
 
-项目构建工具，集成了 `babel`、`eslint`、`stylelint`、`jest`、`commitlint`、`husky`、`standard-version`、`postcss`、`prettier`，提供开发环境、构建打包、本地启动服务、环境配置、代理配置等功能。
+项目构建工具，集成了 `esbuild`、`eslint`、`stylelint`、`jest`、`commitlint`、`husky`、`standard-version`、`postcss`、`prettier`，提供开发环境、构建打包、本地启动服务、环境配置、代理配置等功能。
 
 运行时会自动生成插件配置文件，如 `babel.config.js` 文件，可自行修改覆盖。
 
