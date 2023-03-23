@@ -1,8 +1,8 @@
 ## @huxy/pack
 
-项目构建工具，集成了 `esbuild`、`eslint`、`stylelint`、`jest`、`commitlint`、`husky`、`standard-version`、`postcss`、`prettier`，提供开发环境、构建打包、本地启动服务、环境配置、代理配置等功能。
+`@huxy/pack` 是一个项目构建工具，集成了 `esbuild`、`eslint`、`stylelint`、`jest`、`commitlint`、`husky`、`standard-version`、`postcss`、`prettier`，提供开发环境、构建打包、本地启动服务、环境配置、代理配置等功能。使用简单方便，功能齐全，配置灵活，可自己添加需要的功能插件。
 
-运行时会自动生成插件配置文件，如 `babel.config.js` 文件，可自行修改覆盖。
+运行时会自动生成插件配置文件，如 `babel.config.cjs` 文件等，可自行修改覆盖。
 
 生成项目配置文件 `.huxy/app.configs.js` ，用户自行配置即可。
 
@@ -109,7 +109,7 @@ export default {
 新建一个项目，创建 `public` 和 `app` 目录。
 
 - public：静态资源目录，存放 `index.html` 和 `favicon` 等。
-- app：存放项目代码文件，也是入口文件夹。
+- app：存放项目代码文件，也是入口文件夹。可自己命名，如 `src`，在配置文件里配置 `entry: 'src'` 即可。
 
 安装 `@huxy/pack` ：
 
