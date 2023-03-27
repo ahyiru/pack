@@ -46,7 +46,7 @@ const nodeServer = app => { // 本地 nodejs 服务配置
     console.log(req);
   });
 };
-export default nodeServer;
+
 
 export default {
   app,
@@ -108,10 +108,10 @@ export default {
 
 新建一个项目，创建 `public` 和 `app` 目录。
 
-- public：静态资源目录，存放 `index.html` 和 `favicon` 等。
+- public：静态资源目录，存放 `index.html` 和 `favicon` 等。可使用 `app.configs` 里面的 `PUBLIC_DIR` 来配置路径，默认 `public ` 放在 `app` 目录里面。
 - app：存放项目代码文件，也是入口文件夹。可自己命名，如 `src`，在配置文件里配置 `entry: 'src'` 即可。
 
-安装 `@huxy/pack` ：
+安装 `@huxy/pack`
 
 ```
 npm i -D @huxy/pack
