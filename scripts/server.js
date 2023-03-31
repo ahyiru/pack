@@ -5,6 +5,7 @@ import logger from 'morgan';
 import bodyParser from 'body-parser';
 import compression from 'compression';
 import path from 'node:path';
+import {createServer} from 'node:http';
 // import https from 'node:https';
 // import fs from 'node:fs';
 
@@ -15,6 +16,8 @@ const {HOST, PROD_PORT, buildPath, PROXY, prodRoot, configsPath} = (await import
 const {nodeServer} = (await import(configsPath)).default;
 
 const app = express();
+
+const httpServer = createServer(app);
 
 appProxy(app, PROXY);
 
@@ -28,7 +31,7 @@ app.use(bodyParser.urlencoded({limit: '20mb', extended: true}));
 app.use(compression());
 
 if (typeof nodeServer === 'function' ) {
-  nodeServer(app);
+  nodeServer(app, httpServer);
 }
 
 app.use(prodRoot || '/', express.static(buildPath));
@@ -43,7 +46,7 @@ const options = {
 };
 const httpsServer = https.createServer(options, app); */
 
-app.listen(app.get('port'), err => {
+httpServer.listen(app.get('port'), err => {
   if (err) {
     console.log(err);
     return false;
@@ -55,3 +58,4 @@ app.listen(app.get('port'), err => {
   console.log('-----------------------------------'.grey);
   console.log('\n按下 CTRL-C 停止服务\n'.blue);
 });
+
