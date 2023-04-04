@@ -5,12 +5,11 @@ const proxyCfg = proxy => ({
   opts: {
     target: proxy?.url || proxy,
     changeOrigin: true,
-    ws: true,
-    // pathRewrite: {'^/api/': '/'},
-    /* onProxyReq: (proxyReq, req, res) => {
-      proxyReq.setHeader('clientip', req.ip);
-    }, */
+    // onProxyReq: (proxyReq, req, res) => {
+    //   proxyReq.setHeader('clientip', req.ip);
+    // },
     // xfwd: true,
+    ...(typeof proxy === 'object' ? proxy : null),
   },
 });
 
