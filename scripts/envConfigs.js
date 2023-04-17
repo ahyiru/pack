@@ -1,10 +1,11 @@
 import {resolve} from 'node:path';
+import pathToURL from './pathToURL.js';
 
 const rootDir = process.cwd();
 
 const configsPath = resolve(rootDir, './.huxy/app.configs.js');
 
-const configs = (await import(configsPath)).default;
+const configs = (await import(pathToURL(configsPath))).default;
 
 const {webpack = {}, entry} = configs;
 

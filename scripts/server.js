@@ -9,11 +9,13 @@ import {createServer} from 'node:http';
 // import https from 'node:https';
 // import fs from 'node:fs';
 
+import pathToURL from './pathToURL.js';
+
 import appProxy from './appProxy.js';
 
 const {HOST, PROD_PORT, buildPath, PROXY, prodRoot, configsPath} = (await import('./envConfigs.js')).default;
 
-const {nodeServer} = (await import(configsPath)).default;
+const {nodeServer} = (await import(pathToURL(configsPath))).default;
 
 const app = express();
 
@@ -54,7 +56,7 @@ httpServer.listen(app.get('port'), err => {
   console.log('\n服务已启动! '.black + '✓'.green);
   console.log(`\n监听端口: ${app.get('port')} ,正在构建,请稍后...`.cyan);
   console.log('-----------------------------------'.grey);
-  console.log(` 本地地址: ${app.get('host')}:${app.get('port')}${prodRoot}`.magenta);
+  console.log(` 本地地址: ${app.get('host')}:${app.get('port')}${prodRoot}`.green);
   console.log('-----------------------------------'.grey);
   console.log('\n按下 CTRL-C 停止服务\n'.blue);
 });
