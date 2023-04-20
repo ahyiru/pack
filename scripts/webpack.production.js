@@ -60,7 +60,7 @@ const plugins = [
       from: path.resolve(publics, 'robots.txt'),
       to: path.resolve(appPath, `${buildPath}/robots.txt`),
     },
-    ...copy,
+    ...(Array.isArray(copy) ? copy : []),
   ]),
   /* new CompressionPlugin({
     test: /\.(js|css)(\?.*)?$/i,
