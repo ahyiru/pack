@@ -7,7 +7,7 @@ const configsPath = resolve(rootDir, './.huxy/app.configs.js');
 
 const configs = (await import(pathToURL(configsPath))).default;
 
-const {webpack = {}, entry} = configs;
+const {webpack, entry} = configs;
 
 const appName = process.env.npm_config_dirname || entry || 'app';
 
@@ -22,7 +22,9 @@ const publics = resolve(appPath, PUBLIC_DIR || 'public');
 
 const buildPath = resolve(appPath, BUILD_DIR || 'build');
 
-const {dev, prod, ...rest} = webpack;
+const webpackCfg = typeof webpack === 'function' ? webpack(rootDir, appPath) : webpack ?? {};
+
+const {dev, prod, ...rest} = webpackCfg;
 
 const userConfigs = {
   rootDir,

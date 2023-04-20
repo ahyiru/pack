@@ -117,10 +117,4 @@ const devConfigs = {
   ],
 };
 
-if (webpackDevCfg.resolve?.alias) {
-  Object.keys(webpackDevCfg.resolve.alias).map(key => {
-    webpackDevCfg.resolve.alias[key] = path.resolve(rootDir, webpackDevCfg.resolve.alias[key]);
-  });
-}
-
 export default merge(webpackBaseConfigs, devConfigs, webpackDevCfg);

@@ -17,21 +17,6 @@ const {rootDir, appPath, publics, buildPath, PROXY, envConfigs, prodRoot, webpac
 
 const {copy, buildConfigs, ...restProdCfg} = webpackProdCfg;
 
-let copyConfigs = [];
-
-try {
-  if (Array.isArray(copy)) {
-    copyConfigs = copy.map(({from, to}) => ({
-      from: path.resolve(rootDir, from),
-      to: path.resolve(rootDir, to),
-    }));
-  }
-} catch(err) {
-  console.error(err);
-}
-
-  
-
 const plugins = [
   new webpack.optimize.ModuleConcatenationPlugin(),
   new webpack.optimize.MinChunkSizePlugin({
@@ -75,7 +60,7 @@ const plugins = [
       from: path.resolve(publics, 'robots.txt'),
       to: path.resolve(appPath, `${buildPath}/robots.txt`),
     },
-    ...copyConfigs,
+    ...copy,
   ]),
   /* new CompressionPlugin({
     test: /\.(js|css)(\?.*)?$/i,
@@ -317,11 +302,5 @@ const prodConfigs = {
   },
   plugins,
 };
-
-if (restProdCfg.resolve?.alias) {
-  Object.keys(restProdCfg.resolve.alias).map(key => {
-    restProdCfg.resolve.alias[key] = path.resolve(rootDir, restProdCfg.resolve.alias[key]);
-  });
-}
 
 export default merge(webpackBaseConfigs, prodConfigs, restProdCfg);

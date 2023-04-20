@@ -5,12 +5,6 @@ import {merge} from 'webpack-merge';
 
 const {rootDir, appPath, publics, projectName, buildPath, devRoot, webpackCfg} = (await import('./envConfigs.js')).default;
 
-const {copy, ...restCfg} = webpackCfg;
-
-if (Array.isArray(copy)) {
-  console.error('copy 是 prod 属性，请重新配置！');
-}
-
 const entry = {
   app: [path.resolve(appPath, 'index.jsx')],
   // ...frame,
@@ -200,10 +194,4 @@ const baseConfigs = {
   plugins: plugins,
 };
 
-if (restCfg.resolve?.alias) {
-  Object.keys(restCfg.resolve.alias).map(key => {
-    restCfg.resolve.alias[key] = path.resolve(rootDir, restCfg.resolve.alias[key]);
-  });
-}
-
-export default merge(baseConfigs, restCfg);
+export default merge(baseConfigs, webpackCfg);

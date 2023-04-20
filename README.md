@@ -63,7 +63,7 @@ export default {
 
 export default {
   app,
-  webpack: {
+  webpack: (rootDir, appPath) => ({
     resolve: {
       alias: {
         '@huxy': 'playground/huxy',
@@ -81,12 +81,14 @@ export default {
         minify: true,
       },
     },
-  },
+  }),
 };
 ```
 
 - copy：构建完成拷贝文件或文件夹。
 - buildConfigs：打包资源配置，见 esbuild 配置项。
+
+`webpack` 配置项可以是一个配置对象，也可以是一个带有 `rootDir` 和 `appPath` 的回调函数。当要使用到路径时，请使用回调函数来获取根目录路径和 `app` 路径。
 
 ### 运行命令
 
