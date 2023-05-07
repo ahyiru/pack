@@ -66,14 +66,14 @@ export default {
   webpack: (rootDir, appPath) => ({
     resolve: {
       alias: {
-        '@huxy': 'playground/huxy',
+        '@huxy': `${rootPath}/playground/huxy`,
       },
     },
     prod: {
       copy: [ // 拷贝文件
         {
-          from: 'app/public/robots.txt',
-          to: 'build/public/robots.txt',
+          from: `${appPath}/public/robots.txt`,
+          to: `${appPath}/build/robots.txt`,
         },
       ],
       buildConfigs: {
