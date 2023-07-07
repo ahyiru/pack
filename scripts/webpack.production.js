@@ -178,7 +178,7 @@ const prodConfigs = {
         },
       }), */
       new EsbuildPlugin({
-        target: 'es2020',
+        target: 'esnext',
         format: 'esm',
         css: true, // 缩小CSS
         minify: true, // 缩小JS

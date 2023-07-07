@@ -53,7 +53,7 @@ const rules = [
     loader: 'esbuild-loader',
     options: {
       loader: 'jsx',
-      target: 'es2020',
+      target: 'esnext',
       jsx: 'automatic',
       tsconfigRaw: {},
       // implementation: esbuild,
