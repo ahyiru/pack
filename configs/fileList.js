@@ -43,6 +43,10 @@ const configFileList = [
     name: 'editorconfig',
     path: './.editorconfig',
   },
+  {
+    name: 'npm',
+    path: './.npmrc',
+  },
 ];
 
 export default configFileList;
