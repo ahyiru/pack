@@ -44,8 +44,9 @@ const configFileList = [
     path: './.editorconfig',
   },
   {
-    name: 'npm',
+    name: 'npmconfig',
     path: './.npmrc',
+    alias: './npmconfig',
   },
 ];
 
