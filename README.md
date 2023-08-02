@@ -63,7 +63,7 @@ export default {
 
 export default {
   app,
-  webpack: (rootDir, appPath) => ({
+  webpack: (rootPath, appPath) => ({
     resolve: {
       alias: {
         '@huxy': `${rootPath}/playground/huxy`,
