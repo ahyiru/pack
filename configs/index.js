@@ -64,7 +64,7 @@ const initHuskyFiles = async () => {
 const initGitignore = async () => {
   const exists = await fs.pathExists(resolve(rootDir, './.git'));
   if (exists) {
-    await initConfigFile(resolve(rootDir, './.gitignore'), resolve(sharedDir, './.gitignore'));
+    await initConfigFile(resolve(rootDir, './.gitignore'), resolve(sharedDir, './gitignoreconfig'));
   }
 };
 
