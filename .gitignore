@@ -43,7 +43,14 @@ typings
 .DS_Store
 Thumbs.db
 
+# test
 __snapshots__
+
+# package-lock.json
+package-lock.json
+
+# pnpm-lock.yaml
+pnpm-lock.yaml
 
 # build
 dist

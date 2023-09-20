@@ -35,6 +35,14 @@ const initConfigFiles = async () => {
   for (let i = 0, l = configFileList.length; i < l; i++) {
     const aliasname = configFileList[i].alias;
     const filename = configFileList[i].path;
+    const jsconfig = configFileList[i].jsconfig;
+    if (jsconfig) {
+      const jsconfigpath = resolve(rootDir, jsconfig);
+      const hasJsconfig = await fs.pathExists(jsconfigpath);
+      if (hasJsconfig) {
+        await fs.remove(jsconfigpath);
+      }
+    }
     await initConfigFile(resolve(rootDir, filename), resolve(sharedDir, aliasname || filename));
   }
 };
