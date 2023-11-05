@@ -116,10 +116,19 @@ const rules = [
     exclude: [/node_modules/],
   },
   {
-    test: /\.(swf|xap|mp4|webm)$/,
+    test: /\.(mp3|wav|mpeg|webm)$/,
     loader: 'url-loader',
     options: {
       limit: 20480,
+      name: 'audio/[hash].[ext]',
+    },
+    exclude: [/node_modules/],
+  },
+  {
+    test: /\.(mp4|m4a|swf|xap|mpeg|webm)$/,
+    loader: 'url-loader',
+    options: {
+      limit: 40960,
       name: 'video/[hash].[ext]',
     },
     exclude: [/node_modules/],
@@ -128,7 +137,7 @@ const rules = [
     test: /\.(max|glb|gltf|fbx|stl|obj)$/,
     loader: 'url-loader',
     options: {
-      limit: 20480,
+      limit: 40960,
       name: 'models/[hash].[ext]',
     },
     exclude: [/node_modules/],
