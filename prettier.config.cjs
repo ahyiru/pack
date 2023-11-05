@@ -1,3 +1,5 @@
+import merge from '@huxy/utils/mergeObj';
+
 const configs = {
   printWidth: 200,
   tabWidth: 2,
@@ -8,4 +10,4 @@ const configs = {
   arrowParens: 'avoid',
 };
 
-module.exports = configs;
+module.exports = (customCfgs = {}) => merge(configs, customCfgs);

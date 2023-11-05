@@ -65,6 +65,7 @@
     "@commitlint/config-conventional": "^18.1.0",
     "@huxy/copy-file-webpack-plugin": "^1.1.0",
     "@huxy/open-browser-webpack-plugin": "^1.1.0",
+    "@huxy/utils": "^2.1.8",
     "autoprefixer": "^10.4.16",
     "babel-jest": "^29.7.0",
     "babel-loader": "^9.1.3",

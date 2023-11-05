@@ -15,6 +15,8 @@ conflict: 解决合并过程中
 
  */
 
+import merge from '@huxy/utils/mergeObj';
+
 const configs = {
   extends: ['@commitlint/config-conventional'],
   parserPreset: {
@@ -134,4 +136,4 @@ const configs = {
   },
 };
 
-module.exports = configs;
+module.exports = (customCfgs = {}) => merge(configs, customCfgs);

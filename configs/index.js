@@ -12,6 +12,17 @@ const rootDir = process.cwd();
 const packDir = resolve(__dirname, '../');
 const sharedDir = resolve(__dirname, './shared');
 
+const oldCfgList = [
+  `module.exports = require('@huxy/pack/config/eslint');`,
+  `module.exports = require('@huxy/pack/config/stylelint');`,
+  `module.exports = require('@huxy/pack/config/commitlint');`,
+  `module.exports = require('@huxy/pack/config/jest');`,
+  `module.exports = require('@huxy/pack/config/postcss');`,
+  `module.exports = require('@huxy/pack/config/babel');`,
+  `module.exports = require('@huxy/pack/config/prettier');`,
+  `module.exports = require('@huxy/pack/config/version');`,
+];
+
 const initAppConfig = async () => {
   await initAppFiles();
   await initConfigFiles();
@@ -27,6 +38,17 @@ const initConfigFile = async (userConfigs, huxyConfigs) => {
       await fs.copy(huxyConfigs, userConfigs);
     } catch (error) {
       console.error(error);
+    }
+  } else {
+    const data = await fs.readFile(userConfigs, 'utf8');
+    const isOldCfg = oldCfgList.includes(data);
+    if (isOldCfg) {
+      try {
+        await fs.remove(userConfigs);
+        await fs.copy(huxyConfigs, userConfigs);
+      } catch (error) {
+        console.error(error);
+      }
     }
   }
 };

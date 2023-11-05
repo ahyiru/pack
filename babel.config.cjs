@@ -1,3 +1,5 @@
+import merge from '@huxy/utils/mergeObj';
+
 const configs = api => {
   api.cache.using(() => !!process.env.isDev);
 
@@ -66,4 +68,4 @@ const configs = api => {
   };
 };
 
-module.exports = configs;
+module.exports = (customCfgs = {}) => merge(configs, customCfgs);

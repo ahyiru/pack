@@ -1,3 +1,5 @@
+import merge from '@huxy/utils/mergeObj';
+
 const configs = {
   extends: 'stylelint-config-recommended',
   // extends: 'stylelint-config-standard',
@@ -29,4 +31,4 @@ const configs = {
   ignoreFiles: ['node_modules/**/*.css', 'coverage/**/*.css', '**/build/**/*.css', '**/draft/**/*.css'],
 };
 
-module.exports = configs;
+module.exports = (customCfgs = {}) => merge(configs, customCfgs);

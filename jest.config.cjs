@@ -1,3 +1,5 @@
+import merge from '@huxy/utils/mergeObj';
+
 const configs = {
   verbose: true,
   testEnvironment: 'jsdom',
@@ -33,4 +35,4 @@ const configs = {
   collectCoverage: true,
 };
 
-module.exports = configs;
+module.exports = (customCfgs = {}) => merge(configs, customCfgs);

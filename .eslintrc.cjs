@@ -1,3 +1,5 @@
+import merge from '@huxy/utils/mergeObj';
+
 const configs = {
   root: true,
   env: {
@@ -85,4 +87,4 @@ const configs = {
   plugins: ['babel', 'react', 'react-hooks'],
 };
 
-module.exports = configs;
+module.exports = (customCfgs = {}) => merge(configs, customCfgs);

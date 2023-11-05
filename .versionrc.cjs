@@ -1,3 +1,5 @@
+import merge from '@huxy/utils/mergeObj';
+
 const configs = {
   types: [
     { type: 'feat', section: '✨ Features | 新功能' },
@@ -15,4 +17,4 @@ const configs = {
   ],
 };
 
-module.exports = configs;
+module.exports = (customCfgs = {}) => merge(configs, customCfgs);

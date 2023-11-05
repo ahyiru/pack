@@ -1,3 +1,5 @@
+import merge from '@huxy/utils/mergeObj';
+
 const configs = {
   // parser: 'sugarss',
   plugins: {
@@ -37,4 +39,4 @@ const configs = {
   },
 };
 
-module.exports = configs;
+module.exports = (customCfgs = {}) => merge(configs, customCfgs);
