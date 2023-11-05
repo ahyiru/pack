@@ -15,7 +15,7 @@ conflict: 解决合并过程中
 
  */
 
-const merge = require('./configs/merge');
+const merge = require('./configs/merge.cjs');
 
 const configs = {
   extends: ['@commitlint/config-conventional'],

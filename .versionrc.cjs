@@ -1,4 +1,4 @@
-const merge = require('./configs/merge');
+const merge = require('./configs/merge.cjs');
 
 const configs = {
   types: [
