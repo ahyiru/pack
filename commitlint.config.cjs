@@ -15,7 +15,7 @@ conflict: 解决合并过程中
 
  */
 
-import merge from '@huxy/utils/mergeObj';
+const merge = require('./configs/merge');
 
 const configs = {
   extends: ['@commitlint/config-conventional'],

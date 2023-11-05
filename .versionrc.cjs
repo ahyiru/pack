@@ -1,4 +1,4 @@
-import merge from '@huxy/utils/mergeObj';
+const merge = require('./configs/merge');
 
 const configs = {
   types: [
