@@ -51,14 +51,17 @@ const plugins = [
     {
       from: path.resolve(publics, 'src'),
       to: path.resolve(appPath, `${buildPath}/src`),
+      isDef: true,
     },
     {
       from: path.resolve(publics, 'manifest.json'),
       to: path.resolve(appPath, `${buildPath}/manifest.json`),
+      isDef: true,
     },
     {
       from: path.resolve(publics, 'robots.txt'),
       to: path.resolve(appPath, `${buildPath}/robots.txt`),
+      isDef: true,
     },
     ...(Array.isArray(copy) ? copy : []),
   ]),
