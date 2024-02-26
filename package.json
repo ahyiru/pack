@@ -6,7 +6,7 @@
   "hooks": "0.0.1",
   "type": "module",
   "description": "@huxy/pack 是一个项目构建工具，集成了 esbuild、eslint、stylelint、jest、commitlint、husky、standard-version、postcss、prettier，提供开发环境、构建打包、本地启动服务、环境配置、代理配置等功能。使用简单方便，功能齐全，配置灵活，可自己添加需要的功能插件。",
-  "homepage": "https://github.com/pack",
+  "homepage": "https://github.com/ahyiru/pack",
   "keywords": [
     "webpack",
     "node.js",
@@ -51,7 +51,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/pack"
+    "url": "https://github.com/ahyiru/pack"
   },
   "license": "MIT",
   "dependencies": {
@@ -75,7 +75,7 @@
     "cors": "^2.8.5",
     "css-loader": "^6.10.0",
     "esbuild-loader": "^4.0.3",
-    "eslint": "^8.56.0",
+    "eslint": "^8.57.0",
     "eslint-plugin-babel": "^5.3.1",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
