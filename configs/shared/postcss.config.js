@@ -1,4 +1,4 @@
-const merge = require('./configs/merge.cjs');
+import merge from '../merge.js';
 
 const configs = {
   // parser: 'sugarss',
@@ -39,4 +39,4 @@ const configs = {
   },
 };
 
-module.exports = (customCfgs = {}) => merge(configs, customCfgs);
+export default (customCfgs = {}) => merge(configs, customCfgs);

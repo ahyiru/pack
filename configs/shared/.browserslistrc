@@ -1,6 +1,0 @@
-defaults
-not ie < 11
-last 2 versions
-> 1%
-last 2 iOS versions
-not dead

@@ -1,4 +1,4 @@
-const merge = require('./configs/merge.cjs');
+import merge from '../merge.js';
 
 const configs = {
   extends: 'stylelint-config-recommended',
@@ -31,4 +31,4 @@ const configs = {
   ignoreFiles: ['node_modules/**/*.css', 'coverage/**/*.css', '**/build/**/*.css', '**/draft/**/*.css'],
 };
 
-module.exports = (customCfgs = {}) => merge(configs, customCfgs);
+export default (customCfgs = {}) => merge(configs, customCfgs);

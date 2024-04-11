@@ -58,4 +58,4 @@ const merge = (target, ...extend) => {
   return target;
 };
 
-module.exports = merge;
+export default merge;

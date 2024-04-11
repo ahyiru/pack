@@ -69,14 +69,6 @@ app.get('*', (req, res, next) => {
   res.end();
 });
 
-/* const ssl = path.resolve(__dirname, './ssl');
-const options = {
-  key: fs.readFileSync(`${ssl}/ihuxy.com.key`),
-  cert: fs.readFileSync(`${ssl}/ihuxy.com.pem`),
-  // passphrase: 'YOUR PASSPHRASE HERE',
-};
-const httpsServer = https.createServer(options, app); */
-
 httpServer.listen(app.get('port'), err => {
   if (err) {
     console.log(err);

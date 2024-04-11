@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "nodenext",
     "target": "esnext",
     "allowJs": true,
-    "moduleResolution": "node",
+    "moduleResolution": "nodenext",
     "jsx": "preserve",
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": false,

@@ -1,43 +1,40 @@
 const configFileList = [
   {
     name: 'eslint',
-    path: './.eslintrc.cjs',
+    path: './eslint.config.js',
     jsconfig: './.eslintrc.js',
   },
   {
     name: 'stylelint',
-    path: './.stylelintrc.cjs',
+    path: './stylelint.config.js',
     jsconfig: './.stylelintrc.js',
   },
   {
     name: 'commitlint',
-    path: './commitlint.config.cjs',
-    jsconfig: './.commitlint.config.js',
-  },
-  {
-    name: 'jest',
-    path: './jest.config.cjs',
-    jsconfig: './.jest.config.js',
-  },
-  {
-    name: 'postcss',
-    path: './postcss.config.cjs',
-    jsconfig: './.postcss.config.js',
+    path: './commitlint.config.js',
+    jsconfig: './.commitlintrc.js',
   },
   {
     name: 'babel',
-    path: './babel.config.cjs',
-    jsconfig: './.babel.config.js',
+    path: './babel.config.js',
+    jsconfig: './.babelrc.js',
   },
   {
     name: 'prettier',
-    path: './prettier.config.cjs',
-    jsconfig: './.prettier.config.js',
+    path: './prettier.config.js',
+    jsconfig: './.prettierrc.js',
+  },
+  {
+    name: 'jest',
+    path: './jest.config.js',
+  },
+  {
+    name: 'postcss',
+    path: './postcss.config.js',
   },
   {
     name: 'version',
-    path: './.versionrc.cjs',
-    jsconfig: './.versionrc.js',
+    path: './.versionrc.js',
   },
   {
     name: 'prettierignore',
@@ -52,9 +49,14 @@ const configFileList = [
     path: './.editorconfig',
   },
   {
-    name: 'npmconfig',
+    name: 'npmrcconfig',
     path: './.npmrc',
-    alias: './npmconfig',
+    alias: './.npmrcconfig',
+  },
+  {
+    name: 'gitignoreconfig',
+    path: './.gitignore',
+    alias: './.gitignoreconfig',
   },
 ];
 

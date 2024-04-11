@@ -1,4 +1,4 @@
-const merge = require('./configs/merge.cjs');
+import merge from '../merge.js';
 
 const configs = {
   verbose: true,
@@ -25,14 +25,16 @@ const configs = {
     '\\.(css|less)$': '<rootDir>/__mocks__/styleMock.js',
     '@app(.*)$': '<rootDir>/app/$1',
   },
-  transform: {
+  /* transform: {
     // '^.+\\.vue$': 'vue-jest',
     // '^.+\\.tsx?$': 'ts-jest',
     '^.+\\.jsx?$': 'babel-jest',
-  },
+  }, */
+  transform: {},
   transformIgnorePatterns: ['/node_modules/'],
   unmockedModulePathPatterns: ['<rootDir>/node_modules/react/', '<rootDir>/node_modules/react-dom/'],
   collectCoverage: true,
+  extensionsToTreatAsEsm: ['.jsx', '.ts'],
 };
 
-module.exports = (customCfgs = {}) => merge(configs, customCfgs);
+export default (customCfgs = {}) => merge(configs, customCfgs);

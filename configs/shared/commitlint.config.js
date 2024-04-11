@@ -15,7 +15,7 @@ conflict: 解决合并过程中
 
  */
 
-const merge = require('./configs/merge.cjs');
+import merge from '../merge.js';
 
 const configs = {
   extends: ['@commitlint/config-conventional'],
@@ -136,4 +136,4 @@ const configs = {
   },
 };
 
-module.exports = (customCfgs = {}) => merge(configs, customCfgs);
+export default (customCfgs = {}) => merge(configs, customCfgs);

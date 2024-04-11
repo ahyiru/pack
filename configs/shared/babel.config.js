@@ -1,14 +1,14 @@
-const merge = require('./configs/merge.cjs');
+import merge from '../merge.js';
 
 const configs = api => {
-  api.cache.using(() => !!process.env.isDev);
+  // api.cache.using(() => !!process.env.isDev);
 
   const presets = [
     [
       '@babel/preset-env',
       {
         // modules: 'commonjs',
-        modules: false,
+        // modules: false,
         // loose: true,
         bugfixes: true,
         useBuiltIns: 'usage',
@@ -16,6 +16,9 @@ const configs = api => {
         corejs: {
           version: 3,
           proposals: true,
+        },
+        targets: {
+          node: 'current',
         },
       },
     ],
@@ -46,10 +49,6 @@ const configs = api => {
   };
 
   return {
-    /* babelrcRoots: [
-      '.',
-      'playground/*',
-    ], */
     assumptions: {
       noDocumentAll: true,
       noClassCalls: true,
@@ -68,4 +67,4 @@ const configs = api => {
   };
 };
 
-module.exports = (customCfgs = {}) => merge(configs, customCfgs);
+export default (customCfgs = {}) => merge(configs(), customCfgs);

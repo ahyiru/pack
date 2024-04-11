@@ -13,14 +13,14 @@ const proxyCfg = proxy => ({
   },
 });
 
-const appProxy = (app, PROXY) => {
-  if (Array.isArray(PROXY)) {
-    PROXY.map(proxyItem => {
+const appProxy = (app, proxys) => {
+  if (Array.isArray(proxys)) {
+    proxys.map(proxyItem => {
       const {prefix, opts} = proxyCfg(proxyItem);
       app.use(prefix, createProxyMiddleware(opts));
     });
-  } else if (PROXY) {
-    const {prefix, opts} = proxyCfg(PROXY);
+  } else if (proxys) {
+    const {prefix, opts} = proxyCfg(proxys);
     app.use(prefix, createProxyMiddleware(opts));
   }
 };
