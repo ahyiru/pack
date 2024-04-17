@@ -58,7 +58,7 @@ const starter = async () => {
     return;
   }
   if (argvStr === 'run release') {
-    const child = spawn('standard-version', [], {stdio: 'inherit'});
+    const child = spawn('commit-and-tag-version', [], {stdio: 'inherit'});
     child.on('close', code => process.exit(code));
     return;
   }

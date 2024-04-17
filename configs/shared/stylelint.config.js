@@ -28,7 +28,8 @@ const configs = {
       },
     ],
   },
-  ignoreFiles: ['node_modules/**/*.css', 'coverage/**/*.css', '**/build/**/*.css', '**/draft/**/*.css'],
+  ignoreFiles: ['**/*.js', '**/*.jsx', 'node_modules/**/*.css', 'coverage/**/*.css', '**/build/**/*.css', '**/draft/**/*.css'],
+  // fix: true,
 };
 
 export default (customCfgs = {}) => merge(configs, customCfgs);

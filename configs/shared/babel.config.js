@@ -49,6 +49,8 @@ const configs = api => {
   };
 
   return {
+    babelrc: false,
+    configFile: false,
     assumptions: {
       noDocumentAll: true,
       noClassCalls: true,
@@ -67,4 +69,4 @@ const configs = api => {
   };
 };
 
-export default (customCfgs = {}) => merge(configs(), customCfgs);
+export default (api, customCfgs = {}) => merge(configs(api), customCfgs);

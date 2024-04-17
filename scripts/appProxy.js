@@ -1,26 +1,29 @@
 import {createProxyMiddleware} from 'http-proxy-middleware';
 
-const proxyCfg = proxy => ({
-  prefix: proxy?.prefix || '/api',
+const proxyCfg = ({prefix = '/api', url, ...rest}) => ({
+  prefix,
   opts: {
-    target: proxy?.url || proxy,
+    target: url,
     changeOrigin: true,
+    pathRewrite: {'^/': `${prefix}/`},
     // onProxyReq: (proxyReq, req, res) => {
     //   proxyReq.setHeader('clientip', req.ip);
     // },
     // xfwd: true,
-    ...(typeof proxy === 'object' ? proxy : null),
+    ...rest,
   },
 });
+
+const fixProxy = proxyItem => typeof proxyItem === 'string' ? {url: proxyItem} : proxyItem;
 
 const appProxy = (app, proxys) => {
   if (Array.isArray(proxys)) {
     proxys.map(proxyItem => {
-      const {prefix, opts} = proxyCfg(proxyItem);
+      const {prefix, opts} = proxyCfg(fixProxy(proxyItem));
       app.use(prefix, createProxyMiddleware(opts));
     });
   } else if (proxys) {
-    const {prefix, opts} = proxyCfg(proxys);
+    const {prefix, opts} = proxyCfg(fixProxy(proxys));
     app.use(prefix, createProxyMiddleware(opts));
   }
 };
