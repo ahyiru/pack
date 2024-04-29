@@ -10,8 +10,6 @@ import initConfigs from './configs/index.js';
 
 const __dirname = getDirName(import.meta.url);
 
-const startStr = ['start', 'run start', 'run dev'];
-
 const starter = async () => {
   try {
     await initConfigs();
@@ -26,18 +24,22 @@ const starter = async () => {
 
   const argvStr = argvs.join(' ');
 
-  if (startStr.includes(argvStr)) {
-    const child = spawn('node', ['--max-old-space-size=8192', resolve(huxyDir, 'scripts/index.js')], {stdio: 'inherit'});
+  const startStr = ['start', 'run start', 'run dev'].find(str => argvStr.startsWith(str));
+  if (startStr) {
+    const cmdArgs = argvStr.replace(startStr, '').split(' ').filter(Boolean);
+    const child = spawn('node', [resolve(huxyDir, 'scripts/index.js'), ...cmdArgs], {stdio: 'inherit'});
     child.on('close', code => process.exit(code));
     return;
   }
-  if (argvStr === 'run build') {
-    const child = spawn('webpack', ['--config', resolve(huxyDir, 'scripts/webpack.production.js'), '--progress'], {stdio: 'inherit'});
+  if (argvStr.startsWith('run build')) {
+    const cmdArgs = argvStr.replace('run build', '').split(' ').filter(Boolean);
+    const child = spawn('webpack', ['--config', resolve(huxyDir, 'scripts/webpack.production.js'), '--progress', ...cmdArgs], {stdio: 'inherit'});
     child.on('close', code => process.exit(code));
     return;
   }
-  if (argvStr === 'run analyze') {
-    const child = spawn('webpack', ['--config', resolve(huxyDir, 'scripts/webpack.production.js'), '--progress'], {
+  if (argvStr.startsWith('run analyze')) {
+    const cmdArgs = argvStr.replace('run analyze', '').split(' ').filter(Boolean);
+    const child = spawn('webpack', ['--config', resolve(huxyDir, 'scripts/webpack.production.js'), '--progress', ...cmdArgs], {
       stdio: 'inherit',
       env: {
         ...process.env,
@@ -47,18 +49,23 @@ const starter = async () => {
     child.on('close', code => process.exit(code));
     return;
   }
-  if (argvStr === 'run server') {
-    const child = spawn('node', [resolve(huxyDir, 'scripts/server.js')], {stdio: 'inherit'});
+  if (argvStr.startsWith('run server')) {
+    const cmdArgs = argvStr.replace('run server', '').split(' ').filter(Boolean);
+    const child = spawn('node', [resolve(huxyDir, 'scripts/server.js'), ...cmdArgs], {stdio: 'inherit'});
     child.on('close', code => process.exit(code));
     return;
   }
-  if (argvStr === 'run test') {
-    const child = spawn('jest', ['--colors', '--coverage'], {stdio: 'inherit'});
+  const testStr = ['test', 'run start'].find(str => argvStr.startsWith(str));
+  if (testStr) {
+    const cmdArgs = argvStr.replace(testStr, '').split(' ').filter(Boolean);
+    const child = spawn('jest', ['--colors', '--coverage', ...cmdArgs], {stdio: 'inherit'});
     child.on('close', code => process.exit(code));
     return;
   }
-  if (argvStr === 'run release') {
-    const child = spawn('commit-and-tag-version', [], {stdio: 'inherit'});
+  const releaseStr = ['release', 'run release'].find(str => argvStr.startsWith(str));
+  if (releaseStr) {
+    const cmdArgs = argvStr.replace(releaseStr, '').split(' ').filter(Boolean);
+    const child = spawn('commit-and-tag-version', cmdArgs, {stdio: 'inherit'});
     child.on('close', code => process.exit(code));
     return;
   }

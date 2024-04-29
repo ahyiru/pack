@@ -35,8 +35,8 @@ const plugins = [
       buildTime: +new Date(),
       ...envConfigs,
     },
-    EMAIL: JSON.stringify('ah.yiru@gmail.com'),
-    VERSION: JSON.stringify('2.x.x'),
+    EMAIL: 'ah.yiru@gmail.com',
+    VERSION: '2.x.x',
   }),
   new GenerateSW({
     // importWorkboxFrom: 'local',

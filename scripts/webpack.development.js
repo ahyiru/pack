@@ -1,6 +1,5 @@
 import path from 'node:path';
 import webpack from 'webpack';
-import {EsbuildPlugin} from 'esbuild-loader';
 import {merge} from 'webpack-merge';
 import OpenBrowserWebpackPlugin from '@huxy/open-browser-webpack-plugin';
 
@@ -108,9 +107,9 @@ const devConfigs = {
         buildTime: +new Date(),
         ...envConfigs,
       },
-      isDev: JSON.stringify(true),
-      EMAIL: JSON.stringify('ah.yiru@gmail.com'),
-      VERSION: JSON.stringify('2.x.x'),
+      isDev: true,
+      EMAIL: 'ah.yiru@gmail.com',
+      VERSION: '2.x.x',
     }),
     new OpenBrowserWebpackPlugin({target: `${HOST}:${PORT}`}),
   ],
