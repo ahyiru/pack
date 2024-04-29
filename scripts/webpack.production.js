@@ -42,15 +42,15 @@ const plugins = [
   }), */
   new EsbuildPlugin({
     define: {
-      'process.env': {
-        configs: JSON.stringify({
+      'process.env': JSON.stringify({
+        configs: {
           browserRouter: true,
           basepath: prodRoot,
           PROXY,
           buildTime: +new Date(),
           ...envConfigs,
-        }),
-      },
+        },
+      }),
       EMAIL: JSON.stringify('ah.yiru@gmail.com'),
       VERSION: JSON.stringify('2.x.x'),
     },

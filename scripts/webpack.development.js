@@ -116,15 +116,15 @@ const devConfigs = {
     }), */
     new EsbuildPlugin({
       define: {
-        'process.env': {
-          configs: JSON.stringify({
+        'process.env': JSON.stringify({
+          configs: {
             browserRouter: false,
             basepath: devRoot,
             PROXY,
             buildTime: +new Date(),
             ...envConfigs,
-          }),
-        },
+          },
+        }),
         isDev: true,
         EMAIL: JSON.stringify('ah.yiru@gmail.com'),
         VERSION: JSON.stringify('2.x.x'),
