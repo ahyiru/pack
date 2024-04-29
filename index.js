@@ -27,7 +27,7 @@ const starter = async () => {
   const argvStr = argvs.join(' ');
 
   if (startStr.includes(argvStr)) {
-    const child = spawn('node', [resolve(huxyDir, 'scripts/index.js')], {stdio: 'inherit'});
+    const child = spawn('node', ['--max-old-space-size=8192', resolve(huxyDir, 'scripts/index.js')], {stdio: 'inherit'});
     child.on('close', code => process.exit(code));
     return;
   }

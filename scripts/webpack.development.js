@@ -100,35 +100,17 @@ const devConfigs = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    /* new webpack.DefinePlugin({
-        'process.env': {
-          configs: JSON.stringify({
-            browserRouter: false,
-            basepath: devRoot,
-            PROXY,
-            buildTime: +new Date(),
-            ...envConfigs,
-          }),
-        },
-        isDev: true,
-        EMAIL: JSON.stringify('ah.yiru@gmail.com'),
-        VERSION: JSON.stringify('2.x.x'),
-    }), */
-    new EsbuildPlugin({
-      define: {
-        'process.env': JSON.stringify({
-          configs: {
-            browserRouter: false,
-            basepath: devRoot,
-            PROXY,
-            buildTime: +new Date(),
-            ...envConfigs,
-          },
-        }),
-        isDev: true,
-        EMAIL: JSON.stringify('ah.yiru@gmail.com'),
-        VERSION: JSON.stringify('2.x.x'),
+    new webpack.EnvironmentPlugin({
+      configs: {
+        browserRouter: false,
+        basepath: devRoot,
+        PROXY,
+        buildTime: +new Date(),
+        ...envConfigs,
       },
+      isDev: JSON.stringify(true),
+      EMAIL: JSON.stringify('ah.yiru@gmail.com'),
+      VERSION: JSON.stringify('2.x.x'),
     }),
     new OpenBrowserWebpackPlugin({target: `${HOST}:${PORT}`}),
   ],

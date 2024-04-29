@@ -27,33 +27,16 @@ const plugins = [
     chunkFilename: 'css/[id]_[name]_[contenthash:8].css',
     // publicPath:'../',
   }),
-  /* new webpack.DefinePlugin({
-    'process.env': {
-      configs: JSON.stringify({
-        browserRouter: true,
-        basepath: prodRoot,
-        PROXY,
-        buildTime: +new Date(),
-        ...envConfigs,
-      }),
+  new webpack.EnvironmentPlugin({
+    configs: {
+      browserRouter: true,
+      basepath: prodRoot,
+      PROXY,
+      buildTime: +new Date(),
+      ...envConfigs,
     },
     EMAIL: JSON.stringify('ah.yiru@gmail.com'),
     VERSION: JSON.stringify('2.x.x'),
-  }), */
-  new EsbuildPlugin({
-    define: {
-      'process.env': JSON.stringify({
-        configs: {
-          browserRouter: true,
-          basepath: prodRoot,
-          PROXY,
-          buildTime: +new Date(),
-          ...envConfigs,
-        },
-      }),
-      EMAIL: JSON.stringify('ah.yiru@gmail.com'),
-      VERSION: JSON.stringify('2.x.x'),
-    },
   }),
   new GenerateSW({
     // importWorkboxFrom: 'local',
