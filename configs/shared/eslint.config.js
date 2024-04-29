@@ -17,20 +17,20 @@ const configs = (customCfgs = []) => [
       sourceType: 'module',
       // parser: babelParser,
       parserOptions: {
-        requireConfigFile: false,
         ecmaFeatures: {
           jsx: true,
         },
+        requireConfigFile: false,
         babelOptions: {
           babelrc: false,
           configFile: false,
-          presets: ['@babel/preset-react'],
+          presets: ['@babel/preset-react'], // '@babel/preset-env',
         },
       },
       globals: {
         ...globals.browser,
-        ...globals.commonjs,
-        ...globals.es2021,
+        // ...globals.commonjs,
+        // ...globals.es2021,
         ...globals.node,
         ...globals.jest,
         ...globals.serviceworker,
@@ -38,8 +38,11 @@ const configs = (customCfgs = []) => [
         SharedArrayBuffer: 'readonly',
       },
     },
-  },
-  {
+    files: ['**/*.{js,jsx}'],
+    plugins: {
+      react: reactPlugin,
+      'react-hooks': reactHooksPlugin,
+    },
     rules: {
       'strict': [2, 'never'],
       'eqeqeq': [1, 'smart'],
@@ -55,15 +58,8 @@ const configs = (customCfgs = []) => [
       'no-constant-condition': [2, {checkLoops: false}],
       'no-undef': 2,
       'no-restricted-globals': [2, 'event'],
-    },
-  },
-  {
-    files: ['**/*.jsx'],
-    plugins: {
-      react: reactPlugin,
-      'react-hooks': reactHooksPlugin,
-    },
-    rules: {
+
+      'react/jsx-key': 2,
       'react/jsx-pascal-case': 1,
       'react/self-closing-comp': 2,
       // 'react/require-render-return': 2,
@@ -71,18 +67,15 @@ const configs = (customCfgs = []) => [
       // 'react/jsx-no-undef': 2,
       
       'react-hooks/rules-of-hooks': 2,
-      // 'react-hooks/exhaustive-deps': 1,
+      'react-hooks/exhaustive-deps': 1,
+    },
+    settings: {
+      react: {
+        pragma: 'React',
+        version: 'detect',
+      },
     },
   },
-  // {
-  //   settings: {
-  //     'import/ignore': ['**/node_modules/', 'coverage/', '**/build/', '**/draft/'],
-  //     react: {
-  //       pragma: 'React',
-  //       version: 'detect',
-  //     },
-  //   },
-  // },
 ];
 
 export default configs;

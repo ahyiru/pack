@@ -27,7 +27,7 @@ const plugins = [
     chunkFilename: 'css/[id]_[name]_[contenthash:8].css',
     // publicPath:'../',
   }),
-  new webpack.DefinePlugin({
+  /* new webpack.DefinePlugin({
     'process.env': {
       configs: JSON.stringify({
         browserRouter: true,
@@ -39,6 +39,21 @@ const plugins = [
     },
     EMAIL: JSON.stringify('ah.yiru@gmail.com'),
     VERSION: JSON.stringify('2.x.x'),
+  }), */
+  new EsbuildPlugin({
+    define: {
+      'process.env': {
+        configs: JSON.stringify({
+          browserRouter: true,
+          basepath: prodRoot,
+          PROXY,
+          buildTime: +new Date(),
+          ...envConfigs,
+        }),
+      },
+      EMAIL: JSON.stringify('ah.yiru@gmail.com'),
+      VERSION: JSON.stringify('2.x.x'),
+    },
   }),
   new GenerateSW({
     // importWorkboxFrom: 'local',
@@ -198,7 +213,7 @@ const prodConfigs = {
     minimize: true,
     providedExports: true,
     usedExports: true,
-    concatenateModules: false,
+    concatenateModules: true,
     sideEffects: true,
     runtimeChunk: false,
     moduleIds: 'deterministic',

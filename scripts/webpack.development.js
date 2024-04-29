@@ -1,5 +1,6 @@
 import path from 'node:path';
 import webpack from 'webpack';
+import {EsbuildPlugin} from 'esbuild-loader';
 import {merge} from 'webpack-merge';
 import OpenBrowserWebpackPlugin from '@huxy/open-browser-webpack-plugin';
 
@@ -99,19 +100,35 @@ const devConfigs = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.DefinePlugin({
-      'process.env': {
-        configs: JSON.stringify({
-          browserRouter: false,
-          basepath: devRoot,
-          PROXY,
-          buildTime: +new Date(),
-          ...envConfigs,
-        }),
+    /* new webpack.DefinePlugin({
+        'process.env': {
+          configs: JSON.stringify({
+            browserRouter: false,
+            basepath: devRoot,
+            PROXY,
+            buildTime: +new Date(),
+            ...envConfigs,
+          }),
+        },
+        isDev: true,
+        EMAIL: JSON.stringify('ah.yiru@gmail.com'),
+        VERSION: JSON.stringify('2.x.x'),
+    }), */
+    new EsbuildPlugin({
+      define: {
+        'process.env': {
+          configs: JSON.stringify({
+            browserRouter: false,
+            basepath: devRoot,
+            PROXY,
+            buildTime: +new Date(),
+            ...envConfigs,
+          }),
+        },
+        isDev: true,
+        EMAIL: JSON.stringify('ah.yiru@gmail.com'),
+        VERSION: JSON.stringify('2.x.x'),
       },
-      isDev: true,
-      EMAIL: JSON.stringify('ah.yiru@gmail.com'),
-      VERSION: JSON.stringify('2.x.x'),
     }),
     new OpenBrowserWebpackPlugin({target: `${HOST}:${PORT}`}),
   ],

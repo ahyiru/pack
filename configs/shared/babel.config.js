@@ -17,9 +17,6 @@ const configs = api => {
           version: 3,
           proposals: true,
         },
-        targets: {
-          node: 'current',
-        },
       },
     ],
     [
@@ -59,6 +56,7 @@ const configs = api => {
       setPublicClassFields: true,
     },
     targets: {
+      node: 'current',
       browsers: process.env.isDev ? ['last 2 versions'] : ['>0.3%', 'not dead', 'not op_mini all'],
       esmodules: true,
     },

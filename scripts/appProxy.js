@@ -6,8 +6,10 @@ const proxyCfg = ({prefix = '/api', url, ...rest}) => ({
     target: url,
     changeOrigin: true,
     pathRewrite: {'^/': `${prefix}/`},
-    // onProxyReq: (proxyReq, req, res) => {
-    //   proxyReq.setHeader('clientip', req.ip);
+    // on: {
+    //   proxyReq: (proxyReq, req, res) => {
+    //     proxyReq.setHeader('clientip', req.ip);
+    //   },
     // },
     // xfwd: true,
     ...rest,
