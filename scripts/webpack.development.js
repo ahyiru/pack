@@ -99,17 +99,18 @@ const devConfigs = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.EnvironmentPlugin({
-      configs: {
-        browserRouter: false,
-        basepath: devRoot,
-        PROXY,
-        buildTime: +new Date(),
-        ...envConfigs,
-      },
-      isDev: true,
-      EMAIL: 'ah.yiru@gmail.com',
-      VERSION: '2.x.x',
+    new webpack.DefinePlugin({
+      'process.env': JSON.stringify({
+        configs: {
+          basepath: devRoot,
+          PROXY,
+          buildTime: +new Date(),
+          ...envConfigs,
+        },
+        isDev: true,
+      }),
+      EMAIL: JSON.stringify('ah.yiru@gmail.com'),
+      VERSION: JSON.stringify('2.x.x'),
     }),
     new OpenBrowserWebpackPlugin({target: `${HOST}:${PORT}`}),
   ],
