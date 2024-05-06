@@ -36,6 +36,7 @@ const plugins = [
         buildTime: +new Date(),
         ...envConfigs,
       },
+      NODE_ENV: JSON.stringify('production'),
     }),
     EMAIL: JSON.stringify('ah.yiru@gmail.com'),
     VERSION: JSON.stringify('2.x.x'),

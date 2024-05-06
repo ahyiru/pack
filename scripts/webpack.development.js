@@ -7,8 +7,6 @@ const webpackBaseConfigs = (await import('./webpack.config.js')).default;
 
 const {rootDir, HOST, PORT, PROXY, envConfigs, devRoot, webpackDevCfg} = (await import('./envConfigs.js')).default;
 
-process.env.isDev = true;
-
 const devConfigs = {
   mode: 'development',
   devtool: 'eval-cheap-module-source-map',
@@ -108,6 +106,7 @@ const devConfigs = {
           ...envConfigs,
         },
         isDev: true,
+        NODE_ENV: JSON.stringify('development'),
       }),
       EMAIL: JSON.stringify('ah.yiru@gmail.com'),
       VERSION: JSON.stringify('2.x.x'),
