@@ -28,6 +28,7 @@ const configs = api => {
   ];
 
   const plugins = [
+    // ['babel-plugin-react-compiler', {}],
     [
       '@babel/plugin-transform-runtime',
       {
@@ -54,6 +55,7 @@ const configs = api => {
       iterableIsArray: true,
       privateFieldsAsProperties: true,
       setPublicClassFields: true,
+      // reactCompiler: true,
     },
     targets: {
       node: 'current',

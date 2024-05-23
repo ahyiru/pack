@@ -57,4 +57,7 @@ dist
 build
 
 # redis
- *.rdb
+*.rdb
+
+# pycache
+__pycache__

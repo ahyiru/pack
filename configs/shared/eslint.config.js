@@ -4,6 +4,7 @@ import reactPlugin from 'eslint-plugin-react';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
 import js from "@eslint/js";
 import globals from "globals";
+import {fixupPluginRules} from '@eslint/compat';
 
 const configs = (customCfgs = []) => [
   js.configs.recommended,
@@ -40,7 +41,7 @@ const configs = (customCfgs = []) => [
     },
     files: ['**/*.{js,jsx}'],
     plugins: {
-      react: reactPlugin,
+      react: fixupPluginRules(reactPlugin),
       'react-hooks': reactHooksPlugin,
     },
     rules: {
@@ -62,9 +63,9 @@ const configs = (customCfgs = []) => [
       'react/jsx-key': 2,
       'react/jsx-pascal-case': 1,
       'react/self-closing-comp': 2,
-      // 'react/require-render-return': 2,
-      // 'react/jsx-uses-vars': 2,
-      // 'react/jsx-no-undef': 2,
+      'react/require-render-return': 2,
+      'react/jsx-uses-vars': 2,
+      'react/jsx-no-undef': 2,
       
       'react-hooks/rules-of-hooks': 2,
       'react-hooks/exhaustive-deps': 1,
