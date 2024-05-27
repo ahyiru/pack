@@ -55,7 +55,7 @@ const starter = async () => {
     child.on('close', code => process.exit(code));
     return;
   }
-  const testStr = ['test', 'run start'].find(str => argvStr.startsWith(str));
+  const testStr = ['test', 'run test', 'run jest'].find(str => argvStr.startsWith(str));
   if (testStr) {
     const cmdArgs = argvStr.replace(testStr, '').split(' ').filter(Boolean);
     const child = spawn('jest', ['--colors', '--coverage', ...cmdArgs], {stdio: 'inherit'});
