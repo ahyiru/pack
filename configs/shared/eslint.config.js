@@ -2,6 +2,7 @@
 // import babelPlugin from '@babel/eslint-plugin';
 import reactPlugin from 'eslint-plugin-react';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
+import reactCompilerPlugin from 'eslint-plugin-react-compiler';
 import js from "@eslint/js";
 import globals from "globals";
 import {fixupPluginRules} from '@eslint/compat';
@@ -43,6 +44,7 @@ const configs = (customCfgs = []) => [
     plugins: {
       react: fixupPluginRules(reactPlugin),
       'react-hooks': reactHooksPlugin,
+      'react-compiler': reactCompilerPlugin,
     },
     rules: {
       'strict': [2, 'never'],
@@ -69,6 +71,8 @@ const configs = (customCfgs = []) => [
       
       'react-hooks/rules-of-hooks': 2,
       'react-hooks/exhaustive-deps': 1,
+
+      'react-compiler/react-compiler': 2,
     },
     settings: {
       react: {
