@@ -67,7 +67,7 @@
     "@huxy/commit-and-tag-version": "^12.4.1",
     "@huxy/copy-file-webpack-plugin": "^1.1.5",
     "@huxy/open-browser-webpack-plugin": "^1.1.3",
-    "@huxy/utils": "^2.1.12",
+    "@huxy/utils": "^2.1.13",
     "autoprefixer": "^10.4.19",
     "babel-loader": "^9.1.3",
     "babel-plugin-react-compiler": "0.0.0-experimental-696af53-20240625",
