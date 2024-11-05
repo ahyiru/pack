@@ -208,6 +208,7 @@ const prodConfigs = {
   module: {
     rules: [
       {
+        type: 'javascript/auto',
         test: /\.css$/,
         use: [
           {
@@ -237,6 +238,7 @@ const prodConfigs = {
         // exclude: [/node_modules/],
       },
       {
+        type: 'javascript/auto',
         test: /\.less$/,
         use: [
           {

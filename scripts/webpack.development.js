@@ -17,6 +17,7 @@ const devConfigs = {
   module: {
     rules: [
       {
+        type: 'javascript/auto',
         test: /\.css$/,
         use: [
           'style-loader',
@@ -38,6 +39,7 @@ const devConfigs = {
         // exclude: [/node_modules/],
       },
       {
+        type: 'javascript/auto',
         test: /\.less$/,
         use: [
           'style-loader',
