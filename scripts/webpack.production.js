@@ -84,12 +84,16 @@ const prodConfigs = {
   mode: 'production',
   // devtool:'nosources-source-map',
   cache: false,
+  experiments: {
+    outputModule: true,
+  },
   output: {
     clean: true,
     path: buildPath,
     publicPath: `${prodRoot}/`,
     filename: 'js/[name]_[contenthash:8].js',
     chunkFilename: 'js/[name]_[chunkhash:8].chunk.js',
+    module: true,
   },
   optimization: {
     splitChunks: {

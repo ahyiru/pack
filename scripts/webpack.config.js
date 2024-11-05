@@ -157,8 +157,7 @@ const baseConfigs = {
   experiments: {
     futureDefaults: true,
     topLevelAwait: true,
-    outputModule: true,
-    syncWebAssembly: true,
+    // outputModule: true,
     asyncWebAssembly: true,
     layers: true,
     // lazyCompilation: true,
@@ -173,7 +172,7 @@ const baseConfigs = {
     path: buildPath,
     publicPath: `${devRoot}/`,
     filename: 'js/[name].js',
-    module: true,
+    // module: true,
   },
   optimization: {
     splitChunks: false,
