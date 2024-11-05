@@ -1,6 +1,6 @@
 {
   "name": "@huxy/pack",
-  "version": "1.6.8-8",
+  "version": "1.6.8",
   "title": "scripts",
   "feature": "0.0.1",
   "hooks": "0.0.1",
@@ -76,6 +76,7 @@
     "compression": "^1.7.5",
     "cors": "^2.8.5",
     "css-loader": "^7.1.2",
+    "esbuild": "^0.24.0",
     "esbuild-loader": "^4.2.2",
     "eslint": "^9.14.0",
     "eslint-plugin-react": "^7.37.2",

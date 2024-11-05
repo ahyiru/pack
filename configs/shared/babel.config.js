@@ -14,7 +14,7 @@ const configs = api => {
         useBuiltIns: 'usage',
         shippedProposals: true,
         corejs: {
-          version: 3,
+          version: '3.39',
           proposals: true,
         },
       },

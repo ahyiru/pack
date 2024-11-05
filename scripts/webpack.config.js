@@ -2,6 +2,7 @@ import path from 'node:path';
 // import {fileURLToPath} from 'node:url';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import {merge} from 'webpack-merge';
+import esbuild from 'esbuild';
 
 const {rootDir, appPath, publics, projectName, buildPath, devRoot, webpackCfg} = (await import('./envConfigs.js')).default;
 
@@ -18,6 +19,7 @@ const htmlPlugin = () =>
     template: templ,
     favicon: icon,
     inject: true,
+    scriptLoading: 'module',
     minify: {
       html5: true,
       collapseWhitespace: true,
@@ -56,7 +58,7 @@ const rules = [
       target: 'esnext',
       jsx: 'automatic',
       tsconfigRaw: {},
-      // implementation: esbuild,
+      implementation: esbuild,
     },
     exclude: [/node_modules/],
   },
@@ -153,11 +155,12 @@ const baseConfigs = {
     }, */
   },
   experiments: {
+    futureDefaults: true,
     topLevelAwait: true,
     outputModule: true,
-    // syncWebAssembly: true,
-    // asyncWebAssembly: true,
-    // layers: true,
+    syncWebAssembly: true,
+    asyncWebAssembly: true,
+    layers: true,
     // lazyCompilation: true,
   },
   node: {
@@ -170,6 +173,7 @@ const baseConfigs = {
     path: buildPath,
     publicPath: `${devRoot}/`,
     filename: 'js/[name].js',
+    module: true,
   },
   optimization: {
     splitChunks: false,
