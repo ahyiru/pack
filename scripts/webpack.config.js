@@ -23,18 +23,13 @@ const htmlPlugin = () =>
     minify: {
       html5: true,
       collapseWhitespace: true,
-      // conservativeCollapse: true,
-      removeScriptTypeAttributes: true,
-      removeStyleLinkTypeAttributes: true,
+      keepClosingSlash: true,
       removeComments: true,
-      removeTagWhitespace: true,
       removeEmptyAttributes: true,
       removeRedundantAttributes: true,
+      removeScriptTypeAttributes: true,
+      removeStyleLinkTypeAttributes: true,
       useShortDoctype: true,
-      keepClosingSlash: true,
-      minifyJS: true,
-      minifyCSS: true,
-      minifyURLs: true,
     },
   });
 
