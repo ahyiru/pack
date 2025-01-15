@@ -27,6 +27,7 @@ const configs = {
         ignoreTypes: ['/^page/'],
       },
     ],
+    'declaration-property-value-no-unknown': null,
   },
   ignoreFiles: ['**/*.js', '**/*.jsx', 'node_modules/**/*.css', 'coverage/**/*.css', '**/build/**/*.css', '**/draft/**/*.css'],
   // fix: true,
