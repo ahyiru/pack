@@ -62,7 +62,7 @@ if (typeof nodeServer === 'function' ) {
 }
 
 // browserRouter
-app.get('*', (req, res, next) => {
+app.get('/{*splat}', (req, res, next) => {
   const htmlBuffer = compiler.outputFileSystem.readFileSync(`${webpackConfig.output.path}/index.html`);
   res.set('Content-Type', 'text/html');
   res.send(htmlBuffer);

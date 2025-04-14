@@ -37,7 +37,7 @@ if (typeof nodeServer === 'function' ) {
 }
 
 app.use(prodRoot || '/', express.static(buildPath));
-app.get(`${prodRoot}/*`, (request, response) => {
+app.get(`${prodRoot}/{*splat}`, (request, response) => {
   response.sendFile(path.resolve(buildPath, 'index.html'));
 });
 
