@@ -15,16 +15,17 @@ import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 
 import pathToURL from './pathToURL.js';
-
 import getIPs from './getIPs.js';
-
 import appProxy from './appProxy.js';
+import getArgs from './getArgs.js';
 
 const webpackConfig = (await import('./webpack.development.js')).default;
 
 const {appName, HOST, PORT, PROXY, configsPath} = (await import('./envConfigs.js')).default;
 
 const {nodeServer} = (await import(pathToURL(configsPath))).default;
+
+const argvParams = getArgs();
 
 const app = express();
 
@@ -49,7 +50,7 @@ app.use(webpackHotMiddleware(compiler));
 app.use(devMiddleware);
 
 app.set('host', HOST);
-app.set('port', PORT);
+app.set('port', argvParams.port ?? PORT);
 
 app.use(cors());
 app.use(logger('dev'));

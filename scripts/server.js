@@ -10,12 +10,14 @@ import {createServer} from 'node:http';
 // import fs from 'node:fs';
 
 import pathToURL from './pathToURL.js';
-
 import appProxy from './appProxy.js';
+import getArgs from './getArgs.js';
 
 const {HOST, PROD_PORT, buildPath, PROXY, prodRoot, configsPath} = (await import('./envConfigs.js')).default;
 
 const {nodeServer} = (await import(pathToURL(configsPath))).default;
+
+const argvParams = getArgs();
 
 const app = express();
 
@@ -24,7 +26,7 @@ const httpServer = createServer(app);
 appProxy(app, PROXY);
 
 app.set('host', HOST);
-app.set('port', PROD_PORT);
+app.set('port', argvParams.port ?? PROD_PORT);
 
 app.use(cors());
 app.use(logger('combined'));
