@@ -71,6 +71,10 @@ const starter = async () => {
   }
 
   const cmd = argvs[0];
+  if (!cmd) {
+    console.error('未传入命令');
+    return;
+  }
   const params = argvs.slice(1);
 
   const child = spawn(cmd, params, {stdio: 'inherit'});

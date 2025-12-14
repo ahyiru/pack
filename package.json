@@ -1,6 +1,6 @@
 {
   "name": "@huxy/pack",
-  "version": "1.7.12",
+  "version": "1.7.15",
   "title": "scripts",
   "feature": "0.0.1",
   "hooks": "0.0.1",
@@ -23,7 +23,7 @@
     "configs"
   ],
   "sideEffects": false,
-  "module": "./index.js",
+  "module": "./bin/huxy.js",
   "exports": {
     ".": "./index.js",
     "./package.json": "./package.json",
@@ -80,8 +80,6 @@
     "esbuild-loader": "^4.4.0",
     "eslint": "^9.39.2",
     "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-compiler": "^19.1.0-rc.2",
-    "eslint-plugin-react-hooks": "^7.0.1",
     "express": "^5.2.1",
     "file-loader": "^6.2.0",
     "fs-extra": "^11.3.2",
