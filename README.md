@@ -46,7 +46,7 @@ const webpack = { // webpack 配置
   },
 };
 
-const nodeServer = app => { // 本地 nodejs 服务配置
+const nodeServer = (config, app) => { // 本地 nodejs 服务配置
   app.get('/local/test', (req, res, next) => {
     console.log(req);
   });
@@ -127,3 +127,7 @@ npm i -D @huxy/pack
 然后在 `package.json` 里面创建上面运行命令里的 `scripts` ，就可运行了。
 
 ***版本 0.6+ 使用了 `esmodule`，只需在 `package.json` 里面设置 `"type": "module"` 即可。***
+
+## [huxy-server](https://www.npmjs.com/package/huxy-server) 
+
+v2.0.0使用 [huxy-server](https://www.npmjs.com/package/huxy-server) 服务。也可自行使用 `huxy-server` 来创建服务。
