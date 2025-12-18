@@ -8,7 +8,7 @@ const app = {
   // PROD_ROOT_DIR: '/huxy', // 生产环境 basepath
   projectName: 'XX平台', // 名称，页面初始化 title
   /* PROXY: { // 代理配置
-    url: 'http://127.0.0.1:9000',
+    target: 'http://127.0.0.1:9000',
     prefix: '/api',
   }, */
   envConfigs: { // 全局环境变量

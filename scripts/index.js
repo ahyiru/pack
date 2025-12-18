@@ -1,4 +1,4 @@
-import startApp from 'huxy-server';
+import startApp, {logger} from 'huxy-server';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
@@ -35,12 +35,9 @@ const startDev = (config, app, httpServer) => {
     res.end();
   });
 
+  logger.info(`正在构建中, 请稍后...构建完成后将自动打开浏览器。`);
+
   nodeServer?.(config, app, httpServer);
 };
 
-startApp({
-  config: {appName, HOST, PORT},
-  proxyConfig: {
-    proxys: PROXY,
-  },
-}, startDev);
+startApp({appName, HOST, PORT, proxys: PROXY}, startDev);

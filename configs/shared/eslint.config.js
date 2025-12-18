@@ -5,9 +5,9 @@ import {defineConfig} from 'eslint/config';
 import globals from "globals";
 
 const configs = (customCfgs = []) => defineConfig([
-  reactPlugin.configs.flat.recommended,
-  reactHooks.configs.flat['recommended-latest'],
-  reactCompiler.configs.recommended,
+  // reactPlugin.configs.flat.recommended,
+  // reactHooks.configs.flat['recommended-latest'],
+  // reactCompiler.configs.recommended,
   {
     ignores: ['**/node_modules/', 'coverage/', '**/build/', '**/draft/'],
   },
@@ -40,9 +40,9 @@ const configs = (customCfgs = []) => defineConfig([
     },
     files: ['**/*.{js,jsx}'],
     plugins: {
-      // react: reactPlugin,
-      // 'react-hooks': reactHooks,
-      // 'react-compiler': reactCompiler,
+      react: reactPlugin,
+      'react-hooks': reactHooks,
+      'react-compiler': reactCompiler,
     },
     rules: {
       'strict': [2, 'never'],
@@ -60,17 +60,17 @@ const configs = (customCfgs = []) => defineConfig([
       'no-undef': 2,
       'no-restricted-globals': [2, 'event'],
 
-//       'react/jsx-key': 2,
-//       'react/jsx-pascal-case': 1,
-//       'react/self-closing-comp': 2,
-//       'react/require-render-return': 2,
-//       'react/jsx-uses-vars': 2,
-//       'react/jsx-no-undef': 2,
-//       
-//       'react-hooks/rules-of-hooks': 2,
-//       'react-hooks/exhaustive-deps': 1,
-// 
-//       'react-compiler/react-compiler': 2,
+      'react/jsx-key': 2,
+      'react/jsx-pascal-case': 1,
+      'react/self-closing-comp': 2,
+      'react/require-render-return': 2,
+      'react/jsx-uses-vars': 2,
+      'react/jsx-no-undef': 2,
+   
+      'react-hooks/rules-of-hooks': 2,
+      'react-hooks/exhaustive-deps': 1,
+
+      'react-compiler/react-compiler': 2,
     },
     settings: {
       react: {

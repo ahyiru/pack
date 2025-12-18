@@ -113,7 +113,7 @@ const devConfigs = {
       EMAIL: JSON.stringify('ah.yiru@gmail.com'),
       VERSION: JSON.stringify('2.x.x'),
     }),
-    new OpenBrowserWebpackPlugin({target: `${HOST}:${PORT}`}),
+    new OpenBrowserWebpackPlugin({target: `http://${HOST}:${PORT}`}),
   ],
 };
 

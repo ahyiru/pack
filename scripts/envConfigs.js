@@ -29,7 +29,7 @@ const {dev, prod, ...rest} = webpackCfg;
 const userConfigs = {
   rootDir,
   appName,
-  HOST: HOST || 'http://localhost',
+  HOST: HOST || 'localhost',
   PORT: PORT || 8080,
   PROD_PORT: PROD_PORT || 8081,
   PROXY,
