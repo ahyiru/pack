@@ -5,7 +5,7 @@ import webpackHotMiddleware from 'webpack-hot-middleware';
 
 const webpackConfig = (await import('./webpack.development.js')).default;
 
-const startDev = (config, app, httpServer) => {
+const startDev = nodeServer => (config, app, httpServer) => {
   const compiler = webpack(webpackConfig);
 
   const devMiddleware = webpackDevMiddleware(compiler, {

@@ -12,6 +12,6 @@ const startApp = isDev => startStaticApp({
   appName, HOST, buildPath, proxys: PROXY,
   port: isDev ? PORT : PROD_PORT,
   basepath: isDev ? devRoot : prodRoot,
-}, isDev ? startDev : nodeServer);
+}, isDev ? startDev(nodeServer) : nodeServer);
 
 export default startApp;
