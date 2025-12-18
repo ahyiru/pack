@@ -1,4 +1,4 @@
-import {startStaticApp} from 'huxy-server';
+import {startApp, startStaticApp} from 'huxy-server';
 
 import pathToURL from './pathToURL.js';
 
@@ -8,10 +8,13 @@ const {appName, HOST, PORT, PROD_PORT, buildPath, PROXY, devRoot, prodRoot, conf
 
 const {nodeServer} = (await import(pathToURL(configsPath))).default;
 
-const startApp = isDev => startStaticApp({
-  appName, HOST, buildPath, proxys: PROXY,
-  port: isDev ? PORT : PROD_PORT,
-  basepath: isDev ? devRoot : prodRoot,
-}, isDev ? startDev(nodeServer) : nodeServer);
+const startServer = isDev => {
+  const server = isDev ? startApp : startStaticApp;
+  return server({
+    appName, HOST, buildPath, proxys: PROXY,
+    port: isDev ? PORT : PROD_PORT,
+    basepath: isDev ? devRoot : prodRoot,
+  }, isDev ? startDev(nodeServer) : nodeServer);
+};
 
-export default startApp;
+export default startServer;

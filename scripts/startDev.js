@@ -22,6 +22,13 @@ const startDev = nodeServer => (config, app, httpServer) => {
   app.use(webpackHotMiddleware(compiler));
   app.use(devMiddleware);
 
+  app.get('/{*splat}', (req, res, next) => {
+    const htmlBuffer = compiler.outputFileSystem.readFileSync(`${webpackConfig.output.path}/index.html`);
+    res.set('Content-Type', 'text/html');
+    res.send(htmlBuffer);
+    res.end();
+  });
+
   logger.info(`正在构建中, 请稍后...构建完成后将自动打开浏览器。`);
 
   nodeServer?.(config, app, httpServer);
