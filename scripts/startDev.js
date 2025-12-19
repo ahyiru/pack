@@ -1,11 +1,10 @@
-import {logger} from 'huxy-server';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 
 const webpackConfig = (await import('./webpack.development.js')).default;
 
-const startDev = nodeServer => (config, app, httpServer) => {
+const startDev = nodeServer => (config, app, httpServer, logger) => {
   const compiler = webpack(webpackConfig);
 
   const devMiddleware = webpackDevMiddleware(compiler, {
