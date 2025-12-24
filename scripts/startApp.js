@@ -2,13 +2,12 @@ import {startApp, startStaticApp} from 'huxy-server';
 
 import pathToURL from './pathToURL.js';
 
+import getEnvConfigs from './envConfigs.js';
 import startDev from './startDev.js';
 
-const {appName, HOST, PORT, PROD_PORT, buildPath, PROXY, devRoot, prodRoot, configsPath} = (await import('./envConfigs.js')).default;
+const startServer = async isDev => {
+  const {appName, HOST, PORT, PROD_PORT, buildPath, PROXY, devRoot, prodRoot, nodeServer} = await getEnvConfigs();
 
-const {nodeServer} = (await import(pathToURL(configsPath))).default;
-
-const startServer = isDev => {
   const server = isDev ? startApp : startStaticApp;
   return server({
     appName, HOST, buildPath, proxys: PROXY,

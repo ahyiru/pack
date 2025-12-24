@@ -2,9 +2,10 @@ import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 
-const webpackConfig = (await import('./webpack.development.js')).default;
+import webpackDevConfigs from './webpack.development.js';
 
-const startDev = nodeServer => (config, app, httpServer, logger) => {
+const startDev = nodeServer => async (config, app, httpServer, logger) => {
+  const webpackConfig = await webpackDevConfigs(config);
   const compiler = webpack(webpackConfig);
 
   const devMiddleware = webpackDevMiddleware(compiler, {

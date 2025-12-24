@@ -128,6 +128,6 @@ npm i -D @huxy/pack
 
 ***版本 0.6+ 使用了 `esmodule`，只需在 `package.json` 里面设置 `"type": "module"` 即可。***
 
-## [huxy-server](https://www.npmjs.com/package/huxy-server) 
+## [huxy-server](https://www.npmjs.com/package/huxy-server)
 
-v2.0.0使用 [huxy-server](https://www.npmjs.com/package/huxy-server) 服务。也可自行使用 `huxy-server` 来创建服务。
+v2.0.0 使用了 [huxy-server](https://www.npmjs.com/package/huxy-server) 服务，也可自行使用 `huxy-server` 来创建服务，详情请查看 [huxy-server](https://www.npmjs.com/package/huxy-server) 。
