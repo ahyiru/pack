@@ -6,6 +6,7 @@ import getEnvConfigs from './envConfigs.js';
 import startDev from './startDev.js';
 
 const startServer = async isDev => {
+  process.env.NODE_ENV = isDev ? 'development' : 'production';
   const {appName, HOST, PORT, PROD_PORT, buildPath, PROXY, devRoot, prodRoot, nodeServer} = await getEnvConfigs();
 
   const server = isDev ? startApp : startStaticApp;
