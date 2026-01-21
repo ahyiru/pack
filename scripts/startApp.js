@@ -1,7 +1,5 @@
 import {startApp, startStaticApp} from 'huxy-server';
 
-import pathToURL from './pathToURL.js';
-
 import getEnvConfigs from './envConfigs.js';
 import startDev from './startDev.js';
 
