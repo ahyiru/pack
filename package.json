@@ -42,10 +42,10 @@
     "analyze": "ANALYZE=1 webpack --config scripts/webpack.production.js --progress",
     "server": "node scripts/server.js --watch scripts/server.js",
     "test": "jest --colors --coverage",
-    "eslint": "eslint 'scripts/**/*.{js,jsx}'",
+    "eslint": "eslint scripts --ext .js,.jsx",
     "stylelint": "stylelint 'scripts/**/*.{css,less}'",
     "lint": "npm run eslint && npm run stylelint",
-    "lint-fix": "eslint --fix 'scripts/**/*.{js,jsx}' && stylelint --fix 'scripts/**/*.{css,less}'",
+    "lint-fix": "eslint --fix scripts --ext .js,.jsx && stylelint --fix 'scripts/**/*.{css,less}'",
     "prettier": "prettier 'scripts/**/*' --write --ignore-unknown",
     "release": "commit-and-tag-version"
   },
@@ -111,5 +111,8 @@
   },
   "bin": {
     "pack": "bin/huxy.js"
+  },
+  "overrides": {
+    "zod-validation-error": "^4.0.0"
   }
 }
