@@ -1,5 +1,3 @@
-import {resolve} from 'node:path';
-
 import {spawn} from 'node:child_process';
 
 // import colors from 'colors';
@@ -8,7 +6,7 @@ import getDirName from './configs/getDirName.js';
 
 import initConfigs from './configs/index.js';
 
-const __dirname = getDirName(import.meta.url);
+const {fixPath} = getDirName(import.meta.url);
 
 const starter = async () => {
   try {
@@ -18,8 +16,6 @@ const starter = async () => {
     return;
   }
 
-  const huxyDir = __dirname;
-
   const argvs = process.argv.slice(2);
 
   const argvStr = argvs.join(' ');
@@ -27,19 +23,19 @@ const starter = async () => {
   const startStr = ['start', 'run start', 'run dev'].find(str => argvStr.startsWith(str));
   if (startStr) {
     const cmdArgs = argvStr.replace(startStr, '').split(' ').filter(Boolean);
-    const child = spawn('node', [resolve(huxyDir, 'scripts/index.js'), ...cmdArgs], {stdio: 'inherit'});
+    const child = spawn('node', [fixPath('scripts/index.js'), ...cmdArgs], {stdio: 'inherit'});
     child.on('close', code => process.exit(code));
     return;
   }
   if (argvStr.startsWith('run build')) {
     const cmdArgs = argvStr.replace('run build', '').split(' ').filter(Boolean);
-    const child = spawn('webpack', ['--config', resolve(huxyDir, 'scripts/webpack.production.js'), '--progress', ...cmdArgs], {stdio: 'inherit'});
+    const child = spawn('webpack', ['--config', fixPath('scripts/webpack.production.js'), '--progress', ...cmdArgs], {stdio: 'inherit'});
     child.on('close', code => process.exit(code));
     return;
   }
   if (argvStr.startsWith('run analyze')) {
     const cmdArgs = argvStr.replace('run analyze', '').split(' ').filter(Boolean);
-    const child = spawn('webpack', ['--config', resolve(huxyDir, 'scripts/webpack.production.js'), '--progress', ...cmdArgs], {
+    const child = spawn('webpack', ['--config', fixPath('scripts/webpack.production.js'), '--progress', ...cmdArgs], {
       stdio: 'inherit',
       env: {
         ...process.env,
@@ -51,7 +47,7 @@ const starter = async () => {
   }
   if (argvStr.startsWith('run server')) {
     const cmdArgs = argvStr.replace('run server', '').split(' ').filter(Boolean);
-    const child = spawn('node', [resolve(huxyDir, 'scripts/server.js'), ...cmdArgs], {stdio: 'inherit'});
+    const child = spawn('node', [fixPath('scripts/server.js'), ...cmdArgs], {stdio: 'inherit'});
     child.on('close', code => process.exit(code));
     return;
   }

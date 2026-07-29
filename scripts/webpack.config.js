@@ -1,22 +1,15 @@
-import path from 'node:path';
+import {resolve} from 'node:path';
 import { fileURLToPath } from 'node:url';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import { merge } from 'webpack-merge';
 import esbuild from 'esbuild';
-import getEnvConfigs from './envConfigs.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const webpackBaseConfigs = async (config) => {
-  const userConfigs = await getEnvConfigs();
-  const { appPath, publics, projectName, buildPath, devRoot, webpackCfg } = userConfigs;
-
+const webpackBaseConfigs = ({ appPath, publics, projectName, buildPath, devRoot } = {}) => {
   const entry = {
-    app: [path.resolve(appPath, 'index.jsx')],
+    app: [resolve(appPath, 'index.jsx')],
   };
-  const templ = path.resolve(publics, 'index.ejs');
-  const icon = path.resolve(publics, 'favicon.png');
+  const templ = resolve(publics, 'index.html');
+  const icon = resolve(publics, 'favicon.png');
 
   const plugins = [
     new HtmlWebpackPlugin({
@@ -25,17 +18,7 @@ const webpackBaseConfigs = async (config) => {
       favicon: icon,
       inject: true,
       scriptLoading: 'module',
-      minify: {
-        html5: true,
-        collapseWhitespace: true,
-        keepClosingSlash: true,
-        removeComments: true,
-        removeEmptyAttributes: true,
-        removeRedundantAttributes: true,
-        removeScriptTypeAttributes: true,
-        removeStyleLinkTypeAttributes: true,
-        useShortDoctype: true,
-      },
+      minify: false,
     }),
   ];
 
@@ -92,8 +75,7 @@ const webpackBaseConfigs = async (config) => {
       options: {
         minimize: true,
       },
-      include: [appPath],
-      exclude: [/node_modules/, /public/],
+      exclude: /node_modules/,
     },
     {
       test: /\.md$/,
@@ -159,12 +141,6 @@ const webpackBaseConfigs = async (config) => {
 
   const baseConfigs = {
     context: appPath,
-    cache: {
-      type: 'filesystem',
-      buildDependencies: {
-        config: [__filename],
-      },
-    },
     experiments: {
       futureDefaults: true,
       topLevelAwait: true,
@@ -214,7 +190,7 @@ const webpackBaseConfigs = async (config) => {
     plugins,
   };
 
-  return { userConfigs, baseConfigs: merge(baseConfigs, webpackCfg) };
+  return baseConfigs;
 };
 
 export default webpackBaseConfigs;

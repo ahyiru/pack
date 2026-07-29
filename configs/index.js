@@ -1,16 +1,15 @@
-import {resolve} from 'node:path';
-
 import fs from 'fs-extra';
 
 import configFileList from './fileList.js';
 
-import getDirName from './getDirName.js';
+import getDirName, {getProjectRoot} from './getDirName.js';
 
-const __dirname = getDirName(import.meta.url);
+const {fixPath} = getDirName(import.meta.url);
+const rootDir = getProjectRoot(import.meta.url);
 
-const rootDir = process.cwd();
-const packDir = resolve(__dirname, '../');
-// const sharedDir = resolve(__dirname, './shared');
+const fixRootDir = path => fixPath(rootDir, path);
+const fixPackDir = path => fixPath('../', path);
+// const sharedDir = fixPath('./shared');
 
 const oldCfgList = [
   `import configs from '@huxy/pack/config/eslint';`,
@@ -59,39 +58,39 @@ const initConfigFiles = async () => {
     const filename = configFileList[i].path;
     const jsconfig = configFileList[i].jsconfig;
     if (jsconfig) {
-      const jsconfigpath = resolve(rootDir, jsconfig);
+      const jsconfigpath = fixRootDir(jsconfig);
       const hasJsconfig = await fs.pathExists(jsconfigpath);
       if (hasJsconfig) {
         await fs.remove(jsconfigpath);
       }
     }
-    await initConfigFile(resolve(rootDir, filename), resolve(packDir, aliasname || filename));
+    await initConfigFile(fixRootDir(filename), fixPackDir(aliasname || filename));
   }
 };
 
 const initAppFiles = async () => {
-  await fs.ensureDir(resolve(rootDir, './.huxy'));
-  await initConfigFile(resolve(rootDir, './.huxy/app.configs.js'), resolve(packDir, './.huxy/app.configs.js'));
+  await fs.ensureDir(fixRootDir('./.huxy'));
+  await initConfigFile(fixRootDir('./.huxy/app.configs.js'), fixPackDir('./.huxy/app.configs.js'));
 };
 
 const initHuskyFiles = async () => {
-  const exists = await fs.pathExists(resolve(rootDir, './.husky'));
+  const exists = await fs.pathExists(fixRootDir('./.husky'));
   if (exists) {
-    await initConfigFile(resolve(rootDir, './.husky/.gitignore'), resolve(packDir, './.husky/.gitignore'));
-    await initConfigFile(resolve(rootDir, './.husky/commit-msg'), resolve(packDir, './.husky/commit-msg'));
-    await initConfigFile(resolve(rootDir, './.husky/pre-commit'), resolve(packDir, './.husky/pre-commit'));
+    // await initConfigFile(fixRootDir('./.husky/.gitignore'), fixPackDir('./.husky/.gitignore'));
+    await initConfigFile(fixRootDir('./.husky/commit-msg'), fixPackDir('./.husky/commit-msg'));
+    await initConfigFile(fixRootDir('./.husky/pre-commit'), fixPackDir('./.husky/pre-commit'));
   }
 };
 
 const initTestFiles = async () => {
-  await fs.ensureDir(resolve(rootDir, './__tests__'));
-  await initConfigFile(resolve(rootDir, './__tests__/add.test.js'), resolve(packDir, './__tests__/add.test.js'));
+  await fs.ensureDir(fixRootDir('./__tests__'));
+  await initConfigFile(fixRootDir('./__tests__/add.test.js'), fixPackDir('./__tests__/add.test.js'));
 };
 
 /* const initGitignore = async () => {
-  const exists = await fs.pathExists(resolve(rootDir, './.git'));
+  const exists = await fs.pathExists(fixRootDir('./.git'));
   if (exists) {
-    await initConfigFile(resolve(rootDir, './.gitignore'), resolve(packDir, './gitignoreconfig'));
+    await initConfigFile(fixRootDir('./.gitignore'), fixPackDir('./gitignoreconfig'));
   }
 }; */
 

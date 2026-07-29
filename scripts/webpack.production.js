@@ -7,10 +7,11 @@ import CopyFileWebpackPlugin from '@huxy/copy-file-webpack-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import { GenerateSW } from 'workbox-webpack-plugin';
 import webpackBaseConfigs from './webpack.config.js';
+import getEnvConfigs from './envConfigs.js';
 
 const webpackProdConfigs = async (config) => {
-  const { userConfigs, baseConfigs } = await webpackBaseConfigs();
-  const { rootDir, appPath, publics, buildPath, PROXY, envConfigs, prodRoot, webpackProdCfg } = userConfigs;
+  const userConfigs = await getEnvConfigs();
+  const { rootDir, appPath, publics, buildPath, PROXY, envConfigs, prodRoot, webpackCfg, webpackProdCfg } = userConfigs;
 
   const { copy, buildConfigs, ...restProdCfg } = webpackProdCfg;
 
@@ -32,15 +33,12 @@ const webpackProdConfigs = async (config) => {
       chunkFilename: 'css/[id]_[name]_[contenthash:8].css',
     }),
     new webpack.DefinePlugin({
-      'process.env': JSON.stringify({
-        configs: {
-          browserRouter: true,
-          basepath: prodRoot,
-          PROXY,
-          buildTime: +new Date(),
-          ...envConfigs,
-        },
-        NODE_ENV: JSON.stringify('production'),
+      'process.env.configs': JSON.stringify({
+        browserRouter: true,
+        basepath: prodRoot,
+        PROXY,
+        buildTime: +new Date(),
+        ...envConfigs,
       }),
       EMAIL: JSON.stringify('ah.yiru@gmail.com'),
       VERSION: JSON.stringify('2.x.x'),
@@ -207,7 +205,7 @@ const webpackProdConfigs = async (config) => {
     plugins,
   };
 
-  return merge(baseConfigs, prodConfigs, restProdCfg);
+  return merge(webpackBaseConfigs(userConfigs), prodConfigs, webpackCfg, restProdCfg);
 };
 
 export default webpackProdConfigs;

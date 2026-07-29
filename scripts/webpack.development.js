@@ -3,10 +3,11 @@ import webpack from 'webpack';
 import { merge } from 'webpack-merge';
 import OpenBrowserWebpackPlugin from '@huxy/open-browser-webpack-plugin';
 import webpackBaseConfigs from './webpack.config.js';
+import getEnvConfigs from './envConfigs.js';
 
 const webpackDevConfigs = async (config) => {
-  const { userConfigs, baseConfigs } = await webpackBaseConfigs();
-  const { HOST, PROXY, envConfigs, devRoot, webpackDevCfg } = userConfigs;
+  const userConfigs = await getEnvConfigs();
+  const { HOST, PROXY, envConfigs, devRoot, webpackCfg, webpackDevCfg } = userConfigs;
 
   const PORT = config.port ?? userConfigs.PORT;
 
@@ -71,15 +72,12 @@ const webpackDevConfigs = async (config) => {
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
       new webpack.DefinePlugin({
-        'process.env': JSON.stringify({
-          configs: {
-            basepath: devRoot,
-            PROXY,
-            buildTime: +new Date(),
-            ...envConfigs,
-          },
-          isDev: true,
-          NODE_ENV: JSON.stringify('development'),
+        'process.env.isDev': JSON.stringify(true),
+        'process.env.configs': JSON.stringify({
+          basepath: devRoot,
+          PROXY,
+          buildTime: +new Date(),
+          ...envConfigs,
         }),
         EMAIL: JSON.stringify('ah.yiru@gmail.com'),
         VERSION: JSON.stringify('2.x.x'),
@@ -88,7 +86,7 @@ const webpackDevConfigs = async (config) => {
     ],
   };
 
-  return merge(baseConfigs, devConfigs, webpackDevCfg);
+  return merge(webpackBaseConfigs(userConfigs), devConfigs, webpackCfg, webpackDevCfg);
 };
 
 export default webpackDevConfigs;
