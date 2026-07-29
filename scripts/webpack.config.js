@@ -1,23 +1,24 @@
 import path from 'node:path';
-// import {fileURLToPath} from 'node:url';
+import { fileURLToPath } from 'node:url';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import {merge} from 'webpack-merge';
+import { merge } from 'webpack-merge';
 import esbuild from 'esbuild';
-
 import getEnvConfigs from './envConfigs.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const webpackBaseConfigs = async (config) => {
   const userConfigs = await getEnvConfigs();
-  const {rootDir, appPath, publics, projectName, buildPath, devRoot, webpackCfg} = userConfigs;
+  const { appPath, publics, projectName, buildPath, devRoot, webpackCfg } = userConfigs;
 
   const entry = {
     app: [path.resolve(appPath, 'index.jsx')],
-    // ...frame,
   };
-  const templ = path.resolve(publics, 'index.html');
+  const templ = path.resolve(publics, 'index.ejs');
   const icon = path.resolve(publics, 'favicon.png');
 
-  const htmlPlugin = () =>
+  const plugins = [
     new HtmlWebpackPlugin({
       title: projectName,
       template: templ,
@@ -35,10 +36,7 @@ const webpackBaseConfigs = async (config) => {
         removeStyleLinkTypeAttributes: true,
         useShortDoctype: true,
       },
-    });
-
-  const plugins = [
-    htmlPlugin(),
+    }),
   ];
 
   const rules = [
@@ -47,7 +45,7 @@ const webpackBaseConfigs = async (config) => {
       resolve: {
         fullySpecified: false,
       },
-      exclude: [/node_modules/],
+      exclude: /node_modules/,
     },
     {
       test: /\.jsx?$/,
@@ -59,89 +57,103 @@ const webpackBaseConfigs = async (config) => {
         tsconfigRaw: {},
         implementation: esbuild,
       },
-      exclude: [/node_modules/],
+      exclude: /node_modules/,
     },
     {
       test: /\.(jpe?g|png|gif|psd|bmp|ico|webp|svg|hdr)$/i,
-      loader: 'url-loader',
-      options: {
-        limit: 20480,
-        name: 'img/img_[hash:8].[ext]',
-        // publicPath:'../',
-        esModule: false,
+      type: 'asset',
+      parser: {
+        dataUrlCondition: {
+          maxSize: 20480,
+        },
       },
-      type: 'javascript/auto',
-      exclude: [/node_modules/],
+      generator: {
+        filename: 'img/img_[hash:8][ext]',
+      },
+      exclude: /node_modules/,
     },
     {
       test: /\.(ttf|eot|svg|woff|woff2|otf)$/,
-      loader: 'url-loader',
-      options: {
-        limit: 20480,
-        name: 'fonts/[hash:8].[ext]',
-        publicPath: '../',
-        esModule: false,
+      type: 'asset',
+      parser: {
+        dataUrlCondition: {
+          maxSize: 20480,
+        },
       },
-      exclude: [/images/],
+      generator: {
+        filename: 'fonts/[hash:8][ext]',
+        publicPath: '../',
+      },
+      exclude: /images/,
     },
     {
       test: /\.html$/,
-      use: {
-        loader: 'html-loader',
-        options: {
-          minimize: true,
-        },
+      loader: 'html-loader',
+      options: {
+        minimize: true,
       },
       include: [appPath],
       exclude: [/node_modules/, /public/],
     },
     {
       test: /\.md$/,
-      use: [
-        {
-          loader: 'html-loader',
-          options: {
-            minimize: false,
-          },
-        },
-      ],
-      exclude: [/node_modules/],
+      loader: 'html-loader',
+      options: {
+        minimize: false,
+      },
+      exclude: /node_modules/,
     },
     {
       test: /\.pdf$/,
-      loader: 'url-loader',
-      options: {
-        limit: 20480,
-        name: 'pdf/[hash].[ext]',
+      type: 'asset',
+      parser: {
+        dataUrlCondition: {
+          maxSize: 20480,
+        },
       },
-      exclude: [/node_modules/],
+      generator: {
+        filename: 'pdf/[hash][ext]',
+      },
+      exclude: /node_modules/,
     },
     {
       test: /\.(mp3|wav|mpeg|webm)$/,
-      loader: 'url-loader',
-      options: {
-        limit: 20480,
-        name: 'audio/[hash].[ext]',
+      type: 'asset',
+      parser: {
+        dataUrlCondition: {
+          maxSize: 20480,
+        },
       },
-      exclude: [/node_modules/],
+      generator: {
+        filename: 'audio/[hash][ext]',
+      },
+      exclude: /node_modules/,
     },
     {
       test: /\.(mp4|m4a|swf|xap|mpeg|webm)$/,
-      loader: 'url-loader',
-      options: {
-        limit: 40960,
-        name: 'video/[hash].[ext]',
+      type: 'asset',
+      parser: {
+        dataUrlCondition: {
+          maxSize: 40960,
+        },
       },
-      exclude: [/node_modules/],
+      generator: {
+        filename: 'video/[hash][ext]',
+      },
+      exclude: /node_modules/,
     },
     {
       test: /\.(max|glb|gltf|fbx|stl|obj)$/,
-      loader: 'url-loader',
-      options: {
-        limit: 40960,
-        name: 'models/[hash].[ext]',
+      type: 'asset',
+      parser: {
+        dataUrlCondition: {
+          maxSize: 40960,
+        },
       },
-      exclude: [/node_modules/],
+      generator: {
+        filename: 'models/[hash][ext]',
+      },
+      exclude: /node_modules/,
     },
   ];
 
@@ -149,29 +161,26 @@ const webpackBaseConfigs = async (config) => {
     context: appPath,
     cache: {
       type: 'filesystem',
-      /* buildDependencies: {
-        config: [fileURLToPath(import.meta.url)],
-      }, */
+      buildDependencies: {
+        config: [__filename],
+      },
     },
     experiments: {
       futureDefaults: true,
       topLevelAwait: true,
-      // outputModule: true,
       asyncWebAssembly: true,
       layers: true,
-      // lazyCompilation: true,
     },
     node: {
       global: false,
       __filename: true,
       __dirname: true,
     },
-    entry: entry,
+    entry,
     output: {
       path: buildPath,
       publicPath: `${devRoot}/`,
       filename: 'js/[name].js',
-      // module: true,
     },
     optimization: {
       splitChunks: false,
@@ -192,7 +201,7 @@ const webpackBaseConfigs = async (config) => {
       },
       extensions: ['.jsx', '.js', '.less', '.css', '.ts', '.tsx'],
       fallback: {
-        path: false, //require.resolve('path-browserify'),
+        path: false,
         fs: false,
         process: false,
       },
@@ -200,12 +209,12 @@ const webpackBaseConfigs = async (config) => {
       cacheWithContext: false,
     },
     module: {
-      rules: rules,
+      rules,
     },
-    plugins: plugins,
+    plugins,
   };
 
-  return {userConfigs, baseConfigs: merge(baseConfigs, webpackCfg)};
+  return { userConfigs, baseConfigs: merge(baseConfigs, webpackCfg) };
 };
 
 export default webpackBaseConfigs;

@@ -1,15 +1,22 @@
 import path from 'node:path';
 import webpack from 'webpack';
-import {merge} from 'webpack-merge';
+import { merge } from 'webpack-merge';
 import OpenBrowserWebpackPlugin from '@huxy/open-browser-webpack-plugin';
-
 import webpackBaseConfigs from './webpack.config.js';
 
 const webpackDevConfigs = async (config) => {
-  const {userConfigs, baseConfigs} = await webpackBaseConfigs();
-  const {rootDir, HOST, PROXY, envConfigs, devRoot, webpackDevCfg} = userConfigs;
+  const { userConfigs, baseConfigs } = await webpackBaseConfigs();
+  const { HOST, PROXY, envConfigs, devRoot, webpackDevCfg } = userConfigs;
 
   const PORT = config.port ?? userConfigs.PORT;
+
+  const getCssLoaderOptions = () => ({
+    importLoaders: 1,
+    modules: {
+      mode: 'global',
+      localIdentName: '[name]__[local]--[hash:base64:5]',
+    },
+  });
 
   const devConfigs = {
     mode: 'development',
@@ -21,45 +28,33 @@ const webpackDevConfigs = async (config) => {
     module: {
       rules: [
         {
-          type: 'javascript/auto',
           test: /\.css$/,
+          type: 'javascript/auto',
           use: [
             'style-loader',
             {
               loader: 'css-loader',
-              options: {
-                importLoaders: 1,
-                modules: {
-                  mode: 'global',
-                  localIdentName: '[path][name]__[local]--[hash:base64:5]',
-                },
-              },
+              options: getCssLoaderOptions(),
             },
             {
               loader: 'postcss-loader',
-              options: {},
             },
           ],
-          // exclude: [/node_modules/],
         },
         {
-          type: 'javascript/auto',
           test: /\.less$/,
+          type: 'javascript/auto',
           use: [
             'style-loader',
             {
               loader: 'css-loader',
               options: {
-                importLoaders: 1,
-                modules: {
-                  mode: 'global',
-                  localIdentName: '[path][name]__[local]--[hash:base64:5]',
-                },
+                ...getCssLoaderOptions(),
+                importLoaders: 2,
               },
             },
             {
               loader: 'postcss-loader',
-              options: {},
             },
             {
               loader: 'less-loader',
@@ -70,35 +65,7 @@ const webpackDevConfigs = async (config) => {
               },
             },
           ],
-          // exclude: [/node_modules/],
         },
-        /* {
-          test: /\.s[ac]ss$/i,
-          use: [
-            'style-loader',
-            {
-              loader: 'css-loader',
-              options: {
-                importLoaders: 2,
-              },
-            },
-            {
-              loader: 'sass-loader',
-              options: {
-                implementation: require('sass'),
-                sassOptions: {
-                  indentWidth: 2,
-                },
-                additionalData: (content, loaderContext) => {
-                  if (loaderContext.resourcePath.endsWith('app/styles/index.scss')) {
-                    return content;
-                  }
-                  return `@import '~@app/styles/index.scss';${content};`;
-                },
-              },
-            },
-          ],
-        }, */
       ],
     },
     plugins: [
@@ -117,7 +84,7 @@ const webpackDevConfigs = async (config) => {
         EMAIL: JSON.stringify('ah.yiru@gmail.com'),
         VERSION: JSON.stringify('2.x.x'),
       }),
-      new OpenBrowserWebpackPlugin({target: `http://${HOST}:${PORT}`}),
+      new OpenBrowserWebpackPlugin({ target: `http://${HOST}:${PORT}` }),
     ],
   };
 
