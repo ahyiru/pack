@@ -36,6 +36,7 @@ const configs = (customCfgs = []) => defineConfig([
         ...globals.serviceworker,
         Atomics: 'readonly',
         SharedArrayBuffer: 'readonly',
+        __HUXY_CONFIG__: 'readonly',
       },
     },
     files: ['**/*.{js,jsx}'],

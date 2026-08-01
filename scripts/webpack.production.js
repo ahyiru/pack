@@ -1,7 +1,6 @@
 import path from 'node:path';
 import webpack from 'webpack';
 import { merge } from 'webpack-merge';
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import { EsbuildPlugin } from 'esbuild-loader';
 import CopyFileWebpackPlugin from '@huxy/copy-file-webpack-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
@@ -15,33 +14,21 @@ const webpackProdConfigs = async (config) => {
 
   const { copy, buildConfigs, ...restProdCfg } = webpackProdCfg;
 
-  const getCssLoaderOptions = () => ({
-    importLoaders: 1,
-    modules: {
-      mode: 'global',
-      localIdentName: '[hash:base64:5]',
-    },
-  });
-
   const plugins = [
     new webpack.optimize.ModuleConcatenationPlugin(),
     new webpack.optimize.MinChunkSizePlugin({
       minChunkSize: 30000,
     }),
-    new MiniCssExtractPlugin({
-      filename: 'css/[name]_[contenthash:8].css',
-      chunkFilename: 'css/[id]_[name]_[contenthash:8].css',
-    }),
     new webpack.DefinePlugin({
-      'process.env.configs': JSON.stringify({
+      __HUXY_CONFIG__: JSON.stringify({
+        EMAIL: 'ah.yiru@gmail.com',
+        VERSION: '2.x.x',
         browserRouter: true,
         basepath: prodRoot,
         PROXY,
         buildTime: +new Date(),
         ...envConfigs,
       }),
-      EMAIL: JSON.stringify('ah.yiru@gmail.com'),
-      VERSION: JSON.stringify('2.x.x'),
     }),
     new GenerateSW({
       skipWaiting: true,
@@ -52,11 +39,6 @@ const webpackProdConfigs = async (config) => {
       {
         from: path.resolve(publics, 'src'),
         to: path.resolve(appPath, `${buildPath}/src`),
-        isDef: true,
-      },
-      {
-        from: path.resolve(publics, 'manifest.json'),
-        to: path.resolve(appPath, `${buildPath}/manifest.json`),
         isDef: true,
       },
       {
@@ -74,32 +56,21 @@ const webpackProdConfigs = async (config) => {
 
   const prodConfigs = {
     mode: 'production',
-    cache: false,
-    experiments: {
-      outputModule: true,
-    },
     output: {
       clean: true,
       path: buildPath,
-      publicPath: `${prodRoot}/`,
+      publicPath: prodRoot === '/' ? prodRoot : `${prodRoot}/`,
       filename: 'js/[name]_[contenthash:8].js',
       chunkFilename: 'js/[name]_[contenthash:8].chunk.js',
-      module: true,
     },
     optimization: {
       splitChunks: {
         chunks: 'all',
-        minSize: {
-          javascript: 5000,
-          style: 5000,
-        },
         maxSize: {
-          javascript: 500000,
-          style: 500000,
+          javascript: 512000,
+          style: 384000,
         },
         minChunks: 2,
-        maxInitialRequests: 10,
-        maxAsyncRequests: 10,
         cacheGroups: {
           commons: {
             idHint: 'commons',
@@ -136,6 +107,7 @@ const webpackProdConfigs = async (config) => {
           },
         },
       },
+      minimize: true,
       minimizer: [
         new EsbuildPlugin({
           target: 'esnext',
@@ -150,57 +122,8 @@ const webpackProdConfigs = async (config) => {
           ...buildConfigs,
         }),
       ],
-      minimize: true,
-      providedExports: true,
-      usedExports: true,
+      runtimeChunk: 'single',
       concatenateModules: false,
-      sideEffects: true,
-      runtimeChunk: false,
-      moduleIds: 'deterministic',
-      chunkIds: 'deterministic',
-    },
-    module: {
-      rules: [
-        {
-          test: /\.css$/,
-          type: 'javascript/auto',
-          use: [
-            MiniCssExtractPlugin.loader,
-            {
-              loader: 'css-loader',
-              options: getCssLoaderOptions(),
-            },
-            {
-              loader: 'postcss-loader',
-            },
-          ],
-        },
-        {
-          test: /\.less$/,
-          type: 'javascript/auto',
-          use: [
-            MiniCssExtractPlugin.loader,
-            {
-              loader: 'css-loader',
-              options: {
-                ...getCssLoaderOptions(),
-                importLoaders: 2,
-              },
-            },
-            {
-              loader: 'postcss-loader',
-            },
-            {
-              loader: 'less-loader',
-              options: {
-                lessOptions: {
-                  javascriptEnabled: true,
-                },
-              },
-            },
-          ],
-        },
-      ],
     },
     plugins,
   };

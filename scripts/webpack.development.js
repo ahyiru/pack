@@ -11,78 +11,34 @@ const webpackDevConfigs = async (config) => {
 
   const PORT = config.port ?? userConfigs.PORT;
 
-  const getCssLoaderOptions = () => ({
-    importLoaders: 1,
-    modules: {
-      mode: 'global',
-      localIdentName: '[name]__[local]--[hash:base64:5]',
-    },
-  });
-
   const devConfigs = {
     mode: 'development',
     devtool: 'eval-cheap-module-source-map',
-    target: 'web',
-    entry: {
-      app: ['webpack-hot-middleware/client?reload=true'],
+    /*entry: {
+      huxy: ['webpack-hot-middleware/client?dynamicPublicPath=true'],
+    },*/
+    output: {
+      publicPath: devRoot === '/' ? devRoot : `${devRoot}/`,
+      filename: 'js/[name].js',
     },
-    module: {
-      rules: [
-        {
-          test: /\.css$/,
-          type: 'javascript/auto',
-          use: [
-            'style-loader',
-            {
-              loader: 'css-loader',
-              options: getCssLoaderOptions(),
-            },
-            {
-              loader: 'postcss-loader',
-            },
-          ],
-        },
-        {
-          test: /\.less$/,
-          type: 'javascript/auto',
-          use: [
-            'style-loader',
-            {
-              loader: 'css-loader',
-              options: {
-                ...getCssLoaderOptions(),
-                importLoaders: 2,
-              },
-            },
-            {
-              loader: 'postcss-loader',
-            },
-            {
-              loader: 'less-loader',
-              options: {
-                lessOptions: {
-                  javascriptEnabled: true,
-                },
-              },
-            },
-          ],
-        },
-      ],
+    optimization: {
+      runtimeChunk: 'single',
+      concatenateModules: true,
     },
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
       new webpack.DefinePlugin({
-        'process.env.isDev': JSON.stringify(true),
-        'process.env.configs': JSON.stringify({
+        __HUXY_CONFIG__: JSON.stringify({
+          EMAIL: 'ah.yiru@gmail.com',
+          VERSION: '2.x.x',
+          isDev: true,
           basepath: devRoot,
           PROXY,
           buildTime: +new Date(),
           ...envConfigs,
         }),
-        EMAIL: JSON.stringify('ah.yiru@gmail.com'),
-        VERSION: JSON.stringify('2.x.x'),
       }),
-      new OpenBrowserWebpackPlugin({ target: `http://${HOST}:${PORT}` }),
+      new OpenBrowserWebpackPlugin({ target: `http://${HOST}:${PORT}${devRoot}` }),
     ],
   };
 

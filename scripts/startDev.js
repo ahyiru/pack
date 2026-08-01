@@ -8,22 +8,27 @@ const startDev = nodeServer => async (config, app, httpServer, logger) => {
   const webpackConfig = await webpackDevConfigs(config);
   const compiler = webpack(webpackConfig);
 
-  const devMiddleware = webpackDevMiddleware(compiler, {
-    publicPath: webpackConfig.output.publicPath,
+  const {publicPath, path: buildPath} = webpackConfig.output;
+  const basepath = publicPath === '/' ? publicPath : publicPath.slice(0, -1);
+
+  app.use(webpackDevMiddleware(compiler, {
+    publicPath,
     // outputFileSystem: {},
     stats: {
       preset: 'minimal',
-      moduleTrace: true,
-      errorDetails: true,
       colors: true,
     },
-  });
+  }));
 
   app.use(webpackHotMiddleware(compiler));
-  app.use(devMiddleware);
 
-  app.get('/{*splat}', (req, res, next) => {
-    const htmlBuffer = compiler.outputFileSystem.readFileSync(`${webpackConfig.output.path}/index.html`);
+  if (basepath !== '/') {
+    app.get(basepath, (req, res, next) => {
+      return res.redirect(`${basepath}/`);
+    });
+  }
+  app.get(`${basepath}/{*splat}`, (req, res, next) => {
+    const htmlBuffer = compiler.outputFileSystem.readFileSync(`${buildPath}/index.html`);
     res.set('Content-Type', 'text/html');
     res.send(htmlBuffer);
     res.end();

@@ -1,26 +1,38 @@
 import {resolve} from 'node:path';
 import { fileURLToPath } from 'node:url';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
 import { merge } from 'webpack-merge';
 import esbuild from 'esbuild';
 
-const webpackBaseConfigs = ({ appPath, publics, projectName, buildPath, devRoot } = {}) => {
-  const entry = {
-    app: [resolve(appPath, 'index.jsx')],
-  };
+const webpackBaseConfigs = ({ appPath, publics, projectName, buildPath } = {}) => {
   const templ = resolve(publics, 'index.html');
-  const icon = resolve(publics, 'favicon.png');
+  // const icon = resolve(publics, 'favicon.png');
 
-  const plugins = [
-    new HtmlWebpackPlugin({
-      title: projectName,
-      template: templ,
-      favicon: icon,
-      inject: true,
-      scriptLoading: 'module',
-      minify: false,
-    }),
-  ];
+  const entry = {
+    huxy: [templ],
+  };
+
+  const generator = {
+    html: {
+      extract: true,
+    },
+    'css/auto': {
+      exportsOnly: false,
+      // localIdentName: '[name]__[local]--[hash:base64:5]',
+    },
+    'css/module': {
+      localIdentName: '[name]__[local]--[hash:base64:5]',
+    },
+  };
+  const parser = {
+    html: {
+      sources: true,
+    },
+    css: {
+      import: true,
+      url: true,
+      namedExports: false,
+    },
+  };
 
   const rules = [
     {
@@ -43,6 +55,21 @@ const webpackBaseConfigs = ({ appPath, publics, projectName, buildPath, devRoot 
       exclude: /node_modules/,
     },
     {
+      test: /\.css$/,
+      type: 'css',
+      use: [
+        'postcss-loader',
+      ],
+    },
+    {
+      test: /\.less$/,
+      type: 'css',
+      use: [
+        'postcss-loader',
+        'less-loader',
+      ],
+    },
+    {
       test: /\.(jpe?g|png|gif|psd|bmp|ico|webp|svg|hdr)$/i,
       type: 'asset',
       parser: {
@@ -53,7 +80,7 @@ const webpackBaseConfigs = ({ appPath, publics, projectName, buildPath, devRoot 
       generator: {
         filename: 'img/img_[hash:8][ext]',
       },
-      exclude: /node_modules/,
+      exclude: [/node_modules/, publics],
     },
     {
       test: /\.(ttf|eot|svg|woff|woff2|otf)$/,
@@ -68,14 +95,6 @@ const webpackBaseConfigs = ({ appPath, publics, projectName, buildPath, devRoot 
         publicPath: '../',
       },
       exclude: /images/,
-    },
-    {
-      test: /\.html$/,
-      loader: 'html-loader',
-      options: {
-        minimize: true,
-      },
-      exclude: /node_modules/,
     },
     {
       test: /\.md$/,
@@ -140,12 +159,14 @@ const webpackBaseConfigs = ({ appPath, publics, projectName, buildPath, devRoot 
   ];
 
   const baseConfigs = {
+    target: 'web',
     context: appPath,
     experiments: {
       futureDefaults: true,
-      topLevelAwait: true,
-      asyncWebAssembly: true,
-      layers: true,
+      html: true,
+      css: true,
+      outputModule: true,
+      resourceHints: true,
     },
     node: {
       global: false,
@@ -154,20 +175,22 @@ const webpackBaseConfigs = ({ appPath, publics, projectName, buildPath, devRoot 
     },
     entry,
     output: {
+      module: true,
       path: buildPath,
-      publicPath: `${devRoot}/`,
-      filename: 'js/[name].js',
-    },
-    optimization: {
-      splitChunks: false,
-      minimize: false,
-      providedExports: false,
-      usedExports: false,
-      concatenateModules: false,
-      sideEffects: 'flag',
-      runtimeChunk: 'single',
-      moduleIds: 'named',
-      chunkIds: 'named',
+      html: {
+        title: projectName,
+        /*favicon: {
+          icon: [
+            { href: icon, sizes: '64x64' },
+          ],
+          'apple-touch-icon': [
+            { href: icon, sizes: '64x64' },
+          ],
+        },*/
+      },
+      htmlFilename: 'index.html',
+      cssFilename: 'css/[name]_[contenthash:8].css',
+      cssChunkFilename: 'css/[id]_[name]_[contenthash:8].css',
     },
     externals: {},
     resolve: {
@@ -179,15 +202,16 @@ const webpackBaseConfigs = ({ appPath, publics, projectName, buildPath, devRoot 
       fallback: {
         path: false,
         fs: false,
-        process: false,
+        module: false,
       },
       symlinks: false,
       cacheWithContext: false,
     },
     module: {
+      generator,
+      parser,
       rules,
     },
-    plugins,
   };
 
   return baseConfigs;
