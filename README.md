@@ -5,7 +5,7 @@
 [![npm](https://img.shields.io/npm/dt/@huxy/pack)](https://www.npmjs.com/package/@huxy/pack)
 [![](https://img.shields.io/badge/blog-ihuxy-blue.svg)](http://ihuxy.com/)
 
-`@huxy/pack` 是一个项目构建工具，集成了 `esbuild`、`eslint`、`stylelint`、`jest`、`commitlint`、`husky`、`standard-version`、`postcss`、`prettier`，提供开发环境、构建打包、本地启动服务、环境配置、代理配置等功能。使用简单方便，功能齐全，配置灵活，可自己添加需要的功能插件。
+`@huxy/pack` 是一个项目构建工具，集成了 `esbuild`、`eslint`、`jest`、`commitlint`、`husky`、`standard-version`、`prettier`，提供开发环境、构建打包、本地启动服务、环境配置、代理配置等功能。使用简单方便，功能齐全，配置灵活，可自己添加需要的功能插件。
 
 运行时会自动生成插件配置文件，如 `babel.config.js` 文件等，可自行修改覆盖。
 
@@ -105,8 +105,7 @@ export default {
 ```
 "eslint": "pack eslint 'app/**/*.{js,jsx}'", // 或直接使用 eslint
 "eslint-common": "eslint 'common/**/*.{js,jsx}'",
-"stylelint": "stylelint 'app/**/*.{css,less}'",
-"lint-fix": "eslint --fix 'app/**/*.{js,jsx}' && stylelint --fix 'app/**/*.{css,less}'",
+"lint-fix": "eslint --fix 'app/**/*.{js,jsx}'",
 "prettier": "prettier 'app/**/*' --write --ignore-unknown",
 "release": "standard-version"
 ```

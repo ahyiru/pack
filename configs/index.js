@@ -13,11 +13,11 @@ const fixPackDir = path => fixPath('../', path);
 
 const oldCfgList = [
   `import configs from '@huxy/pack/config/eslint';`,
-  `import configs from '@huxy/pack/config/stylelint';`,
+  // `import configs from '@huxy/pack/config/stylelint';`,
   `import configs from '@huxy/pack/config/commitlint';`,
   `import configs from '@huxy/pack/config/jest';`,
-  `import configs from '@huxy/pack/config/postcss';`,
-  `import configs from '@huxy/pack/config/babel';`,
+  // `import configs from '@huxy/pack/config/postcss';`,
+  // `import configs from '@huxy/pack/config/babel';`,
   `import configs from '@huxy/pack/config/prettier';`,
   `import configs from '@huxy/pack/config/version';`,
 ];

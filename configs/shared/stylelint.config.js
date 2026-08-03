@@ -33,4 +33,4 @@ const configs = {
   // fix: true,
 };
 
-export default (customCfgs = {}) => merge(configs, customCfgs);
+export default (customCfgs = {}) => merge({}, customCfgs);

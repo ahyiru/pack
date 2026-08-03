@@ -23,7 +23,6 @@ const webpackDevConfigs = async (config) => {
     },
     optimization: {
       runtimeChunk: 'single',
-      concatenateModules: true,
     },
     plugins: [
       new webpack.HotModuleReplacementPlugin(),

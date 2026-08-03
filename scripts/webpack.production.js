@@ -34,6 +34,17 @@ const webpackProdConfigs = async (config) => {
       skipWaiting: true,
       clientsClaim: true,
       cleanupOutdatedCaches: true,
+      exclude: [/\.map$/, /runtime.*\.js$/],
+      runtimeCaching: [
+        {
+          urlPattern: /\.(js|css|woff2?|ttf|eot|svg)$/,
+          handler: 'StaleWhileRevalidate',
+        },
+        {
+          urlPattern: /\.(png|jpg|jpeg|gif|webp)$/,
+          handler: 'CacheFirst',
+        },
+      ],
     }),
     new CopyFileWebpackPlugin([
       {
@@ -60,8 +71,8 @@ const webpackProdConfigs = async (config) => {
       clean: true,
       path: buildPath,
       publicPath: prodRoot === '/' ? prodRoot : `${prodRoot}/`,
-      filename: 'js/[name]_[contenthash:8].js',
-      chunkFilename: 'js/[name]_[contenthash:8].chunk.js',
+      filename: 'js/[id]_[contenthash:8].js',
+      chunkFilename: 'js/[id]_[contenthash:8].chunk.js',
     },
     optimization: {
       splitChunks: {
@@ -118,11 +129,10 @@ const webpackProdConfigs = async (config) => {
           minifyIdentifiers: true,
           minifySyntax: true,
           legalComments: 'none',
-          pure: ['console.log'],
+          drop: ['console'],
           ...buildConfigs,
         }),
       ],
-      runtimeChunk: 'single',
       concatenateModules: false,
     },
     plugins,

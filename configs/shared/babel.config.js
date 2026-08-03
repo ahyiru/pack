@@ -3,72 +3,38 @@ import merge from '../merge.js';
 const configs = api => {
   // api.cache.using(() => !!process.env.isDev);
 
-  const presets = [
-    [
-      '@babel/preset-env',
-      {
-        // modules: 'commonjs',
-        // modules: false,
-        // loose: true,
-        bugfixes: true,
-        useBuiltIns: 'usage',
-        shippedProposals: true,
-        corejs: {
-          version: '3.39',
-          proposals: true,
-        },
-      },
-    ],
-    [
-      '@babel/preset-react',
-      {
-        runtime: 'automatic',
-      },
-    ],
-  ];
+  const presets = ['@babel/preset-env', '@babel/preset-react'];
 
-  const plugins = [
-    [
-      'babel-plugin-react-compiler',
-      // {},
-    ],
-    [
-      '@babel/plugin-transform-runtime',
-      {
-        absoluteRuntime: false,
-        helpers: true,
-        regenerator: true,
-        corejs: false,
-      },
-    ],
-  ];
+  const plugins = ['babel-plugin-react-compiler'];
 
-  const env = {
-    development: {},
-    production: {},
-    test: {},
-  };
+  const env = {development: {}, production: {}, test: {}};
 
   return {
     babelrc: false,
     configFile: false,
+    sourceType: 'unambiguous',
     assumptions: {
+      constantReexpoets: true,
+      enumerableModuleMeta: true,
+      ignoreFunctionLength: true,
+      noNewArrows: true,
+      pureGetters: true,
       noDocumentAll: true,
       noClassCalls: true,
       iterableIsArray: true,
       privateFieldsAsProperties: true,
       setPublicClassFields: true,
+      setComputedProperties: true,
     },
     targets: {
+      esmodules: 'intersect',
       node: 'current',
-      browsers: process.env.isDev ? ['last 2 versions'] : ['>0.3%', 'not dead', 'not op_mini all'],
-      esmodules: true,
+      browsers: process.env.NODE_ENV === 'development' ? ['last 2 versions'] : ['>0.3%', 'not dead', 'not op_mini all'],
     },
-    sourceType: 'unambiguous',
     presets,
     plugins,
     env,
   };
 };
 
-export default (api, customCfgs = {}) => merge(configs(api), customCfgs);
+export default (api, customCfgs = {}) => merge({}, customCfgs);

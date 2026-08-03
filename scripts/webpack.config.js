@@ -17,10 +17,10 @@ const webpackBaseConfigs = ({ appPath, publics, projectName, buildPath } = {}) =
     },
     'css/auto': {
       exportsOnly: false,
-      // localIdentName: '[name]__[local]--[hash:base64:5]',
+      // localIdentName: '[id]_[local]-[hash:base64:5]',
     },
     'css/module': {
-      localIdentName: '[name]__[local]--[hash:base64:5]',
+      localIdentName: '[id]_[local]-[hash:base64:5]',
     },
   };
   const parser = {
@@ -31,6 +31,10 @@ const webpackBaseConfigs = ({ appPath, publics, projectName, buildPath } = {}) =
       import: true,
       url: true,
       namedExports: false,
+    },
+    'css/global': {
+      dashedIdents: false,
+      customIdents: false,
     },
   };
 
@@ -56,18 +60,12 @@ const webpackBaseConfigs = ({ appPath, publics, projectName, buildPath } = {}) =
     },
     {
       test: /\.css$/,
-      type: 'css',
-      use: [
-        'postcss-loader',
-      ],
+      type: 'css/auto',
     },
     {
       test: /\.less$/,
-      type: 'css',
-      use: [
-        'postcss-loader',
-        'less-loader',
-      ],
+      type: 'css/auto',
+      use: ['less-loader'],
     },
     {
       test: /\.(jpe?g|png|gif|psd|bmp|ico|webp|svg|hdr)$/i,
@@ -189,8 +187,7 @@ const webpackBaseConfigs = ({ appPath, publics, projectName, buildPath } = {}) =
         },*/
       },
       htmlFilename: 'index.html',
-      cssFilename: 'css/[name]_[contenthash:8].css',
-      cssChunkFilename: 'css/[id]_[name]_[contenthash:8].css',
+      cssFilename: 'css/[id]_[contenthash:8].css',
     },
     externals: {},
     resolve: {

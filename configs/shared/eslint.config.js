@@ -20,12 +20,12 @@ const configs = (customCfgs = []) => defineConfig([
         ecmaFeatures: {
           jsx: true,
         },
-        requireConfigFile: false,
+        /*requireConfigFile: false,
         babelOptions: {
           babelrc: false,
           configFile: false,
-          presets: ['@babel/preset-react'], // '@babel/preset-env',
-        },
+          presets: ['@babel/preset-react'],
+        },*/
       },
       globals: {
         ...globals.browser,

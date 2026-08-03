@@ -5,13 +5,13 @@ const configs = {
   plugins: {
     // 'postcss-import': {},
     'postcss-preset-env': {
-      stage: 2,
+      stage: 3,
       features: {
         'nesting-rules': true,
         'double-position-gradients': false,
       },
       // autoprefixer: {flexbox: 'no-2009'},
-      browsers: process.env.isDev ? ['last 2 versions'] : ['>0.3%', 'not dead', 'not op_mini all'],
+      browsers: process.env.NODE_ENV === 'development' ? ['last 2 versions'] : ['>0.3%', 'not dead', 'not op_mini all'],
       // importFrom: '@app/commons/global.css',
     },
     autoprefixer: {
@@ -39,4 +39,4 @@ const configs = {
   },
 };
 
-export default (customCfgs = {}) => merge(configs, customCfgs);
+export default (customCfgs = {}) => merge({}, customCfgs);
