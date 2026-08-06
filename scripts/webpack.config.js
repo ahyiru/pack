@@ -3,36 +3,30 @@ import { fileURLToPath } from 'node:url';
 import { merge } from 'webpack-merge';
 import esbuild from 'esbuild';
 
-const webpackBaseConfigs = ({ appPath, publics, projectName, buildPath } = {}) => {
-  const templ = resolve(publics, 'index.html');
+const webpackBaseConfigs = ({ appPath, publics, buildPath } = {}) => {
+  // const app = resolve(appPath, 'index.jsx');
   // const icon = resolve(publics, 'favicon.png');
 
+  const templ = resolve(publics, 'index.html');
+
   const entry = {
-    huxy: [templ],
+    app: templ,
   };
 
   const generator = {
-    html: {
-      extract: true,
+    css: {
+      exportsOnly: false,
     },
     'css/auto': {
-      exportsOnly: false,
-      // localIdentName: '[id]_[local]-[hash:base64:5]',
-    },
-    'css/module': {
-      localIdentName: '[id]_[local]-[hash:base64:5]',
+      localIdentName: '[uniqueName]-[id]-[local]',
     },
   };
   const parser = {
-    html: {
-      sources: true,
-    },
     css: {
       import: true,
       url: true,
-      namedExports: false,
     },
-    'css/global': {
+    'css/auto': {
       dashedIdents: false,
       customIdents: false,
     },
@@ -81,7 +75,7 @@ const webpackBaseConfigs = ({ appPath, publics, projectName, buildPath } = {}) =
       exclude: [/node_modules/, publics],
     },
     {
-      test: /\.(ttf|eot|svg|woff|woff2|otf)$/,
+      test: /\.(ttf|eot|woff|woff2|otf)$/,
       type: 'asset',
       parser: {
         dataUrlCondition: {
@@ -175,19 +169,15 @@ const webpackBaseConfigs = ({ appPath, publics, projectName, buildPath } = {}) =
     output: {
       module: true,
       path: buildPath,
-      html: {
+      /*html: {
         title: projectName,
-        /*favicon: {
-          icon: [
-            { href: icon, sizes: '64x64' },
-          ],
-          'apple-touch-icon': [
-            { href: icon, sizes: '64x64' },
-          ],
-        },*/
-      },
+        // favicon: {
+        //   icon: [{ href: icon, sizes: '64x64' }],
+        //   'apple-touch-icon': [{ href: icon, sizes: '64x64' }],
+        // },
+        // manifest,
+      },*/
       htmlFilename: 'index.html',
-      cssFilename: 'css/[id]_[contenthash:8].css',
     },
     externals: {},
     resolve: {

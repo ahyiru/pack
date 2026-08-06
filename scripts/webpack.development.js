@@ -5,21 +5,28 @@ import OpenBrowserWebpackPlugin from '@huxy/open-browser-webpack-plugin';
 import webpackBaseConfigs from './webpack.config.js';
 import getEnvConfigs from './envConfigs.js';
 
-const webpackDevConfigs = async (config) => {
+const webpackDevConfigs = async ({host, port, proxys, basepath } = {}) => {
   const userConfigs = await getEnvConfigs();
-  const { HOST, PROXY, envConfigs, devRoot, webpackCfg, webpackDevCfg } = userConfigs;
+  const { projectName = 'Huxy', envConfigs, webpackCfg, webpackDevCfg } = userConfigs;
 
-  const PORT = config.port ?? userConfigs.PORT;
-
+  const publicPath = basepath === '/' ? basepath : `${basepath}/`;
   const devConfigs = {
     mode: 'development',
     devtool: 'eval-cheap-module-source-map',
-    /*entry: {
-      huxy: ['webpack-hot-middleware/client?dynamicPublicPath=true'],
-    },*/
     output: {
-      publicPath: devRoot === '/' ? devRoot : `${devRoot}/`,
+      publicPath,
       filename: 'js/[name].js',
+      cssFilename: 'css/[name].css',
+    },
+    module: {
+      parser: {
+        html: {
+          template: (source, { resource, addDependency }) => {
+            addDependency(resource);
+            return source.replaceAll('{{title}}', projectName).replaceAll('</body>', `<script src="webpack-hot-middleware/client.js?path=${publicPath}__webpack_hmr&reload=true"></script> </body>`);
+          },
+        },
+      },
     },
     optimization: {
       runtimeChunk: 'single',
@@ -31,13 +38,13 @@ const webpackDevConfigs = async (config) => {
           EMAIL: 'ah.yiru@gmail.com',
           VERSION: '2.x.x',
           isDev: true,
-          basepath: devRoot,
-          PROXY,
+          basepath,
+          PROXY: proxys,
           buildTime: +new Date(),
           ...envConfigs,
         }),
       }),
-      new OpenBrowserWebpackPlugin({ target: `http://${HOST}:${PORT}${devRoot}` }),
+      new OpenBrowserWebpackPlugin({ target: `http://${host}:${port}${publicPath}` }),
     ],
   };
 

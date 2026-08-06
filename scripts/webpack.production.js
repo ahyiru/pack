@@ -8,11 +8,12 @@ import { GenerateSW } from 'workbox-webpack-plugin';
 import webpackBaseConfigs from './webpack.config.js';
 import getEnvConfigs from './envConfigs.js';
 
-const webpackProdConfigs = async (config) => {
+const webpackProdConfigs = async ({proxys, basepath, buildPath } = {}) => {
   const userConfigs = await getEnvConfigs();
-  const { rootDir, appPath, publics, buildPath, PROXY, envConfigs, prodRoot, webpackCfg, webpackProdCfg } = userConfigs;
-
+  const { projectName = 'Huxy', appPath, publics, envConfigs, webpackCfg, webpackProdCfg } = userConfigs;
   const { copy, buildConfigs, ...restProdCfg } = webpackProdCfg;
+
+  const publicPath = basepath === '/' ? basepath : `${basepath}/`;
 
   const plugins = [
     new webpack.optimize.ModuleConcatenationPlugin(),
@@ -24,8 +25,8 @@ const webpackProdConfigs = async (config) => {
         EMAIL: 'ah.yiru@gmail.com',
         VERSION: '2.x.x',
         browserRouter: true,
-        basepath: prodRoot,
-        PROXY,
+        basepath,
+        PROXY: proxys,
         buildTime: +new Date(),
         ...envConfigs,
       }),
@@ -70,9 +71,21 @@ const webpackProdConfigs = async (config) => {
     output: {
       clean: true,
       path: buildPath,
-      publicPath: prodRoot === '/' ? prodRoot : `${prodRoot}/`,
+      publicPath,
       filename: 'js/[id]_[contenthash:8].js',
       chunkFilename: 'js/[id]_[contenthash:8].chunk.js',
+      cssFilename: 'css/[id]_[contenthash:8].css',
+      cssChunkFilename: 'css/[id]_[contenthash:8].chunk.css',
+    },
+    module: {
+      parser: {
+        html: {
+          template: (source, { resource, addDependency }) => {
+            addDependency(resource);
+            return source.replaceAll('{{title}}', projectName);
+          },
+        },
+      },
     },
     optimization: {
       splitChunks: {

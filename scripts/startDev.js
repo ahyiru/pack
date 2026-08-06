@@ -8,33 +8,34 @@ const startDev = nodeServer => async (config, app, httpServer, logger) => {
   const webpackConfig = await webpackDevConfigs(config);
   const compiler = webpack(webpackConfig);
 
-  const {publicPath, path: buildPath} = webpackConfig.output;
-  const basepath = publicPath === '/' ? publicPath : publicPath.slice(0, -1);
+  const {publicPath} = webpackConfig.output;
+  const {basepath, buildPath} = config;
 
   app.use(webpackDevMiddleware(compiler, {
     publicPath,
-    // outputFileSystem: {},
     stats: {
       preset: 'minimal',
       colors: true,
     },
   }));
-
   app.use(webpackHotMiddleware(compiler));
+
+  logger.info(`正在构建中, 请稍后...构建完成后将自动打开浏览器。`);
 
   if (basepath !== '/') {
     app.get(basepath, (req, res, next) => {
-      return res.redirect(`${basepath}/`);
+      res.redirect(308, `${basepath}/${req.search ?? ''}`);
     });
   }
-  app.get(`${basepath}/{*splat}`, (req, res, next) => {
+  app.get(`${publicPath}{*splat}`, (req, res, next) => {
+    if (res.headersSent || req.path.includes('.')) {
+      return next();
+    }
     const htmlBuffer = compiler.outputFileSystem.readFileSync(`${buildPath}/index.html`);
     res.set('Content-Type', 'text/html');
     res.send(htmlBuffer);
     res.end();
   });
-
-  logger.info(`正在构建中, 请稍后...构建完成后将自动打开浏览器。`);
 
   nodeServer?.(config, app, httpServer);
 };
