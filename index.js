@@ -71,11 +71,8 @@ const starter = async () => {
     console.error('未传入命令');
     return;
   }
-  const params = argvs.slice(1);
-
-  const child = spawn(cmd, params, {stdio: 'inherit'});
-
-  child.on('close', code => process.exit(code));
+  console.error(`未知命令: ${cmd}`);
+  process.exit(1);
 
   /* child.stdout.on('data', data => {
     console.log(data.toString().blue);
