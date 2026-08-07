@@ -42,14 +42,18 @@ const webpackBaseConfigs = ({ appPath, publics, buildPath } = {}) => {
     },
     {
       test: /\.jsx?$/,
-      loader: 'esbuild-loader',
-      options: {
-        loader: 'jsx',
-        target: 'esnext',
-        jsx: 'automatic',
-        tsconfigRaw: {},
-        implementation: esbuild,
-      },
+      use: [
+        {
+          loader: 'esbuild-loader',
+          options: {
+            loader: 'jsx',
+            target: 'esnext',
+            jsx: 'automatic',
+            tsconfigRaw: {},
+            implementation: esbuild,
+          },
+        },
+      ],
       exclude: /node_modules/,
     },
     {
@@ -90,10 +94,14 @@ const webpackBaseConfigs = ({ appPath, publics, buildPath } = {}) => {
     },
     {
       test: /\.md$/,
-      loader: 'html-loader',
-      options: {
-        minimize: false,
-      },
+      use: [
+        {
+          loader: 'html-loader',
+          options: {
+            minimize: false,
+          },
+        },
+      ],
       exclude: /node_modules/,
     },
     {

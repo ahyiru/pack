@@ -2,6 +2,7 @@ import webpack from 'webpack';
 import { merge } from 'webpack-merge';
 import { EsbuildPlugin } from 'esbuild-loader';
 import CopyFileWebpackPlugin from '@huxy/copy-file-webpack-plugin';
+import fixHtmlWebpackPlugin from 'fix-html-webpack-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import { GenerateSW } from 'workbox-webpack-plugin';
 import webpackBaseConfigs from './webpack.config.js';
@@ -59,6 +60,7 @@ const webpackProdConfigs = async () => {
       },
       ...(Array.isArray(copy) ? copy : []),
     ]),
+    fixHtmlWebpackPlugin({publicPath, templateVars: {title: projectName}}),
   ];
 
   if (process.env.ANALYZE) {
@@ -71,20 +73,10 @@ const webpackProdConfigs = async () => {
       clean: true,
       path: buildPath,
       publicPath,
-      filename: 'js/[id]_[contenthash:8].js',
-      chunkFilename: 'js/[id]_[contenthash:8].chunk.js',
-      cssFilename: 'css/[id]_[contenthash:8].css',
-      cssChunkFilename: 'css/[id]_[contenthash:8].chunk.css',
-    },
-    module: {
-      parser: {
-        html: {
-          template: (source, { resource, addDependency }) => {
-            addDependency(resource);
-            return source.replaceAll('{{title}}', projectName);
-          },
-        },
-      },
+      filename: 'js/[name]_[contenthash:8].js',
+      chunkFilename: 'js/[name]_[contenthash:8].chunk.js',
+      cssFilename: 'css/[name]_[contenthash:8].css',
+      cssChunkFilename: 'css/[name]_[contenthash:8].chunk.css',
     },
     optimization: {
       splitChunks: {
