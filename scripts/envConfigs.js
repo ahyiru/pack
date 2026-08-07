@@ -5,7 +5,9 @@ import {getProjectRoot} from '../configs/getDirName.js';
 
 const rootDir = getProjectRoot(import.meta.url);
 
-const fixBase = basepath => basepath?.length < 2 ? '/' : basepath.endsWith('/') ? basepath.slice(0, -1) : basepath;
+const fixBase = basepath => (basepath || '').length < 2 ? '/' : basepath.endsWith('/') ? basepath.slice(0, -1) : basepath;
+
+const fixPublicPath = publicPath => (publicPath || '').length < 2 ? '/' : publicPath.endsWith('/') ? publicPath : `${publicPath}/`;
 
 const userConfigs = async () => {
   const configsPath = resolve(rootDir, './.huxy/app.configs.js');
@@ -14,10 +16,7 @@ const userConfigs = async () => {
   const {webpack, entry, nodeServer} = configs;
 
   const appName = process.env.npm_config_dirname || entry || 'app';
-  const {HOST, PORT, PROD_PORT, PROXY, PUBLIC_DIR, BUILD_DIR, DEV_ROOT_DIR, PROD_ROOT_DIR, projectName, envConfigs} = configs[appName] || configs.app || {};
-
-  const devRoot = fixBase(DEV_ROOT_DIR);
-  const prodRoot = fixBase(PROD_ROOT_DIR);
+  const {HOST, PORT, PROD_PORT, PROXY, PUBLIC_DIR, BUILD_DIR, DEV_ROOT_DIR, PROD_ROOT_DIR, projectName, envConfigs, devEnv, prodEnv} = configs[appName] || configs.app || {};
 
   const appPath = resolve(rootDir, appName);
   const publics = resolve(appPath, PUBLIC_DIR || 'public');
@@ -27,17 +26,24 @@ const userConfigs = async () => {
 
   const {dev, prod, ...rest} = webpackCfg;
 
+  const defDevEnv = {
+    basepath: fixBase(DEV_ROOT_DIR),
+    publicPath: fixPublicPath(DEV_ROOT_DIR),
+    port: PORT || 8080,
+  };
+  const defProdEnv = {
+    basepath: fixBase(PROD_ROOT_DIR),
+    publicPath: fixPublicPath(PROD_ROOT_DIR),
+    port: PROD_PORT || 8081,
+  };
+
   return {
     rootDir,
     appName,
     HOST: HOST || 'localhost',
-    PORT: PORT || 8080,
-    PROD_PORT: PROD_PORT || 8081,
-    PROXY,
+    proxys: PROXY,
     projectName: projectName || appName,
     envConfigs,
-    devRoot,
-    prodRoot,
     appPath,
     publics,
     buildPath,
@@ -46,6 +52,8 @@ const userConfigs = async () => {
     webpackProdCfg: prod || {},
     configsPath,
     nodeServer,
+    devEnv: {...defDevEnv, ...devEnv},
+    prodEnv: {...defProdEnv, ...prodEnv},
   };
 };
 

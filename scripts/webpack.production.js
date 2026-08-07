@@ -1,4 +1,3 @@
-import path from 'node:path';
 import webpack from 'webpack';
 import { merge } from 'webpack-merge';
 import { EsbuildPlugin } from 'esbuild-loader';
@@ -8,12 +7,12 @@ import { GenerateSW } from 'workbox-webpack-plugin';
 import webpackBaseConfigs from './webpack.config.js';
 import getEnvConfigs from './envConfigs.js';
 
-const webpackProdConfigs = async ({proxys, basepath, buildPath } = {}) => {
+const webpackProdConfigs = async () => {
   const userConfigs = await getEnvConfigs();
-  const { projectName = 'Huxy', appPath, publics, envConfigs, webpackCfg, webpackProdCfg } = userConfigs;
+  const { projectName = 'Huxy', appPath, publics, proxys, buildPath, prodEnv, envConfigs, webpackCfg, webpackProdCfg } = userConfigs;
   const { copy, buildConfigs, ...restProdCfg } = webpackProdCfg;
 
-  const publicPath = basepath === '/' ? basepath : `${basepath}/`;
+  const {basepath, publicPath} = prodEnv;
 
   const plugins = [
     new webpack.optimize.ModuleConcatenationPlugin(),
@@ -49,13 +48,13 @@ const webpackProdConfigs = async ({proxys, basepath, buildPath } = {}) => {
     }),
     new CopyFileWebpackPlugin([
       {
-        from: path.resolve(publics, 'src'),
-        to: path.resolve(appPath, `${buildPath}/src`),
+        from: `${publics}/src`,
+        to: `${buildPath}/src`,
         isDef: true,
       },
       {
-        from: path.resolve(publics, 'robots.txt'),
-        to: path.resolve(appPath, `${buildPath}/robots.txt`),
+        from: `${publics}/robots.txt`,
+        to: `${buildPath}/robots.txt`,
         isDef: true,
       },
       ...(Array.isArray(copy) ? copy : []),

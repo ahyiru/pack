@@ -5,13 +5,11 @@ import startDev from './startDev.js';
 
 const startServer = async isDev => {
   process.env.NODE_ENV = isDev ? 'development' : 'production';
-  const {appName, HOST, PORT, PROD_PORT, buildPath, PROXY, devRoot, prodRoot, nodeServer} = await getEnvConfigs();
-
+  const {appName, HOST, buildPath, proxys, devEnv, prodEnv, nodeServer} = await getEnvConfigs();
+  const {port, basepath} = isDev ? devEnv : prodEnv;
   const server = isDev ? startApp : startStaticApp;
   return server({
-    appName, HOST, buildPath, proxys: PROXY,
-    port: isDev ? PORT : PROD_PORT,
-    basepath: isDev ? devRoot : prodRoot,
+    appName, HOST, buildPath, proxys, port, basepath
   }, isDev ? startDev(nodeServer) : nodeServer);
 };
 

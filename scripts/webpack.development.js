@@ -5,11 +5,11 @@ import OpenBrowserWebpackPlugin from '@huxy/open-browser-webpack-plugin';
 import webpackBaseConfigs from './webpack.config.js';
 import getEnvConfigs from './envConfigs.js';
 
-const webpackDevConfigs = async ({host, port, proxys, basepath } = {}) => {
+const webpackDevConfigs = async ({host} = {}) => {
   const userConfigs = await getEnvConfigs();
-  const { projectName = 'Huxy', envConfigs, webpackCfg, webpackDevCfg } = userConfigs;
+  const { projectName = 'Huxy', proxys, devEnv, envConfigs, webpackCfg, webpackDevCfg } = userConfigs;
 
-  const publicPath = basepath === '/' ? basepath : `${basepath}/`;
+  const {port, basepath, publicPath} = devEnv;
   const devConfigs = {
     mode: 'development',
     devtool: 'eval-cheap-module-source-map',
