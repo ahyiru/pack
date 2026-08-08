@@ -28,9 +28,6 @@ const webpackDevConfigs = async ({host} = {}) => {
         },
       },
     },
-    optimization: {
-      runtimeChunk: 'single',
-    },
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
       new webpack.DefinePlugin({

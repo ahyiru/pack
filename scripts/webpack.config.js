@@ -22,6 +22,9 @@ const webpackBaseConfigs = ({ appPath, publics, buildPath } = {}) => {
     },
   };
   const parser = {
+    javascript: {
+      url: false, 
+    },
     css: {
       import: true,
       url: true,
@@ -59,11 +62,29 @@ const webpackBaseConfigs = ({ appPath, publics, buildPath } = {}) => {
     {
       test: /\.css$/,
       type: 'css/auto',
+      exclude: /node_modules/,
     },
     {
       test: /\.less$/,
       type: 'css/auto',
       use: ['less-loader'],
+      exclude: /node_modules/,
+    },
+    {
+      test: /\.md$/,
+      type: 'asset/resource',
+      use: [
+        {
+          loader: 'html-loader',
+          options: {
+            minimize: false,
+          },
+        },
+      ],
+      generator: {
+        filename: 'md/[name][ext]',
+      },
+      exclude: /node_modules/,
     },
     {
       test: /\.(jpe?g|png|gif|psd|bmp|ico|webp|svg|hdr)$/i,
@@ -90,23 +111,11 @@ const webpackBaseConfigs = ({ appPath, publics, buildPath } = {}) => {
         filename: 'fonts/[hash:8][ext]',
         publicPath: '../',
       },
-      exclude: /images/,
-    },
-    {
-      test: /\.md$/,
-      use: [
-        {
-          loader: 'html-loader',
-          options: {
-            minimize: false,
-          },
-        },
-      ],
-      exclude: /node_modules/,
+      exclude: [/node_modules/, /images/],
     },
     {
       test: /\.pdf$/,
-      type: 'asset',
+      type: 'asset/resource',
       parser: {
         dataUrlCondition: {
           maxSize: 20480,
@@ -119,7 +128,7 @@ const webpackBaseConfigs = ({ appPath, publics, buildPath } = {}) => {
     },
     {
       test: /\.(mp3|wav|mpeg|webm)$/,
-      type: 'asset',
+      type: 'asset/resource',
       parser: {
         dataUrlCondition: {
           maxSize: 20480,
@@ -132,7 +141,7 @@ const webpackBaseConfigs = ({ appPath, publics, buildPath } = {}) => {
     },
     {
       test: /\.(mp4|m4a|swf|xap|mpeg|webm)$/,
-      type: 'asset',
+      type: 'asset/resource',
       parser: {
         dataUrlCondition: {
           maxSize: 40960,
@@ -145,7 +154,7 @@ const webpackBaseConfigs = ({ appPath, publics, buildPath } = {}) => {
     },
     {
       test: /\.(max|glb|gltf|fbx|stl|obj)$/,
-      type: 'asset',
+      type: 'asset/resource',
       parser: {
         dataUrlCondition: {
           maxSize: 40960,
@@ -206,6 +215,9 @@ const webpackBaseConfigs = ({ appPath, publics, buildPath } = {}) => {
       generator,
       parser,
       rules,
+    },
+    optimization: {
+      runtimeChunk: 'single',
     },
   };
 
