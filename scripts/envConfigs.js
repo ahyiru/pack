@@ -40,7 +40,7 @@ const userConfigs = async () => {
   return {
     rootDir,
     appName,
-    HOST: HOST || 'localhost',
+    HOST,
     proxys: PROXY,
     projectName: projectName || appName,
     envConfigs,
