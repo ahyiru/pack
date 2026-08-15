@@ -13,6 +13,9 @@ const webpackDevConfigs = async ({host} = {}) => {
   const devConfigs = {
     mode: 'development',
     devtool: 'eval-cheap-module-source-map',
+    cache: {
+      type: 'filesystem',
+    },
     output: {
       publicPath,
       filename: 'js/[name].js',
