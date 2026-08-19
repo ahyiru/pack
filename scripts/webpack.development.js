@@ -5,7 +5,7 @@ import OpenBrowserWebpackPlugin from '@huxy/open-browser-webpack-plugin';
 import webpackBaseConfigs from './webpack.config.js';
 import getEnvConfigs from './envConfigs.js';
 
-const webpackDevConfigs = async ({host} = {}) => {
+const webpackDevConfigs = async ({host = 'localhost'} = {}) => {
   const userConfigs = await getEnvConfigs();
   const { projectName = 'Huxy', proxys, devEnv, envConfigs, webpackCfg, webpackDevCfg } = userConfigs;
 
