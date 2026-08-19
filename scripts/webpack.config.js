@@ -72,7 +72,6 @@ const webpackBaseConfigs = ({ appPath, publics, buildPath } = {}) => {
     },
     {
       test: /\.md$/,
-      type: 'asset/resource',
       use: [
         {
           loader: 'html-loader',
@@ -81,9 +80,6 @@ const webpackBaseConfigs = ({ appPath, publics, buildPath } = {}) => {
           },
         },
       ],
-      generator: {
-        filename: 'md/[name][ext]',
-      },
       exclude: /node_modules/,
     },
     {
