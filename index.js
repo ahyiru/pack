@@ -71,6 +71,10 @@ const starter = async () => {
     console.error('未传入命令');
     return;
   }
+  if (!/^[a-zA-Z0-9_.-]+$/.test(cmd)) {
+    console.error('非法命令: ', cmd);
+    return;
+  }
   const params = argvs.slice(1);
 
   const child = spawn(cmd, params, {stdio: 'inherit'});
